@@ -1,0 +1,40 @@
+<header>
+    <!-- header inner -->
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="full">
+                        <div class="center-desk">
+                            <div class="logo"><a href="home"><img src="{{ asset('assets/images/logo4.png') }}"
+                                                                  alt="#"></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <div class="menu-area">
+                        <div class="limit-box">
+                            <nav class="main-menu">
+                                <ul class="menu-area-main">
+                                    <li class="active"><a href="#">Home</a></li>
+                                    <li><a href="#about">About</a></li>
+                                    <li><a href="#section-1">Content</a></li>
+                                    <li><a href="#gallery">Gallery</a></li>
+                                    <li><a href="#contact">Contact Us</a></li>
+                                    <li class="last"><a href="#"><img
+                                                    src="{{ asset('assets/images/search_icon.png') }}" alt="icon"/></a>
+                                    </li>
+                                    <li><a href="/Projet_Web/public/index.php/{{ app.User ? 'logout' : 'login' }}"
+                                           @click="isOpen = false">
+                                            {{ app.User ? 'Logout' : 'Login' }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,59 @@
+<script src="{{ asset('assets/js/product-app.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-3.0.0.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin.js') }}"></script>
+<!-- sidebar -->
+<script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".fancybox").fancybox({
+            openEffect: "none",
+            closeEffect: "none"
+        });
+
+        $(".zoom").hover(function () {
+
+            $(this).addClass('transition');
+        }, function () {
+
+            $(this).removeClass('transition');
+        });
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var products = document.querySelectorAll('.row > .col-xl-4');
+        for (var i = products.length - 6; i < products.length; i++) {
+            products[i].querySelector('.shoe-box').style.display = 'none';
+        }
+    });
+
+    function toggleProducts() {
+        var products = document.querySelectorAll('.row > .col-xl-4');
+        var btn = document.getElementById('showMoreBtn');
+
+        if (btn.innerHTML === 'Show More') {
+            btn.innerHTML = 'Show Less';
+        } else {
+            btn.innerHTML = 'Show More';
+        }
+
+        for (var i = products.length - 6; i < products.length; i++) {
+            var productBox = products[i].querySelector('.shoe-box');
+
+            // Check if productBox exists before accessing its style property
+            if (productBox) {
+                if (productBox.style.display === 'none' || productBox.style.display === '') {
+                    productBox.style.display = 'block';
+                } else {
+                    productBox.style.display = 'none';
+                }
+            }
+        }
+    }
+</script>

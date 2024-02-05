@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{#   {% block title %}------------------------------------------>Controller:MainController.php<--------->Auth:JOUDI Haroun<--------------------> #}
+{#        Status:Site En cours de Developpement <------------------------------------ -#}
+{#    {% endblock %} #}
+
+{% block body %}
+    <!----------------------------------------------Header-------------------------------------------->
+    <!-- loader  -->
+    {% include './loader.html.twig' %}
+    <!-- end loader -->
+
+    <!-- header -->
+    {% include './header.html.twig' %}
+    <!-- end header -->
+
+    <!-- head slider -->
+    {% include './Slider/head-slider.html.twig' %}
+    <!-- end slider -->
+
+    <!---------------------------------------------Content--------------------------------------------->
+    <!------------ section 1 ------------>
+    <div id="section-1" class="body-section">
+        <!-- our partners -->
+        {% include './Slider/our-partners.html.twig' %}
+        <!-- end block -->
+
+        <br>
+
+        <!-- best sells -->
+        {% include './products/best-sells.html.twig' %}
+        <!-- end block -->
+
+        <br>
+
+        <!-- products grid -->
+        {% include './products/products-grid.html.twig' %}
+        <!-- end block -->
+
+        <!-- MODAL -->
+        {% include './modal/more-images-preview.html.twig' %}
+        <!-- end modal -->
+    </div>
+    <!------------ end section 1 ------------>
+    <!-- footer -->
+    <footer>
+        <div id="contact" class="footer">
+            <div class="container">
+                <div class="row pdn-top-30">
+                    <div class="col-md-12 ">
+                        <div class="footer-box">
+                            <div class="headinga">
+                                <h3>Address</h3>
+                                <span>Demo Store .New York  United States</span>
+                                <p>(+71 98765348)</p>
+                            </div>
+                            <ul class="location_icon">
+                                <li><a href="#"><img src="{{ asset('assets/icon/facebook.png') }}"></a></li>
+                                <li><a href="#"><img src="{{ asset('assets/icon/Twitter.png') }}"></a></li>
+                                <li><a href="#"><img src="{{ asset('assets/icon/linkedin.png') }}"></a></li>
+                                <li><a href="#"><img src="{{ asset('assets/icon/instagram.png') }}"></a></li>
+                            </ul>
+                            <div class="menu-bottom">
+                                <ul class="link">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#"> Content</a></li>
+                                    <li><a href="#">Gallery</a></li>
+                                    <li><a href="#"> Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright 2024 All Rights Reserved Design By <a href="#">Haroun Joudi</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end footer -->
+
+    <!--------------------------------------- Javascript files --------------------------------------->
+    {% include './Imports/all-javascript.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{# {% extends 'base.html.twig' %} #}
+
+{# {% block title %}Log in!{% endblock %} #}
+{% block body %}
+
+    <h2>Formulaire de Connection !</h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+
+                <h1>Inscription</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>Ou utilisez votre adresse e-mail pour l'inscription</span>
+{#                <input type="text" placeholder="Nom Complet"/>#}
+            {{ form_errors(registrationForm) }}
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button type="submit" class="btn">S'INSCRIRE</button>
+
+
+{#            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
+            {{ form_end(registrationForm) }}
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post" action="#">
+                {% if app.user %}
+                    <div class="mb-3 info-logout">
+                        You are logged in as {{ app.user.userIdentifier }},
+                        <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <h1>Connection </h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>Ou utilisez votre compte</span>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                       class="form-control" autocomplete="email" placeholder="Email" required autofocus>
+                <input type="password" name="password" id="inputPassword"
+                       class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
+                <a href="#">Mot de passe oublié?</a>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    CONNEXION
+                </button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Bienvenue de retour !</h1>
+                    <p>Pour rester en contact avec nous,
+                        veuillez vous connecter en utilisant vos informations personnelles.</p>
+                    <button class="ghost" id="signIn">CONNEXION</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Bonjour, BB!</h1>
+                    <p>Entrez vos informations personnelles pour commencer votre parcours avec nous.</p>
+                    <button class="ghost" id="signUp">S'INSCRIRE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <p>
+            Call me a footer !
+        </p>
+    </footer>
+    {#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> #}
+    {#    <label for="inputEmail">Email</label> #}
+    {#    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> #}
+    {#    <label for="inputPassword">Password</label> #}
+    {#    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
+
+    {#    <input type="hidden" name="_csrf_token" #}
+    {#           value="{{ csrf_token('authenticate') }}" #}
+    {#    > #}
+
+    {#    <button class="btn btn-lg btn-primary" type="submit"> #}
+    {#        Sign in #}
+    {#    </button> #}
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="your-integrity-check" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if error %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Error',
+                    text: '{{ error.messageKey|trans(error.messageData, 'security') }}',
+                });
+            });
+        </script>
+    {% endif %}
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+    </script>
+{% endblock %}

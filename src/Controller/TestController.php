@@ -1,5 +1,8 @@
 <?php
 
+// Assuming you have a Symfony project with Twig configured
+
+// YourController.php
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -8,11 +11,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
-    #[Route('/test', name: 'app_test')]
-    public function index(): Response
+    #[Route('/test', name: 'test')]
+    public function yourAction(): Response
     {
-        return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
+        $card = [
+            'product_name' => 'Your Product',
+            'product_card_colors' => ['#ff0000', '#00ff00'],
+            'thubnail' => '/path/to/thumbnail.jpg',
+            'stars' => 3,
+            'sizes' => ['S', 'M', 'L'],
+            'colors' => ['#ff0000', '#00ff00', '#0000ff'],
+            'price' => 50,
+            'unit' => 'pcs',
+            'isNew' => true,
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ];
+
+        return $this->render('test/test-slider.html.twig', [
+            'card' => $card,
         ]);
     }
 }

@@ -3,3 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+admin_dashboard:
+    path: /admin
+    controller: EasyCorp\Bundle\EasyAdminBundle\Controller\AdminDashboardController::index
+admin_dashboard_redirect:
+    path: /admin
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    defaults:
+        path: /admin/dashboard
+        permanent: true
