@@ -27,7 +27,7 @@ class TestController extends AbstractController
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ];
 
-        return $this->render('test/test-slider.html.twig', [
+        return $this->render('test/test.html.twig', [
             'card' => $card,
         ]);
     }

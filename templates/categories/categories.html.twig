@@ -1,0 +1,53 @@
+{% block categories %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="titlepage">
+                    <h2>Nos Categories</h2>
+                    <span>looking at its layout. The point of using Lorem Ipsumletters, as opposed to usingl</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="categories-wrapper">
+        <link href="{{ asset('assets/css/categories/categories-style.css') }}" rel="stylesheet">
+
+        <button class="mode-switch" title="Switch Theme">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                 stroke-width="2" width="36" height="36" viewBox="0 0 24 24">
+                <defs></defs>
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+        </button>
+        <div class="category-container">
+            <div class="box">
+                <h2 class="name">Nike Air Max</h2>
+                <a href="https://codepen.io/krautgti" class="buy">Découvrir</a>
+                <div class="circle"></div>
+                <img class="product" src="https://assets.codepen.io/7773162/green.png"/>
+            </div>
+            <div class="box">
+                <h2 class="name">Nike Air Max</h2>
+                <a href="https://codepen.io/krautgti" class="buy">Découvrir</a>
+                <div class="circle"></div>
+                <img class="product" src="https://assets.codepen.io/7773162/blue.png"/>
+            </div>
+            <div class="box">
+                <h2 class="name">Nike Air Max</h2>
+                <a href="https://codepen.io/krautgti" class="buy">Découvrir</a>
+                <div class="circle"></div>
+                <img class="product" src="https://assets.codepen.io/7773162/red.png"/>
+            </div>
+            <script src="https://assets.codepen.io/7773162/vanilla-tilt.min.js"></script>
+            <script>
+                VanillaTilt.init(document.querySelectorAll(".box"), {
+                    max: 15,
+                    speed: 300,
+                    easing: "cubic-bezier(.03,.98,.52,.99)",
+                    scale: 1.05,
+                });
+            </script>
+            <script src="{{ asset('assets/js/categories/categories.js') }}"></script>
+        </div>
+    </div>
+{% endblock %}

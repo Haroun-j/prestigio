@@ -12,3 +12,8 @@ admin_dashboard_redirect:
     defaults:
         path: /admin/dashboard
         permanent: true
+index:
+    path: /
+    controller: App\Controller\MainController::index
+
+

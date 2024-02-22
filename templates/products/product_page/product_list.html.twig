@@ -1,0 +1,50 @@
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/products/product_list.css') }}">
+{% endblock %}
+
+{% block body %}
+    <main>
+        <header>
+            <ul class="indicator">
+                <li data-filter="all" class="active"><a href="#">All</a></li>
+                {% for category in categories %}
+                    <li data-filter="{{ category.label }}"><a href="#">{{ category.label }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="filter-condition">
+                <span>Classer par: prix :</span>
+                <select name="" id="select">
+                    <option value="Default">Default</option>
+                    <option value="LowToHigh">de bas en haut</option>
+                    <option value="HighToLow">de haut en bas</option>
+                </select>
+            </div>
+        </header>
+        <div class="product-field">
+            <ul class="items">
+                {% for category in categories %}
+                    {% for product in category.products %}
+                        <li data-category="{{ category.label }}" data-price="{{ product.price }}">
+                            <picture>
+                                <img id="{{ product.name|replace({' ': '-'}) }}" src="{{ asset('uploads/images/products/' ~ product.imageName) }}" alt="">
+                            </picture>
+                            <div class="detail">
+                                <p class="icon">
+                                    <span><i class="far fa-heart"></i></span>
+                                    <span><i class="far fa-share-square"></i></span>
+                                    <span><i class="fas fa-shopping-basket"></i></span>
+                                </p>
+                                <strong>{{ product.name | length > 20 ? product.name | slice(0, 18) ~ '...' : product.name }}</strong>
+                                <span>{{ product.description | length > 190 ? product.description | slice(0, 190) ~ '...' : product.description }}</span>
+                                <small><a style="text-decoration: none" href="{{ path('cart_add', {id: product.id}) }}">Acheter</a></small>
+                            </div>
+                            <h4>${{ product.price }}</h4>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <script type="text/javascript" src="{{ asset('assets/js/products/product_list.js') }}"></script>
+{% endblock %}

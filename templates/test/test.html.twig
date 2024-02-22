@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+{% block home %}
+<body>
+<link href='https://fonts.googleapis.com/css?family=Raleway:100,200,400,600' rel='stylesheet' type='text/css'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<div id="fullpage">
+
+    <!-- begin section -->
+
+    <div class="section">
+        <!-- loader  -->
+        {% include './loader.html.twig' %}
+        <!-- end loader -->
+
+        <!-- header -->
+        {% include './header.html.twig' %}
+        <!-- end header -->
+
+        <!-- head slider -->
+        {% include './Slider/head-slider.html.twig' %}
+        <!-- end slider -->
+        {% include './modal/more-images-preview.html.twig' %}
+        <i id="moveDown" class="fa fa-chevron-down fa-3x bounce"></i>
+
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section body-section" >
+        {% include './Slider/our-partners.html.twig' %}
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section">
+        {% include './categories/categories.html.twig' %}
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section">
+
+        {% include './products/best-sells.html.twig' %}
+
+    </div>
+    <div class="section">
+
+        {% include './products/products-grid.html.twig' %}
+
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section">
+        <footer>
+            <div  class="footer">
+                <div class="container">
+                    <div class="row pdn-top-30">
+                        <div class="col-md-12 ">
+                            <div class="footer-box">
+                                <div class="headinga">
+                                    <h3>Address</h3>
+                                    <span>Demo Store .New York  United States</span>
+                                    <p>(+71 98765348)</p>
+                                </div>
+                                <ul class="location_icon">
+                                    <li><a href="#"><img src="{{ asset('assets/icon/facebook.png') }}"></a></li>
+                                    <li><a href="#"><img src="{{ asset('assets/icon/Twitter.png') }}"></a></li>
+                                    <li><a href="#"><img src="{{ asset('assets/icon/linkedin.png') }}"></a></li>
+                                    <li><a href="#"><img src="{{ asset('assets/icon/instagram.png') }}"></a></li>
+                                </ul>
+                                <div class="menu-bottom">
+                                    <ul class="link">
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#"> Content</a></li>
+                                        <li><a href="#">Gallery</a></li>
+                                        <li><a href="#"> Contact us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <div class="container">
+                        <p>Copyright 2024 All Rights Reserved Design By <a href="#">Haroun Joudi</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- end section -->
+</div>
+<!-- end fullpage -->
+ <!--------------------------------------- Javascript files --------------------------------------->
+ {% include './Imports/all-javascript.html.twig' %}
+ <!-- Import JavaScript files -->
+<!-- Import JavaScript files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.extensions.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check screen width
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+        // Initialize fullpage.js only if screen width is greater than 600px
+        if (screenWidth > 600) {
+            // initialize fullpage.js
+            new fullpage("#fullpage", {
+                scrollBar: true,
+                responsiveWidth: 400,
+                navigation: true,
+                navigationTooltips: ["home", "about", "portfolio", "contact", "connect"],
+                anchors: ["home", "about", "portfolio", "contact", "connect"],
+                menu: "#myMenu",
+                fitToSection: false,
+                scrollingSpeed: 1000, // Adjust scrolling speed for smoother scrolling
+                easingcss3: 'cubic-bezier(0.645, 0.045, 0.355, 1)', // Use custom easing function for smoother transitions
+                dragAndMove: true // Enable smooth dragging and mouse wheel scrolling
+            });
+        }
+
+        // move section down one
+        var moveDownButton = document.querySelector("#moveDown");
+        if (moveDownButton) {
+            moveDownButton.addEventListener("click", function() {
+                fullpage_api.moveSectionDown();
+            });
+        }
+
+        // smooth scrolling
+        var links = document.querySelectorAll('a[href*="#"]:not([href="#"])');
+        links.forEach(function(link) {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                var target = document.querySelector(this.hash);
+                target = target ? target : document.querySelector("[name=" + this.hash.slice(1) + "]");
+
+                if (target) {
+                    var targetOffset = target.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({
+                        top: targetOffset,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    });
+
+</script>
+
+
+<style>
+    .section {
+        text-align: center;
+    }
+    .fa-chevron-down {
+        color: #ff6363 !important;
+        bottom: 10px;
+        margin-left: -30px;
+        cursor: pointer;
+        position: absolute;
+        opacity: 1;
+        z-index: 999;
+        -webkit-transition: 1.2s ease;
+    }
+</style>
+</body>
+{% endblock %}

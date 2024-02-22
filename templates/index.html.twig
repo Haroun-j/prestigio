@@ -1,10 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{#   {% block title %}------------------------------------------>Controller:MainController.php<--------->Auth:JOUDI Haroun<--------------------> #}
-{#        Status:Site En cours de Developpement <------------------------------------ -#}
-{#    {% endblock %} #}
+{% block home %}
 
-{% block body %}
     <!----------------------------------------------Header-------------------------------------------->
     <!-- loader  -->
     {% include './loader.html.twig' %}
@@ -19,6 +16,8 @@
     <!-- end slider -->
 
     <!---------------------------------------------Content--------------------------------------------->
+    <!------------ canvas ------------>
+{#    {% include './canvas/canvas.html.twig' %}#}
     <!------------ section 1 ------------>
     <div id="section-1" class="body-section">
         <!-- our partners -->
@@ -26,7 +25,11 @@
         <!-- end block -->
 
         <br>
+        <!-- best sells -->
+        {% include './categories/categories.html.twig' %}
+        <!-- end block -->
 
+        <br>
         <!-- best sells -->
         {% include './products/best-sells.html.twig' %}
         <!-- end block -->
@@ -40,6 +43,9 @@
         <!-- MODAL -->
         {% include './modal/more-images-preview.html.twig' %}
         <!-- end modal -->
+        <!-- Gallery -->
+{#        {% include './Gallery/gallery.html.twig' %}#}
+        <!-- end gallery -->
     </div>
     <!------------ end section 1 ------------>
     <!-- footer -->
