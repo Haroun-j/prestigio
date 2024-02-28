@@ -14,6 +14,15 @@
     <!--------------------------------------- fevicon --------------------------------------->
     <link rel="icon" href="{{ asset('assets/icon/fevicon.png') }}" type="image/png"/>
 
+    <!--------------------------------------- flashy --------------------------------------->
+{#    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">#}
+{#    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">#}
+{#    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>#}
+{#    <script src="//code.jquery.com/jquery.js"></script>#}
+{#    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>#}
+
+    <!--------------------------------------- verification code --------------------------------------->
+
     {% if app.user and not app.user.isVerified %}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
         <link rel="stylesheet" href="{{ asset('assets/css/verification-code/style.css') }}">
@@ -31,7 +40,6 @@
     {% else %}
         {% block home %}{% endblock %}
     {% endif %}
-
 </body>
 </html>
 

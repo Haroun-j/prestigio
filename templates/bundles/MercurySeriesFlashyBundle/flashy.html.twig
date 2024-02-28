@@ -1,0 +1,18 @@
+<!--------------------------------------- flashy --------------------------------------->
+<link rel="stylesheet" href="/Projet_Web/public/bundles/mercuryseriesflashy/css/flashy.css">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="/Projet_Web/public/bundles/mercuryseriesflashy/js/flashy.js"></script>
+
+{% for message in app.flashes('mercuryseries_flashy_notification') %}
+    <script id="flashy-template" type="text/template">
+        <div class="flashy flashy--{{ message.type }}">
+            <a href="#" class="flashy__body" target="_blank"></a>
+        </div>
+    </script>
+
+    <script>
+        flashy("{{ message.message }}", "{{ message.link }}");
+    </script>
+{% endfor %}

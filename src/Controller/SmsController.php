@@ -24,11 +24,10 @@ class SmsController extends AbstractController
         $code = rand(100000, 999999);
 
         $text = 'Pour compléter votre inscription sur notre site PRESTIOGIO, merci de saisir le code de vérification suivant :  ' . $code;
-
         // Store the code in the session
         $session->set('verification_code', $code);
 
-//        $smsGenerator->sendSms($phoneNumber, '', $text);
+//        dd($smsGenerator->sendSms($phoneNumber, '', $text));
 
         try {
             $smsGenerator->sendSms($phoneNumber, '', $text);

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductListController extends AbstractController
 {
-    #[Route('/products', name: 'product_list')]
+    #[Route('/products', name: 'store')]
     public function index(CategoryRepository $categoryRepository): Response
     {
         // Fetch all categories with their associated products

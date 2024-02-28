@@ -17,6 +17,11 @@ framework:
     #fragments: true
     php_errors:
         log: true
+    assets:
+        packages:
+            flashy:
+                version: null
+
 
 when@test:
     framework:

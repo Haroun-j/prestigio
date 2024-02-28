@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +36,7 @@ class CartController extends AbstractController
 
 
     #[Route('/add/{id}', name: 'add')]
-    public function add(Product $product, SessionInterface $session)
+    public function add(Product $product, SessionInterface $session, FlashyNotifier $flashy)
     {
         //On récupère l'id du produit
         $id = $product->getId();
@@ -52,9 +53,10 @@ class CartController extends AbstractController
         }
 
         $session->set('panier', $panier);
-
-        //On redirige vers la page du panier
-        return $this->redirectToRoute('cart_index');
+//        dd($panier);
+        $url = $this->generateUrl('cart_index');
+        $flashy->success('produit ajouté avec succés - Cliquez ici pour voir votre panier',$url);
+        return $this->redirectToRoute('store');
     }
 
     #[Route('/remove/{id}', name: 'remove')]
@@ -77,7 +79,6 @@ class CartController extends AbstractController
         }
 
         $session->set('panier', $panier);
-
         //On redirige vers la page du panier
         return $this->redirectToRoute('cart_index');
     }
@@ -108,4 +109,5 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('cart_index');
     }
+
 }
