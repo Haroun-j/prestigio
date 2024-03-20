@@ -6,6 +6,8 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -53,6 +55,38 @@ class Product
     #[ORM\Column]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $color = null;
+    
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    private ?string $Weight = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $CountryOfOrigin = null;
+    
+    #[ORM\Column]
+    private ?\DateTimeImmutable $DateOfManufacture = null;
+    
+    #[ORM\Column]
+    private ?int $availableStock = null;
+    
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductVariation::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $productVariations;
+    
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductSize::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $productSizes;
+
+    public function __construct()
+    {
+        $this->productVariations = new ArrayCollection();
+        $this->productSizes = new ArrayCollection();
+    }
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     public function getId(): ?int
     {
@@ -155,6 +189,130 @@ class Product
     {
         return $this->updatedAt;
     }
+    
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+    
+    public function setColor(string $color): static
+    {
+        $this->color = $color;
+        
+        return $this;
+    }
+    
+    public function getWeight(): ?string
+    {
+        return $this->Weight;
+    }
+    
+    public function setWeight(string $Weight): static
+    {
+        $this->Weight = $Weight;
+        
+        return $this;
+    }
+    
+    public function getCountryOfOrigin(): ?string
+    {
+        return $this->CountryOfOrigin;
+    }
+    
+    public function setCountryOfOrigin(string $CountryOfOrigin): static
+    {
+        $this->CountryOfOrigin = $CountryOfOrigin;
+        
+        return $this;
+    }
+    
+    public function getDateOfManufacture(): ?\DateTimeImmutable
+    {
+        return $this->DateOfManufacture;
+    }
+    
+    public function setDateOfManufacture(\DateTimeImmutable $DateOfManufacture): static
+    {
+        $this->DateOfManufacture = $DateOfManufacture;
+        
+        return $this;
+    }
+    public function getAvailableStock(): ?int
+    {
+        return $this->availableStock;
+    }
 
+    public function setAvailableStock(int $availableStock): static
+    {
+        $this->availableStock = $availableStock;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductVariation>
+     */
+    public function getProductVariations(): Collection
+    {
+        return $this->productVariations;
+    }
+
+    public function addProductVariation(ProductVariation $productVariation): static
+    {
+        if (!$this->productVariations->contains($productVariation)) {
+            $this->productVariations->add($productVariation);
+            $productVariation->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductVariation(ProductVariation $productVariation): static
+    {
+        if ($this->productVariations->removeElement($productVariation)) {
+            // set the owning side to null (unless already changed)
+            if ($productVariation->getProduct() === $this) {
+                $productVariation->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductSize>
+     */
+    public function getProductSizes(): Collection
+    {
+        return $this->productSizes;
+    }
+
+    public function addProductSize(ProductSize $productSize): static
+    {
+        if (!$this->productSizes->contains($productSize)) {
+            $this->productSizes->add($productSize);
+            $productSize->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductSize(ProductSize $productSize): static
+    {
+        if ($this->productSizes->removeElement($productSize)) {
+            // set the owning side to null (unless already changed)
+            if ($productSize->getProduct() === $this) {
+                $productSize->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+    public function calculateAvailableStock(): int {
+        $totalStock = 0;
+        foreach ($this->productSizes as $productSize) {
+            $totalStock += $productSize->getQuantity();
+        }
+        return $totalStock;
+    }
 }

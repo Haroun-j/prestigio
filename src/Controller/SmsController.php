@@ -31,10 +31,12 @@ class SmsController extends AbstractController
 
         try {
             $smsGenerator->sendSms($phoneNumber, '', $text);
-//            return $this->json(['code' => $code]);
-            return $this->json(['message' => 'success']);
+            return $this->json(['code' => $code]);
+//            return $this->json(['message' => 'success']);
         } catch (\Exception $e) {
-            return $this->json(['message' => 'error']);
+            return $this->json(['code' => $code]);
+
+//            return $this->json(['message' => 'error']);
         }
     }
 

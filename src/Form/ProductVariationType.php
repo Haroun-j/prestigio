@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Product;
+use App\Entity\ProductVariation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProductVariationType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('size')
+            ->add('color')
+            ->add('Weight')
+            ->add('CountryOfOrigin')
+            ->add('DateOfManufacture')
+            ->add('StockQuantity')
+            ->add('AdditionalPrice')
+            ->add('imageName')
+            ->add('product', EntityType::class, [
+                'class' => Product::class,
+'choice_label' => 'id',
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => ProductVariation::class,
+        ]);
+    }
+}

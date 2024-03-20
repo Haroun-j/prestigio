@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductVariation index{% endblock %}
+
+{% block body %}
+    <h1>ProductVariation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Weight</th>
+                <th>CountryOfOrigin</th>
+                <th>DateOfManufacture</th>
+                <th>StockQuantity</th>
+                <th>AdditionalPrice</th>
+                <th>ImageName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product_variation in product_variations %}
+            <tr>
+                <td>{{ product_variation.id }}</td>
+                <td>{{ product_variation.size }}</td>
+                <td>{{ product_variation.color }}</td>
+                <td>{{ product_variation.Weight }}</td>
+                <td>{{ product_variation.CountryOfOrigin }}</td>
+                <td>{{ product_variation.DateOfManufacture ? product_variation.DateOfManufacture|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ product_variation.StockQuantity }}</td>
+                <td>{{ product_variation.AdditionalPrice }}</td>
+                <td>{{ product_variation.imageName }}</td>
+                <td>
+                    <a href="{{ path('app_product_variation_crud_show', {'id': product_variation.id}) }}">show</a>
+                    <a href="{{ path('app_product_variation_crud_edit', {'id': product_variation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_product_variation_crud_new') }}">Create new</a>
+{% endblock %}

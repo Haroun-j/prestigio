@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductVariation{% endblock %}
+
+{% block body %}
+    <h1>ProductVariation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product_variation.id }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ product_variation.size }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ product_variation.color }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ product_variation.Weight }}</td>
+            </tr>
+            <tr>
+                <th>CountryOfOrigin</th>
+                <td>{{ product_variation.CountryOfOrigin }}</td>
+            </tr>
+            <tr>
+                <th>DateOfManufacture</th>
+                <td>{{ product_variation.DateOfManufacture ? product_variation.DateOfManufacture|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>StockQuantity</th>
+                <td>{{ product_variation.StockQuantity }}</td>
+            </tr>
+            <tr>
+                <th>AdditionalPrice</th>
+                <td>{{ product_variation.AdditionalPrice }}</td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ product_variation.imageName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_product_variation_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_product_variation_crud_edit', {'id': product_variation.id}) }}">edit</a>
+
+    {{ include('product_variation_crud/_delete_form.html.twig') }}
+{% endblock %}
