@@ -15,7 +15,7 @@ class ProductListController extends AbstractController
         // Fetch all categories with their associated products
         $categories = $categoryRepository->findAllWithProducts();
 //        dd($categories);
-        return $this->render('products/product_page/product_list.html.twig', [
+        return $this->render('products/store/product_list.html.twig', [
             'categories' => $categories,
         ]);
     }

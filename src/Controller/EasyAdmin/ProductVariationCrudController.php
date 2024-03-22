@@ -5,6 +5,9 @@
     use App\Entity\Product;
     use App\Entity\ProductVariation;
     use App\Form\ProductSizeType;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
     use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
     use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -28,18 +31,18 @@
         public function configureFields (string $pageName): iterable
         {
             return [
-                ImageField::new('imageName', 'Product Image')
+                ImageField::new('imageName', 'Image')
                     ->setBasePath($this->getParameter('app.path.product_variation_images'))
                     ->onlyOnIndex(),
-                AssociationField::new('product'),
-                CollectionField::new('productSizes')
+                AssociationField::new('product','Produit Parent'),
+                CollectionField::new('productSizes','Tailles')
                     ->setEntryType(ProductSizeType::class)
                     ->allowAdd()
                     ->allowDelete(),
-                TextField::new('color', 'Color'),
-                NumberField::new('Weight', 'Weight'),
-                TextField::new('CountryOfOrigin', 'Country of Origin'),
-                DateTimeField::new('DateOfManufacture', 'Date of Manufacture')
+                TextField::new('color', 'Couleur'),
+                NumberField::new('Weight', 'Poids ( g )'),
+                TextField::new('CountryOfOrigin', 'Pays d\Origine'),
+                DateTimeField::new('DateOfManufacture', 'Date De Fabrication')
                     ->setFormat('yyyy-MM-dd HH:mm:ss'),
                 IntegerField::new('availableStock', 'Stock')
                     ->setVirtual(true)
@@ -49,12 +52,17 @@
                         }
                         return 0;
                     })->onlyOnIndex(),
-                NumberField::new('AdditionalPrice', 'Additional Price'),
-                TextareaField::new('imageFile', 'Product Image')
+                NumberField::new('AdditionalPrice', 'Prix'),
+                TextareaField::new('imageFile', 'Image Uploader')
                     ->setFormType(VichImageType::class)
                     ->hideOnIndex()
                     ->setFormTypeOption('allow_delete', false),
             
             ];
+        }
+        public function configureActions(Actions $actions): Actions
+        {
+            return $actions
+                ->add(Crud::PAGE_INDEX, Action::DETAIL);
         }
     }

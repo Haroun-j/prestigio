@@ -16,7 +16,6 @@ class CartController extends AbstractController
     public function index(SessionInterface $session, ProductRepository $productRepository)
     {
         $panier = $session->get('panier', []);
-
         // On initialise des variables
         $data = [];
         $total = 0;
@@ -53,11 +52,11 @@ class CartController extends AbstractController
         }
 
         $session->set('panier', $panier);
-//        dd($panier);
+
         $url = $this->generateUrl('cart_index');
         $flashy->success('produit ajouté avec succés - Cliquez ici pour voir votre panier',$url);
-        return $this->redirectToRoute('cart_index');
-//        return $this->redirectToRoute('store');
+//        return $this->redirectToRoute('cart_index');
+        return $this->redirectToRoute('store');
     }
 
     #[Route('/remove/{id}', name: 'remove')]

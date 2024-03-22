@@ -4,6 +4,9 @@
     
     use App\Entity\Product;
     use App\Form\ProductSizeType;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
     use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
     use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -26,39 +29,44 @@
         public function configureFields (string $pageName): iterable
         {
             return [
-                TextField::new('name'),
-                ImageField::new('imageName', 'Product Image')
+                TextField::new('name','Nom'),
+                ImageField::new('imageName', 'Image')
                     ->setBasePath($this->getParameter('app.path.product_images'))
                     ->onlyOnIndex(),
-                AssociationField::new('category'),
-                NumberField::new('price'),
+                AssociationField::new('category','Categorie'),
+                NumberField::new('price','Prix'),
                 NumberField::new('availableStock', 'Stock')
                     ->onlyOnIndex()
                     ->formatValue(function ($value, Product $product) {
                         return $product->calculateAvailableStock();
                     })->onlyOnIndex(),
-                CollectionField::new('productSizes')
+                CollectionField::new('productSizes','Tailles')
                     ->setEntryType(ProductSizeType::class)
                     ->allowAdd()
                     ->allowDelete(),
-                TextField::new('color')
+                TextField::new('color','Couleur')
                     ->hideOnIndex(),
-                NumberField::new('Weight')
+                NumberField::new('Weight','Poids ( g )')
                     ->hideOnIndex(),
-                textField::new('CountryOfOrigin')
+                textField::new('CountryOfOrigin','Pays d\'Origine')
                     ->hideOnIndex(),
-                DateField::new('DateOfManufacture')
+                DateField::new('DateOfManufacture','Date De Fabrication')
                     ->hideOnIndex(),
-                TextField::new('description'),
-                TextareaField::new('imageFile', 'Product Image')
+                TextField::new('description','Description'),
+                TextareaField::new('imageFile', 'Image Uploader')
                     ->hideOnIndex()
                     ->setFormType(VichImageType::class)
                     ->setFormTypeOption('allow_delete', false),
-                BooleanField::new('status'),
+                BooleanField::new('status','Status'),
                 CollectionField::new('productVariations', 'Variations')
                     ->useEntryCrudForm(ProductVariationCrudController::class)
                     ->allowDelete(true)
                     ->allowAdd(true),
             ];
+        }
+        public function configureActions(Actions $actions): Actions
+        {
+            return $actions
+                ->add(Crud::PAGE_INDEX, Action::DETAIL);
         }
     }

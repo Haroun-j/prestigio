@@ -22,21 +22,33 @@ class OrderCrudController extends AbstractCrudController
     {
         return Orders::class;
     }
-
+    
     public function configureFields(string $pageName): iterable
     {
-        return [
-            NumberField::new('id'),
-            TextField::new('reference'),
-            AssociationField::new('user'),
-            DateTimeField::new('createdAt'),
-            AssociationField::new('ordersDetails', 'Order Details')
-                ->onlyOnDetail(),
+        $fields = [
+            NumberField::new('id')
+            ->onlyOnIndex(),
+            TextField::new('reference','Réference'),
+            AssociationField::new('user','Utilisateur'),
+            DateTimeField::new('createdAt','Date de création'),
+            AssociationField::new('coupons','Coupons'),
         ];
+        
+        if (Crud::PAGE_DETAIL === $pageName) {
+            $fields[] = TextField::new('orderDetailsSummary', 'Détails Commande')
+                ->formatValue(function ($value, $entity) {
+                    return $entity->getOrderDetailsSummary();
+                });
+        } else {
+            $fields[] = AssociationField::new('ordersDetails', 'Détails Commande')
+                ->setCrudController(OrderDetailsCrudController::class);
+        }
+        return $fields;
     }
     public function configureActions(Actions $actions): Actions
     {
         return $actions
+//            ->disable(Action::NEW, Action::EDIT)
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 }

@@ -20,8 +20,10 @@ class Orders
 
     #[ORM\Column(type: 'string', length: 20, unique: true)]
     private $reference;
-
-
+    
+    #[ORM\ManyToOne(targetEntity: Coupons::class, inversedBy: 'orders')]
+    private $coupons;
+    
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
@@ -33,6 +35,10 @@ class Orders
     {
         $this->ordersDetails = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
+    }
+    public function __toString(): string
+    {
+        return $this->reference;
     }
 
     public function getId(): ?int
@@ -91,6 +97,24 @@ class Orders
             }
         }
 
+        return $this;
+    }
+    
+    public function getOrderDetailsSummary (): string
+    {
+        return implode(', ', array_map(function ($detail) {
+            return (string)$detail;
+        }, $this->ordersDetails->toArray()));
+    }
+    public function getCoupons(): ?Coupons
+    {
+        return $this->coupons;
+    }
+    
+    public function setCoupons(?Coupons $coupons): self
+    {
+        $this->coupons = $coupons;
+        
         return $this;
     }
 }

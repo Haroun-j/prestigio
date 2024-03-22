@@ -37,10 +37,11 @@
                                 <p class="icon">
                                     <span><i class="far fa-heart"></i></span>
                                     <span><i class="far fa-share-square"></i></span>
-                                    <span><i class="fas fa-shopping-basket"></i></span>
+                                    <a href="{{ path('cart_add', {id: product.id}) }}" style="text-decoration: none"><span><i class="fas fa-shopping-basket"></i></span></a>
                                 </p>
                                 <strong>{{ product.name | length > 20 ? product.name | slice(0, 18) ~ '...' : product.name }}</strong>
-                                <span>{{ product.description | length > 190 ? product.description | slice(0, 190) ~ '...' : product.description }}</span>
+                                <span>{{ product.description | length > 70 ? product.description | slice(0, 70) ~ '...' : product.description }}</span>
+                                <div></div>
                                 <small><a style="text-decoration: none" href="{{ path('cart_add', {id: product.id}) }}" class="buy-btn" data-route="{{ path('cart_add', {id: product.id}) }}" >Acheter</a></small>
                             </div>
                             <h4>${{ product.price }}</h4>

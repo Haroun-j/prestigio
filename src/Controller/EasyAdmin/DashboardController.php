@@ -4,6 +4,7 @@ namespace App\Controller\EasyAdmin;
 
 use App\Entity\AvailableSize;
 use App\Entity\Category;
+use App\Entity\Coupons;
 use App\Entity\Orders;
 use App\Entity\Product;
 use App\Entity\ProductSize;
@@ -55,5 +56,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Variations des produits', 'fas fa-list', ProductVariation::class);
         yield MenuItem::linkToCrud('Tailles Dispo', 'fas fa-list', ProductSize::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-list', Orders::class);
+        yield MenuItem::linkToCrud('Coupons', 'fas fa-list', Coupons::class);
     }
 }

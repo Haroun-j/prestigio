@@ -1,173 +1,232 @@
-{#{% extends 'base.html.twig' %}#}
+{# {% extends 'base.html.twig' %} #}
 
 {% block body %}
-    <link rel="stylesheet" href="{{ asset('assets/css/cart/cart.css') }}">
-                {#    <main class="container">#}
-                {#        <section class="row">#}
-                {#            <div class="col-12">#}
-                {#                <h1>Panier</h1>#}
-                {#                <table class="table">#}
-                {#                    <thead>#}
-                {#                    <tr>#}
-                {#                        <th>Produit</th>#}
-                {#                        <th>Prix</th>#}
-                {#                        <th>Quantité</th>#}
-                {#                        <th>Total</th>#}
-                {#                        <th>Action</th>#}
-                {#                    </tr>#}
-                {#                    </thead>#}
-                {#                    <tbody>#}
-                {#                    {% for element in data %}#}
-                {#                        <tr>#}
-                {#                            <td>{{ element.product.name }}</td>#}
-                {#                            <td>{{ element.product.price }} €</td>#}
-                {#                            <td>{{ element.quantity }}</td>#}
-                {#                            <td>{{ element.quantity * element.product.price }} €</td>#}
-                {#                            <td>#}
-                {#                                <a href="{{ path('cart_add', {id: element.product.id}) }}" class="btn btn-success">+</a>#}
-                {#                                <a href="{{ path('cart_remove', {id: element.product.id}) }}" class="btn btn-warning">-</a>#}
-                {#                                <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="btn btn-danger">Supprimer</a>#}
-                {#                            </td>#}
-                {#                        </tr>#}
-                {#                    {% else %}#}
-                {#                        <tr>#}
-                {#                            <td colspan="5">Votre panier est vide</td>#}
-                {#                        </tr>#}
-                {#                    {% endfor %}#}
-                {#                    </tbody>#}
-                {#                    <tfoot>#}
-                {#                    <tr>#}
-                {#                        <td colspan="3">Total</td>#}
-                {#                        <td>{{ total }} €</td>#}
-                {#                        <td>#}
-                {#                            <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a>#}
-                {#                        </td>#}
-                {#                    </tr>#}
-                {#                    </tfoot>#}
-                {#                </table>#}
-                {#                <a href="{{ path('app_orders_add') }}" class="btn btn-primary">Valider le panier</a>#}
-                {#            </div>#}
-                {#        </section>#}
-                {#    </main>#}
-                {#    <style>#}
-                {#        .col-12{#}
-                {#            display: flex;#}
-                {#            justify-content: center;#}
-                {#            flex-direction: column;#}
-                {#            padding: 5rem;#}
-                {#        }#}
-                {#    </style>#}
-                {#    -------------------------------------------------------------#}
+    <link rel = "stylesheet" href = "{{ asset('assets/css/cart/cart.css') }}">
+    {#    <main class="container"> #}
+    {#        <section class="row"> #}
+    {#            <div class="col-12"> #}
+    {#                <h1>Panier</h1> #}
+    {#                <table class="table"> #}
+    {#                    <thead> #}
+    {#                    <tr> #}
+    {#                        <th>Produit</th> #}
+    {#                        <th>Prix</th> #}
+    {#                        <th>Quantité</th> #}
+    {#                        <th>Total</th> #}
+    {#                        <th>Action</th> #}
+    {#                    </tr> #}
+    {#                    </thead> #}
+    {#                    <tbody> #}
+    {#                    {% for element in data %} #}
+    {#                        <tr> #}
+    {#                            <td>{{ element.product.name }}</td> #}
+    {#                            <td>{{ element.product.price }} €</td> #}
+    {#                            <td>{{ element.quantity }}</td> #}
+    {#                            <td>{{ element.quantity * element.product.price }} €</td> #}
+    {#                            <td> #}
+    {#                                <a href="{{ path('cart_add', {id: element.product.id}) }}" class="btn btn-success">+</a> #}
+    {#                                <a href="{{ path('cart_remove', {id: element.product.id}) }}" class="btn btn-warning">-</a> #}
+    {#                                <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="btn btn-danger">Supprimer</a> #}
+    {#                            </td> #}
+    {#                        </tr> #}
+    {#                    {% else %} #}
+    {#                        <tr> #}
+    {#                            <td colspan="5">Votre panier est vide</td> #}
+    {#                        </tr> #}
+    {#                    {% endfor %} #}
+    {#                    </tbody> #}
+    {#                    <tfoot> #}
+    {#                    <tr> #}
+    {#                        <td colspan="3">Total</td> #}
+    {#                        <td>{{ total }} €</td> #}
+    {#                        <td> #}
+    {#                            <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a> #}
+    {#                        </td> #}
+    {#                    </tr> #}
+    {#                    </tfoot> #}
+    {#                </table> #}
+    {#                <a href="{{ path('app_orders_add') }}" class="btn btn-primary">Valider le panier</a> #}
+    {#            </div> #}
+    {#        </section> #}
+    {#    </main> #}
+    {#    <style> #}
+    {#        .col-12{ #}
+    {#            display: flex; #}
+    {#            justify-content: center; #}
+    {#            flex-direction: column; #}
+    {#            padding: 5rem; #}
+    {#        } #}
+    {#    </style> #}
+    {#    ------------------------------------------------------------ -#}
     <body>
-    <div class="wrap cf">
-        <h1 class="projTitle">Payer en X2 ou 3X Fois Avec<span>-Prestigio Help Empty Wallet Poor People</span> Service</h1>
-        <div class="heading cf">
+    <div class = "wrap cf">
+        <h1 class = "projTitle">Payer en X2 ou 3X Fois Avec<span>-Prestigio Help Empty Wallet Poor People</span> Service
+        </h1>
+        <div class = "heading cf">
             <h1>Mon Panier</h1>
-            <a href="{{ path('store') }}" class="continue">Ajouter des Produits</a>
+            <a href = "{{ path('store') }}" class = "continue">Ajouter des Produits</a>
         </div>
-        <div class="cart">
-            <ul class="tableHead">
-                <li class="prodHeader">Produit</li>
+        <div class = "cart">
+            <ul class = "tableHead">
+                <li class = "prodHeader">Produit</li>
                 <li>Quantité</li>
                 <li>Total</li>
                 <li>Supprimer</li>
             </ul>
-            <ul class="cartWrap">
+            <ul class = "cartWrap">
                 {% for element in data %}
-                <li class="items {% if loop.index is even %}even{% else %}odd{% endif %}">
-                    <div class="infoWrap">
-                        <div class="cartSection">
-{#                            <img src="{{ element.product.image }}" alt="" class="itemImg" />#}
-{#                            <p class="itemNumber">#{{ element.product.code }}</p>#}
-                            <h3>{{ element.product.name }}</h3>
-                            <p><input type="text" class="qty" placeholder="{{ element.quantity }}" /> x €{{ element.product.price }}</p>
-{#                            <p class="stockStatus">{% if element.product.stock > 0 %}In Stock{% else %}Out of Stock{% endif %}</p>#}
-                            <a href="{{ path('cart_remove', {id: element.product.id}) }}" class="qtyBtn">-</a>
-                            <a href="{{ path('cart_add', {id: element.product.id}) }}" class="qtyBtn">+</a>
+                    <li class = "items {% if loop.index is even %}even{% else %}odd{% endif %}">
+                        <div class = "infoWrap">
+                            <div class = "cartSection">
+                                {#                            <img src="{{ element.product.image }}" alt="" class="itemImg" /> #}
+                                {#                            <p class="itemNumber">#{{ element.product.code }}</p> #}
+                                <h3>{{ element.product.name }}</h3>
+                                <p><input type = "text" class = "qty" placeholder = "{{ element.quantity }}"/> x
+                                                                                                               €{{ element.product.price }}
+                                </p>
+                                {#                            <p class="stockStatus">{% if element.product.stock > 0 %}In Stock{% else %}Out of Stock{% endif %}</p> #}
+                                <a href = "{{ path('cart_remove', {id: element.product.id}) }}" class = "qtyBtn">-</a>
+                                <a href = "{{ path('cart_add', {id: element.product.id}) }}" class = "qtyBtn">+</a>
+                            </div>
+                            <div class = "quantityControls cartSection">
+                                <input type = "text" class = "qty" value = "{{ element.quantity }}"/>
+                            </div>
+                            <div class = "prodTotal cartSection">
+                                <p>€{{ element.quantity * element.product.price }}</p>
+                            </div>
+                            <div class = "cartSection removeWrap">
+                                <a href = "{{ path('cart_delete', {id: element.product.id}) }}" class = "remove">x</a>
+                            </div>
                         </div>
-                        <div class="quantityControls cartSection">
-                            <input type="text" class="qty" value="{{ element.quantity }}" />
-                        </div>
-                        <div class="prodTotal cartSection">
-                            <p>€{{ element.quantity * element.product.price }}</p>
-                        </div>
-                        <div class="cartSection removeWrap">
-                            <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="remove">x</a>
-                        </div>
-                    </div>
-                </li>
+                    </li>
                 {% else %}
-                    <li class="items">
-                        <div class="infoWrap">
-                            <div class="cartSection">
-                                <p colspan="5">Votre panier est vide</p>
+                    <li class = "items">
+                        <div class = "infoWrap">
+                            <div class = "cartSection">
+                                <p colspan = "5">Votre panier est vide</p>
                             </div>
                         </div>
                     </li>
                 {% endfor %}
-                <!--<li class="items even">Item 2</li>-->
 
             </ul>
         </div>
 
-        <div class="promoCode">
-            <label for="promo">Code Promo ?</label><input type="text" name="promo" placholder="Enter Code" />
-            <a href="#" class="btn"></a>
+        <div class = "promoCode">
+            <label for = "promo">Coupon ?</label>
+            <label>
+                <input type = "text" name = "promo" placeholder = "Entrer un Code de 10 Chiffres" pattern="\d{10}" maxlength="10" minlength="10" required/>
+            </label>
+            <a href = "#" class = "btn"></a>
+            <div class="coupon-infos" style="display: none">
+            </div>
         </div>
-        <div class="subtotal cf">
+        <div class = "subtotal cf">
             <ul>
-                <li class="totalRow"><span class="label">Subtotal</span><span class="value">€{{ total }}</span></li>
-                <li class="totalRow"><span class="label">Shipping</span><span class="value">€ 5</span></li>
-                <li class="totalRow"><span class="label">Tax</span><span class="value">€ 5</span></li>
-                <li class="totalRow final"><span class="label">Total</span><span class="value">€{{ total + 5 + 5 }}</span></li>
-                <li class="totalRow"><a href="{{ path('app_orders_add') }}" class="btn continue">Valider & Payer</a></li>
+                <li class = "totalRow"><span class = "label">Subtotal</span><span class = "value">€{{ total }}</span>
+                </li>
+                <li class = "totalRow"><span class = "label">Shipping</span><span class = "value">€ 5</span></li>
+                <li class = "totalRow"><span class = "label">Tax</span><span class = "value">€ 5</span></li>
+                <li class = "totalRow final"><span class = "label">Total</span><span
+                            class = "value">€{{ total + 5 + 5 }}</span></li>
+                <li class = "totalRow"><a href = "{{ path('app_orders_add') }}" class = "btn continue">Valider &
+                                                                                                       Payer</a></li>
             </ul>
         </div>
-                {#        <div class="subtotal cf">#}
-                {#            <ul>#}
-                {#                <li class="totalRow"><span class="label">Subtotal</span><span class="value">$35.00</span></li>#}
+        {#        <div class="subtotal cf"> #}
+        {#            <ul> #}
+        {#                <li class="totalRow"><span class="label">Subtotal</span><span class="value">$35.00</span></li> #}
 
-                {#                <li class="totalRow"><span class="label">Shipping</span><span class="value">$5.00</span></li>#}
+        {#                <li class="totalRow"><span class="label">Shipping</span><span class="value">$5.00</span></li> #}
 
-                {#                <li class="totalRow"><span class="label">Tax</span><span class="value">$4.00</span></li>#}
-                {#                <li class="totalRow final"><span class="label">Total</span><span class="value">$44.00</span></li>#}
-                {#                <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>#}
-                {#            </ul>#}
-                {#        </div>#}
+        {#                <li class="totalRow"><span class="label">Tax</span><span class="value">$4.00</span></li> #}
+        {#                <li class="totalRow final"><span class="label">Total</span><span class="value">$44.00</span></li> #}
+        {#                <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li> #}
+        {#            </ul> #}
+        {#        </div> #}
     </div>
     </body>
     <style>
         .cartSection img {
             display: none !important;
         }
+
         .cartWrap {
             padding-left: 15px;
         }
+
         .cartSection {
             width: 35%;
         }
-        .quantityControls{
+
+        .quantityControls {
             text-align: center;
             width: 15%;
         }
-        .prodTotal{
+
+        .prodTotal {
             width: 32%;
         }
-        .removeWrap{
+
+        .removeWrap {
+            text-align: center;
+        }
+
+        .coupon-infos{
+            margin-top: 65px;
+            background: beige;
+            padding: 6px;
+        }
+        .coupon-infos p{
+            color: green;
+        }
+        .error-msg {
+            color: red;
+            background: #f1f102;
             text-align: center;
         }
     </style>
-{#    <script>// Remove Items From Cart#}
-{#        $('a.remove').click(function(){#}
-{#            event.preventDefault();#}
-{#            $( this ).parent().parent().parent().hide( 400 );#}
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.btn').click(function(e) {
+                e.preventDefault();
+                var couponCodeInput = $('input[name="promo"]');
 
-{#        })#}
+                if (!couponCodeInput[0].checkValidity()) {
+                    couponCodeInput[0].reportValidity();
+                    return;
+                }
 
-{#        // Just for testing, show all items#}
-{#        $('a.btn.continue').click(function(){#}
-{#            $('li.items').show(400);#}
-{#        })#}
+                var couponCode = couponCodeInput.val();
+                $.ajax({
+                    url: '{{ path('check_coupon') }}', // Adjust the path to your route
+                    type: 'POST',
+                    data: {
+                        'couponCode': couponCode
+                    },
+                    success: function(data) {
+                        // Check if the coupon is valid and display the details
+                        if(data.message === 'Coupon valide') {
+                            var infoHtml = `
+                        <p><strong>${data.description}</strong></p>
+                        <p><strong>Sur le Produit : </strong>${data.onProduct}</strong></p>
+                        <p><strong>Sur la Catégorie : </strong>${data.onCategory}</strong></p>
+                        <p><strong>Valide Jusqu'à:</strong> ${data.validity}</p>
+                        <p><strong>Promo:</strong> ${data.discount} €</p>
+                    `;
+                            $('.coupon-infos').html(infoHtml).show();
+                        } else {
+                            // If not valid, just display the message
+                            $('.coupon-infos').html(`<p class="error-msg">${data.message}</p>`).show();
+                        }
+                    },
+                    error: function() {
+                        alert('Un erreur est survenu !');
+                    }
+                });
+            });
+        });
 
-{#    </script>#}
+    </script>
 {% endblock %}
