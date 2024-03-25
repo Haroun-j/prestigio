@@ -12,6 +12,7 @@
     use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
     use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+    use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -53,9 +54,16 @@
                 TextField::new('code', 'Code'),
                 TextField::new('description', 'Description'),
                 NumberField::new('discount', 'Montant'),
+                ChoiceField::new('currencyType', 'Type de devise')
+                    ->setChoices([
+                        'Euro (€)' => 'EUR',
+                        'Dollar ($)' => 'USD',
+                        'Pourcent (%)' => '%',
+                    ]),
                 $productField,
                 $categoryField,
-                NumberField::new('max_usage', 'Maximum D\'utilisation'),
+                NumberField::new('max_usage', 'Max. D\'usage'),
+                NumberField::new('usage_count', 'Nbr. D\'usage'),
                 DateField::new('validity', 'Validité'),
                 BooleanField::new('is_valid', 'Est valide ?'),
                 AssociationField::new('coupons_types', 'Type de Coupon'),

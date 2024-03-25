@@ -75,7 +75,8 @@
             </ul>
             <ul class = "cartWrap">
                 {% for element in data %}
-                    <li class = "items {% if loop.index is even %}even{% else %}odd{% endif %}">
+                    <li class = "items {% if loop.index is even %}even{% else %}odd{% endif %}"
+                        data-category = "{{ element.product.category }}">
                         <div class = "infoWrap">
                             <div class = "cartSection">
                                 {#                            <img src="{{ element.product.image }}" alt="" class="itemImg" /> #}
@@ -115,35 +116,33 @@
         <div class = "promoCode">
             <label for = "promo">Coupon ?</label>
             <label>
-                <input type = "text" name = "promo" placeholder = "Entrer un Code de 10 Chiffres" pattern="\d{10}" maxlength="10" minlength="10" required/>
+                <input type = "text" name = "promo" placeholder = "Entrer un Code de 10 Chiffres" pattern = "\d{10}"
+                       maxlength = "10" minlength = "10" required/>
             </label>
-            <a href = "#" class = "btn"></a>
-            <div class="coupon-infos" style="display: none">
+            <a href = "#" id = "check-coupon-btn" class = "btn"></a>
+            <div class = "coupon-infos" style = "display: none">
             </div>
         </div>
         <div class = "subtotal cf">
             <ul>
-                <li class = "totalRow"><span class = "label">Subtotal</span><span class = "value">€{{ total }}</span>
+                <li class = "totalRow"><span class = "label">Sous-total</span><span class = "value"
+                                                                                    id = "subtotal">{{ total }} € HT</span>
                 </li>
-                <li class = "totalRow"><span class = "label">Shipping</span><span class = "value">€ 5</span></li>
-                <li class = "totalRow"><span class = "label">Tax</span><span class = "value">€ 5</span></li>
-                <li class = "totalRow final"><span class = "label">Total</span><span
-                            class = "value">€{{ total + 5 + 5 }}</span></li>
+                <li class = "totalRow"><span class = "label">Livraison</span><span class = "value" id = "shipping">5.00 €</span>
+                </li>
+                <li class = "totalRow"><span class = "label">Taxe (20%)</span><span class = "value"
+                                                                                    id = "tax">{{ (total * 0.20) | number_format(2, '.', '') }} €</span>
+                </li>
+                <li class = "totalRow"><span class = "label">Promo</span><span class = "value"
+                                                                               id = "promo">0.00 €</span></li>
+                <li class = "totalRow final"><span class = "label">Total</span><span class = "value"
+                                                                                     id = "total">{{ total + 5 + (total * 0.20) | number_format(2, '.', '') }} €</span>
+                </li>
                 <li class = "totalRow"><a href = "{{ path('app_orders_add') }}" class = "btn continue">Valider &
                                                                                                        Payer</a></li>
             </ul>
         </div>
-        {#        <div class="subtotal cf"> #}
-        {#            <ul> #}
-        {#                <li class="totalRow"><span class="label">Subtotal</span><span class="value">$35.00</span></li> #}
 
-        {#                <li class="totalRow"><span class="label">Shipping</span><span class="value">$5.00</span></li> #}
-
-        {#                <li class="totalRow"><span class="label">Tax</span><span class="value">$4.00</span></li> #}
-        {#                <li class="totalRow final"><span class="label">Total</span><span class="value">$44.00</span></li> #}
-        {#                <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li> #}
-        {#            </ul> #}
-        {#        </div> #}
     </div>
     </body>
     <style>
@@ -172,14 +171,16 @@
             text-align: center;
         }
 
-        .coupon-infos{
+        .coupon-infos {
             margin-top: 65px;
             background: beige;
             padding: 6px;
         }
-        .coupon-infos p{
+
+        .coupon-infos p {
             color: green;
         }
+
         .error-msg {
             color: red;
             background: #f1f102;
@@ -188,8 +189,8 @@
     </style>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.btn').click(function(e) {
+        $(document).ready(function () {
+            $('#check-coupon-btn').click(function (e) {
                 e.preventDefault();
                 var couponCodeInput = $('input[name="promo"]');
 
@@ -200,33 +201,97 @@
 
                 var couponCode = couponCodeInput.val();
                 $.ajax({
-                    url: '{{ path('check_coupon') }}', // Adjust the path to your route
+                    url: '{{ path('check_coupon') }}',
                     type: 'POST',
-                    data: {
-                        'couponCode': couponCode
-                    },
-                    success: function(data) {
-                        // Check if the coupon is valid and display the details
-                        if(data.message === 'Coupon valide') {
-                            var infoHtml = `
-                        <p><strong>${data.description}</strong></p>
-                        <p><strong>Sur le Produit : </strong>${data.onProduct}</strong></p>
-                        <p><strong>Sur la Catégorie : </strong>${data.onCategory}</strong></p>
-                        <p><strong>Valide Jusqu'à:</strong> ${data.validity}</p>
-                        <p><strong>Promo:</strong> ${data.discount} €</p>
-                    `;
-                            $('.coupon-infos').html(infoHtml).show();
+                    data: {'couponCode': couponCode},
+                    success: function (data) {
+                        var infoHtml = '';
+                        $('.coupon-infos').html('');
+                        if (data.message === 'Coupon valide') {
+                            if (data.description) {
+                                infoHtml += `<p><strong>${data.description}</strong></p>`;
+                            }
+                            if (data.type) {
+                                infoHtml += `<p><strong>Type :</strong> ${data.type}</p>`;
+                            }
+                            if (data.onProduct) {
+                                infoHtml += `<p><strong>Sur le Produit :</strong> ${data.onProduct}</p>`;
+                            }
+                            if (data.onCategory) {
+                                infoHtml += `<p><strong>Sur la Catégorie :</strong> ${data.onCategory}</p>`;
+                            }
+                            if (data.validity) {
+                                infoHtml += `<p><strong>Valide Jusqu'à :</strong> ${data.validity}</p>`;
+                            }
+                            infoHtml += `<p><strong>Promo :</strong> ${parseFloat(data.discount).toFixed(2)} ${data.currency}</p>`;
                         } else {
-                            // If not valid, just display the message
-                            $('.coupon-infos').html(`<p class="error-msg">${data.message}</p>`).show();
+                            infoHtml += `<p class="error-msg">${data.message}</p>`;
                         }
+                        $('.coupon-infos').html(infoHtml).show();
+
+                        var subtotal = parseFloat('{{ total }}');
+                        var shippingDefault = 5; // Default shipping fee
+                        var taxRate = 0.20; // Default tax rate
+                        var tax = subtotal * taxRate; // Calculate original tax
+                        var promo = 0; // Initialize promo discount
+
+                        if (data.type === 'onProduct' && data.onProduct) {
+                            var productFound = false;
+                            $('ul.cartWrap li.items').each(function () {
+                                var productName = $(this).find('h3').text();
+                                if (productName === data.onProduct) {
+                                    productFound = true;
+                                    var productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
+                                    var quantity = parseInt($(this).find('.quantityControls input.qty').val());
+                                    var totalProductPrice = productPrice * quantity; // Total price for this product
+                                    var discountAmount = totalProductPrice * (parseFloat(data.discount) / 100); // Discount based on the total price
+                                    promo += discountAmount;
+                                }
+                            });
+                            if (!productFound) {
+                                $('.coupon-infos').html(`<p class="error-msg">Ce coupon ne peut pas être appliqué car le produit spécifié n'existe pas dans votre panier.</p>`).show();
+                                return;
+                            }
+                        } else if (data.type === 'onTaxe') {
+                            var taxDiscountPercent = parseFloat(data.discount);
+                            promo = tax * (taxDiscountPercent / 100); // Calculate promo from tax
+                        } else if (data.type === 'onShipping') {
+                            promo = parseFloat(data.discount);
+                            shippingDefault = promo; // Apply discount to shipping
+                            if (shippingDefault < 0) {
+                                shippingDefault = 0;
+                            }
+                        } else if (data.type === 'onOrder') {
+                            promo = parseFloat(data.discount); // Apply discount directly to the total
+                        } else if (data.type === 'onCategory') {
+                            var categoryTotal = 0;
+
+                            $('ul.cartWrap li.items').each(function () {
+                                var categoryName = $(this).attr('data-category');
+                                if (categoryName === data.onCategory) {
+                                    var productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
+                                    var quantity = parseInt($(this).find('.quantityControls input.qty').val());
+                                    categoryTotal += productPrice * quantity;
+                                }
+                            });
+
+                            promo = categoryTotal * (parseFloat(data.discount) / 100);
+                        }
+
+                        var total = subtotal + shippingDefault + tax - promo;
+
+                        $('#subtotal').text(`${subtotal.toFixed(2)} € HT`);
+                        $('#shipping').text(`${shippingDefault.toFixed(2)} €`);
+                        $('#tax').text(`${tax.toFixed(2)} €`);
+                        $('#promo').text(`- ${promo.toFixed(2)} €`);
+                        $('#total').text(`${total.toFixed(2)} €`);
                     },
-                    error: function() {
-                        alert('Un erreur est survenu !');
+                    error: function () {
+                        alert('Une erreur est survenue !');
                     }
                 });
             });
         });
-
     </script>
+
 {% endblock %}

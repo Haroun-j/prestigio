@@ -29,6 +29,9 @@
         #[ORM\Column(type: 'integer')]
         private $discount;
         
+        #[ORM\Column(type: 'string', length: 10)]
+        private $currencyType;
+       
         #[ORM\ManyToOne(targetEntity: Product::class)]
         #[ORM\JoinColumn(nullable: true)]
         private $onProduct;
@@ -39,6 +42,9 @@
         
         #[ORM\Column(type: 'integer')]
         private $max_usage;
+        
+        #[ORM\Column(type: 'integer')]
+        private $usage_count;
         
         #[ORM\Column(type: 'datetime')]
         private $validity;
@@ -110,6 +116,17 @@
             
             return $this;
         }
+        public function getCurrencyType(): ?string
+        {
+            return $this->currencyType;
+        }
+        
+        public function setCurrencyType(string $currencyType): self
+        {
+            $this->currencyType = $currencyType;
+            
+            return $this;
+        }
         public function getOnProduct(): ?Product
         {
             return $this->onProduct;
@@ -143,7 +160,17 @@
             
             return $this;
         }
+        public function getUsageCount(): ?int
+        {
+            return $this->usage_count;
+        }
         
+        public function setUsageCount(int $usage_count): self
+        {
+            $this->usage_count = $usage_count;
+            
+            return $this;
+        }
         public function getValidity(): ?\DateTimeInterface
         {
             return $this->validity;
