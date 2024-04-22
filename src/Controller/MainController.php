@@ -13,6 +13,10 @@ class MainController extends AbstractController
     #[Route('/home', name: 'home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if ($user && !$user->isVerified()) {
+            return $this->redirectToRoute('phone_verification');
+        }
         // Retrieve all FeaturedProducts along with their related Product data
         $featuredProducts = $entityManager->getRepository(FeaturedProduct::class)
             ->findBy([], ['displayOrder' => 'ASC']);

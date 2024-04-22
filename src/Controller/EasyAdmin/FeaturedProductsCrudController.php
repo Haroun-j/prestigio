@@ -25,8 +25,10 @@
                 AssociationField::new('product', 'Produit')
                     ->setFormTypeOptions([
                         'choice_label' => 'name',
-                    ]),
+                    ])
+                ->onlyOnIndex(),
                 NumberField::new('displayOrder', 'Ordre d\'affichage')
+                ->onlyOnIndex(),
             ];
             
             return $fields;
