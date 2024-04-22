@@ -32,7 +32,7 @@
         <!-- end section -->
 
         <!-- begin section -->
-        <div class="section" style="text-align: inherit;transform: scale(0.9);">
+        <div class="section" style="text-align: inherit">
             {% include './Gallery/gallery.html.twig' %}
         </div>
         <!-- end section -->
@@ -53,13 +53,13 @@
         <!-- begin section -->
         <div class="section">
 
-            {% include './products/home/product_samples.html.twig' %}
+            {% include './products/home/our_products_bloc.html.twig' %}
 
         </div>
         <!-- end section -->
-        <div class="section">
+        <div class="section" style="background: #00a2ef29;">
 
-            {% include './products/home/best_sells_block.html.twig' %}
+            {% include './products/home/best_sells_bloc.html.twig' %}
 
         </div>
         <!-- end section -->
@@ -128,13 +128,30 @@
                     scrollBar: true,
                     responsiveWidth: 400,
                     navigation: true,
-                    navigationTooltips: ["home", "about", "portfolio", "contact", "connect"],
-                    anchors: ["home", "about", "portfolio", "contact", "connect"],
+                    navigationTooltips: ["Accueil", "Gallerie", "Marques", "Partenaires", "Produits","En Promo","Contact"],
+                    anchors: ["home", "gallery", "brands", "partners", "products","promo","contact"],
                     menu: "#myMenu",
                     fitToSection: false,
-                    scrollingSpeed: 1000, // Adjust scrolling speed for smoother scrolling
-                    easingcss3: 'cubic-bezier(0.645, 0.045, 0.355, 1)', // Use custom easing function for smoother transitions
-                    dragAndMove: true // Enable smooth dragging and mouse wheel scrolling
+                    scrollingSpeed: 1000,
+                    easingcss3: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
+                    dragAndMove: true,
+                    afterLoad: function(origin, destination, direction) {
+                        var sectionAnchor = destination.anchor;
+                        var navMenuLinks = document.querySelectorAll('.fp-tooltip');
+                        if (sectionAnchor === 'brands' || sectionAnchor === 'partners' || sectionAnchor === 'products') {
+                            navMenuLinks.forEach(function(link) {
+                                link.style.color = '#007bff';    /*--#007bff--*/
+                            });
+                        }else if(sectionAnchor === 'promo'){
+                            navMenuLinks.forEach(function(link) {
+                                link.style.color = '#FF0000';
+                            });
+                        } else {
+                            navMenuLinks.forEach(function(link) {
+                                link.style.color = '';
+                            });
+                        }
+                    },
                 });
             }
 
@@ -182,6 +199,10 @@
             opacity: 1;
             z-index: 999;
             -webkit-transition: 1.2s ease;
+        }
+        * {
+            scrollbar-color: #e3aadf #f4eafe !important;
+            scrollbar-width: thin;
         }
     </style>
 {% endblock %}

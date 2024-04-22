@@ -28,7 +28,10 @@ class ProductVariation
 
     #[ORM\Column(length: 255)]
     private ?string $color = null;
-
+    
+    #[ORM\Column(length: 255)]
+    private ?string $colorCode = null;
+    
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
     private ?string $Weight = null;
 
@@ -101,7 +104,17 @@ class ProductVariation
 
         return $this;
     }
-
+    public function setColorCode(string $colorCode): static
+    {
+        $this->colorCode = $colorCode;
+        
+        return $this;
+    }
+    public function getColorCode(): ?string
+    {
+        return $this->colorCode;
+    }
+    
     public function getWeight(): ?string
     {
         return $this->Weight;

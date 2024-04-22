@@ -59,6 +59,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $color = null;
     
+    #[ORM\Column(length: 255)]
+    private ?string $colorCode = null;
+    
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
     private ?string $Weight = null;
     
@@ -78,10 +81,14 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductSize::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $productSizes;
 
+    #[ORM\OneToMany(mappedBy: 'relation', targetEntity: FeaturedProduct::class)]
+    private Collection $featuredProducts;
+
     public function __construct()
     {
         $this->productVariations = new ArrayCollection();
         $this->productSizes = new ArrayCollection();
+        $this->featuredProducts = new ArrayCollection();
     }
     public function __toString(): string
     {
@@ -116,7 +123,6 @@ class Product
 
         return $this;
     }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -194,12 +200,21 @@ class Product
     {
         return $this->color;
     }
-    
     public function setColor(string $color): static
     {
         $this->color = $color;
         
         return $this;
+    }
+    public function setColorCode(string $colorCode): static
+    {
+        $this->colorCode = $colorCode;
+        
+        return $this;
+    }
+    public function getColorCode(): ?string
+    {
+        return $this->colorCode;
     }
     
     public function getWeight(): ?string
@@ -314,5 +329,35 @@ class Product
             $totalStock += $productSize->getQuantity();
         }
         return $totalStock;
+    }
+
+    /**
+     * @return Collection<int, FeaturedProduct>
+     */
+    public function getFeaturedProducts(): Collection
+    {
+        return $this->featuredProducts;
+    }
+
+    public function addFeaturedProduct(FeaturedProduct $featuredProduct): static
+    {
+        if (!$this->featuredProducts->contains($featuredProduct)) {
+            $this->featuredProducts->add($featuredProduct);
+            $featuredProduct->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeaturedProduct(FeaturedProduct $featuredProduct): static
+    {
+        if ($this->featuredProducts->removeElement($featuredProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($featuredProduct->getRelation() === $this) {
+                $featuredProduct->setRelation(null);
+            }
+        }
+
+        return $this;
     }
 }

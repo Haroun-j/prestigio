@@ -2,7 +2,7 @@
     align-items: center;
     -webkit-animation: gradient 15s ease infinite;
     animation: gradient 15s ease infinite;
-    background: #00a2ef82;
+    /*background: #00a2ef82;*/
     background-size: 400% 400%;
     display: flex;
     padding: 2rem 0;

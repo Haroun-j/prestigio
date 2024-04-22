@@ -40,6 +40,7 @@
                     ->allowAdd()
                     ->allowDelete(),
                 TextField::new('color', 'Couleur'),
+                TextField::new('colorCode', 'Code Couleur'),
                 NumberField::new('Weight', 'Poids ( g )'),
                 TextField::new('CountryOfOrigin', 'Pays d\Origine'),
                 DateTimeField::new('DateOfManufacture', 'Date De Fabrication')

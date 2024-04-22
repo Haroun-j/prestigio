@@ -1,0 +1,81 @@
+{% block Stylesheets %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/icomoon/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact_us/style.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="content">
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success mt-4">
+                    {{ message }}
+                    <a class="ml-3" href="{{ path('home') }}">Allez à l'Accueil</a>
+                </div>
+            {% endfor %}
+            {% if app.flashes('danger')|length > 0 %}
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger mt-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row align-items-stretch no-gutters contact-wrap">
+                <div class="col-md-6">
+                    <div class="form h-100">
+                        <h2 class="mb-4">Contactez Nous !</h2>
+                        {{ form_start(form, {'attr': { 'id': 'contactForm', 'name': 'contactForm'}}) }}
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-5">
+                                {{ form_label(form.fullName) }}
+                                {{ form_widget(form.fullName) }}
+                            </div>
+                            <div class="col-md-6 form-group mb-5">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-4">
+                                {{ form_label(form.phone) }}
+                                {{ form_widget(form.phone) }}
+                            </div>
+                            <div class="col-md-6 form-group mb-4">
+                                {{ form_label(form.company) }}
+                                {{ form_widget(form.company) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group mb-5">
+                                {{ form_label(form.subject) }}
+                                {{ form_widget(form.subject) }}
+                            </div>
+                            <div class="col-md-12 form-group mb-5">
+                                {{ form_label(form.message) }}
+                                {{ form_widget(form.message) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <input type="hidden" name="_token" value="{{ csrf_token('form_intention') }}">
+                                {{ form_row(form.submit) }}
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                        <div id="form-message-warning mt-4"></div>
+                        <div id="form-message-success">
+                            Your message was sent, thank you!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-info h-100"
+                         style="background-image: url({{ asset('assets/images/contact_us/map.png') }})">
+                        <a href="https://www.google.com/maps" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

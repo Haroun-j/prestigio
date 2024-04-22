@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="titlepage">
+                <h2>Nos Produits</h2>
+            </div>
+        </div>
+    </div>
+    <div class="slider-container">
+        <div class="slider-wrapper" id="productSlider">
+            {% for product in featuredProducts %}
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 shoe-box" data-product-id="{{ product.id }}">
+                    <div class="container_">
+                        <div class="card">
+                            <div class="sneaker">
+                                <div class="circle"></div>
+                                <img src="{{ asset('assets/images/products/home/' ~ product.name|replace({' ': '-'}) ~ '-cropped.png') }}" alt="{{ product.name }}" class="product-image"/>
+                            </div>
+                            <div class="info">
+                                <h1 class="title" id="{{ product.name|replace({' ': '-'}) }}-title">{{ product.name }}</h1>
+                                <h3 class="description">{{ product.description | slice(0,60) }}. . .</h3>
+                                <div class="colors" style="margin-bottom: 8px;">
+                                    <!-- Active color -->
+                                    <button class="color-button active-color" style="background: {{ product.colorCode }};" data-color-code="{{ product.colorCode }}" data-variation-info='{{ {
+                                        name: product.name,
+                                        description: product.description,
+                                        sizes: product.sizes,
+                                        image: asset('assets/images/products/home/' ~ product.name|replace({' ': '-'}) ~ '-cropped.png')
+                                    }|json_encode }}'></button>                          <!-- Other variations -->
+                                    {% for variation in product.variations %}
+                                        <button class="color-button" style="background: {{ variation.colorCode }};" data-color-code="{{ variation.colorCode }}" data-variation-info='{{ {
+                                            sizes: variation.sizes,
+                                            image: asset('assets/images/products/home/product_variations/' ~ product.name|replace({' ': '-'}) ~ '/' ~ variation.color|replace({' ': '-'}) ~ '-cropped.png')
+                                        }|json_encode }}'></button>
+                                    {% endfor %}
+                                </div>
+                                <div class="sizes">
+                                    {% for size in product.sizes %}
+                                        <button >{{ size.size }}</button>
+                                    {% endfor %}
+                                </div>
+                                <div class="purchase">
+                                    <button>Acheter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <button id="slidePrev"></button>
+    <button id="slideNext"></button>
+</div>
+<link rel="stylesheet" href="{{ asset('assets/css/products/home/products_style.css') }}">
+<style>
+    #Mercurial-Superfly-9-title{
+        font-size: 1.4rem;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const colorButtons = document.querySelectorAll('.color-button');
+        colorButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Skip if the button is already active
+                if (this.classList.contains('active-color')) {
+                    return;
+                }
+
+                const productBox = this.closest('.shoe-box');
+                const variationInfo = JSON.parse(this.dataset.variationInfo);
+
+                // Use the variation-specific image path
+                productBox.querySelector('.product-image').src = variationInfo.image;
+
+                // Update the product description if present in variationInfo
+                if(variationInfo.description) {
+                    productBox.querySelector('.description').textContent = variationInfo.description.slice(0, 60) + '...';
+                }
+
+                // Clear and update sizes
+                const sizesContainer = productBox.querySelector('.sizes');
+                sizesContainer.innerHTML = ''; // Clear existing buttons
+                if(variationInfo.sizes && Array.isArray(variationInfo.sizes)) {
+                    variationInfo.sizes.forEach(size => {
+                        const sizeButton = document.createElement('button');
+                        sizeButton.textContent = size.size;
+                        sizesContainer.appendChild(sizeButton);
+                    });
+                }
+
+                // Update active color
+                productBox.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('active-color'));
+                this.classList.add('active-color');
+            });
+        });
+    });
+
+</script>
+<script src="{{ asset('assets/js/products/home/products_script.js') }}"></script>
+

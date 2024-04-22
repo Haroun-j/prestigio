@@ -4,6 +4,7 @@ namespace App\Controller\EasyAdmin;
 
 use App\Entity\AvailableSize;
 use App\Entity\Category;
+use App\Entity\Contact;
 use App\Entity\Coupons;
 use App\Entity\Orders;
 use App\Entity\Product;
@@ -50,12 +51,13 @@ class DashboardController extends AbstractDashboardController
     {
 
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Variations des produits', 'fas fa-list', ProductVariation::class);
-        yield MenuItem::linkToCrud('Tailles Dispo', 'fas fa-list', ProductSize::class);
-        yield MenuItem::linkToCrud('Commandes', 'fas fa-list', Orders::class);
-        yield MenuItem::linkToCrud('Coupons', 'fas fa-list', Coupons::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
+        yield MenuItem::linkToCrud('Categories', 'fa-solid fa-table-cells', Category::class);
+        yield MenuItem::linkToCrud('Produits', 'fa-solid fa-store', Product::class);
+        yield MenuItem::linkToCrud('Variations des produits', 'fa-solid fa-palette', ProductVariation::class);
+        yield MenuItem::linkToCrud('Tailles Dispo', 'fa-solid fa-maximize', ProductSize::class);
+        yield MenuItem::linkToCrud('Commandes', 'fa-solid fa-dolly', Orders::class);
+        yield MenuItem::linkToCrud('Coupons', 'fa-solid fa-money-bill', Coupons::class);
+        yield MenuItem::linkToCrud('Contact', 'fa-regular fa-comments', Contact::class);
     }
 }

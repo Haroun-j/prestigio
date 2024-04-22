@@ -46,6 +46,8 @@
                     ->allowDelete(),
                 TextField::new('color','Couleur')
                     ->hideOnIndex(),
+                TextField::new('colorCode','Code Couleur')
+                    ->hideOnIndex(),
                 NumberField::new('Weight','Poids ( g )')
                     ->hideOnIndex(),
                 textField::new('CountryOfOrigin','Pays d\'Origine')

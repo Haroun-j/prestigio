@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="titlepage">
-                    <h2>Nos Marques</h2>
+                    <h2>NOS MARQUES</h2>
                     <span>looking at its layout. The point of using Lorem Ipsumletters, as opposed to usingl</span>
                 </div>
             </div>
@@ -21,25 +21,63 @@
         </button>
         <div class="category-container">
             <div class="box">
-                <h2 class="name">Nike Air Max</h2>
-                <a href="https://codepen.io/krautgti" class="buy">Découvrir</a>
-                <div class="circle"></div>
-                <img class="product" src="https://assets.codepen.io/7773162/green.png"/>
+                <h2 class="name">Nike</h2>
+                <a href="#" class="buy">Découvrir</a>
+                <div class="circle"></div> {# you can try this too #0b38259e #}
+                <img class="product" src="{{ asset('assets/images/products/nike_brand_showcase.png') }}"
+                     alt="NIKE_Shoes"/>
             </div>
-            <div class="box">
-                <h2 class="name">Nike Air Max</h2>
-                <a href="https://codepen.io/krautgti" class="buy">Découvrir</a>
+            <div class="box second_brand">
+                <h2 class="name">Adidas</h2>
+                <a href="#" class="buy">Découvrir</a>
                 <div class="circle"></div>
-                <img class="product" src="https://assets.codepen.io/7773162/blue.png"/>
+                <img class="product" src="{{ asset('assets/images/products/Racer_TR23_.png') }}" alt="ADIDAS_Shoes"/>
             </div>
-            <div class="box">
-                <h2 class="name">Nike Air Max</h2>
-                <a href="https://codepen.io/krautgti" class="buy">Découvrir</a>
+            <div class="box third_brand">
+                <h2 class="name">Louis Vuitton</h2>
+                <a href="#" class="buy">Découvrir</a>
                 <div class="circle"></div>
-                <img class="product" src="https://assets.codepen.io/7773162/red.png"/>
+                <img class="product" src="{{ asset('assets/images/products/Louis_Vuitton_brand_showcase.png') }}"
+                     alt="LV_Shoes"/>
             </div>
             <script src="https://assets.codepen.io/7773162/vanilla-tilt.min.js"></script>
             <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    // Select all boxes
+                    const boxes = document.querySelectorAll('.box');
+
+                    // Class to mimic hover effects
+                    const hoverClass = 'force-hover';
+
+                    // Apply the forced hover class to all boxes initially
+                    boxes.forEach(box => box.classList.add(hoverClass));
+
+                    // Listen for mouse enter and leave on each box
+                    boxes.forEach(box => {
+                        box.addEventListener('mouseenter', () => {
+                            // When the user actually hovers, remove the forced hover effect
+                            box.classList.remove(hoverClass);
+                        });
+
+                        box.addEventListener('mouseleave', () => {
+                            // Once the user's mouse leaves the box, reapply the forced hover effect
+                            box.classList.add(hoverClass);
+                        });
+                    });
+                });
+            </script>
+
+            <script>
+                document.querySelectorAll('.box').forEach(box => {
+                    box.addEventListener('mouseenter', () => {
+                        box.style.animation = 'none';
+                    });
+
+                    box.addEventListener('mouseleave', () => {
+                        box.style.animation = '';
+                    });
+                });
+
                 VanillaTilt.init(document.querySelectorAll(".box"), {
                     max: 15,
                     speed: 300,

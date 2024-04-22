@@ -9,6 +9,7 @@
     </div>
 </div>
 <div class="app">
+    <div class="promo-badge">-50%</div>
     <div class="cards">
         <div class="card-item flip-card">
             <div class="flip-card-inner">
@@ -268,6 +269,37 @@
         </div>
     </div>
 </div>
+<style>
+    .promo-badge {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 50px;
+        font-size: 45px;
+        font-weight: bold;
+        z-index: 10;
+        /* Animation */
+        animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+        }
+        50% {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px 10px rgba(255, 0, 0, 0);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+        }
+    }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
