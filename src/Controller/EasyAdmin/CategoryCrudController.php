@@ -27,7 +27,7 @@ class CategoryCrudController extends AbstractCrudController
             ->onlyOnIndex(),
             TextField::new('label','Label'),
             CollectionField::new('products', 'Produits associées')
-                ->useEntryCrudForm(ProductCrudController::class)
+                ->useEntryCrudForm(FeaturedProductsCrudController::class)
                 ->allowDelete(true)
                 ->allowAdd(true),
             DateField::new('createdAt','Date de Création')

@@ -20,7 +20,7 @@ class MainController extends AbstractController
         $featuredProductsData = [];
         
         foreach ($featuredProducts as $featuredProduct) {
-            $product = $featuredProduct->getRelation();
+            $product = $featuredProduct->getProduct();
             $productVariations = $product->getProductVariations();
             $variationsData = [];
             $ProductSizesData = [] ;

@@ -14,7 +14,7 @@ class FeaturedProduct
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Product::class,inversedBy: 'featuredProducts')]
-    private ?Product $product = null;
+    private ?Product $product ;
 
     #[ORM\Column(type : 'integer')]
     #[ORM\GeneratedValue(strategy : 'AUTO')]
@@ -25,12 +25,12 @@ class FeaturedProduct
         return $this->id;
     }
 
-    public function getRelation(): ?Product
+    public function getProduct(): Product
     {
         return $this->product;
     }
 
-    public function setRelation(?Product $product): static
+    public function setProduct(Product $product): static
     {
         $this->product = $product;
 

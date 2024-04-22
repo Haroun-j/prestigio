@@ -6,6 +6,7 @@ use App\Entity\AvailableSize;
 use App\Entity\Category;
 use App\Entity\Contact;
 use App\Entity\Coupons;
+use App\Entity\FeaturedProduct;
 use App\Entity\Orders;
 use App\Entity\Product;
 use App\Entity\ProductSize;
@@ -59,5 +60,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Commandes', 'fa-solid fa-dolly', Orders::class);
         yield MenuItem::linkToCrud('Coupons', 'fa-solid fa-money-bill', Coupons::class);
         yield MenuItem::linkToCrud('Contact', 'fa-regular fa-comments', Contact::class);
+        yield MenuItem::linkToCrud('Produits en tendance', 'fa-solid fa-medal', FeaturedProduct::class);
     }
 }

@@ -24,7 +24,7 @@
                                     <li class="last"><a href="#"><img
                                                     src="{{ asset('assets/images/search_icon.png') }}" alt="icon"/></a>
                                     </li>
-                                    <li><a href="{{ app.User ? 'logout' : 'login-register' }}"
+                                    <li><a href="{{ app.User ? 'logout' : '/public/index.php/login-register' }}"
                                            @click="isOpen = false">
                                             {{ app.User ? 'Logout' : 'Login' }}
                                         </a>

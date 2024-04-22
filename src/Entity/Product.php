@@ -353,8 +353,8 @@ class Product
     {
         if ($this->featuredProducts->removeElement($featuredProduct)) {
             // set the owning side to null (unless already changed)
-            if ($featuredProduct->getRelation() === $this) {
-                $featuredProduct->setRelation(null);
+            if ($featuredProduct->getProduct() === $this) {
+                $featuredProduct->setProduct(null);
             }
         }
 
