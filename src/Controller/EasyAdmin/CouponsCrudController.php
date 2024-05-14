@@ -4,7 +4,6 @@
     
     use App\Entity\Category;
     use App\Entity\Coupons;
-    use App\Entity\Orders;
     use App\Entity\Product;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -14,7 +13,6 @@
     use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-    use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
     

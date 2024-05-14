@@ -3,7 +3,6 @@
         <div class="col-md-12 ">
             <div class="titlepage">
                 <h2>Notre Selection Pour Vous</h2>
-{#                <span>looking at its layout. The point of using Lorem Ipsumletters, as opposed to usingl</span>#}
             </div>
         </div>
     </div>
@@ -306,8 +305,8 @@
     document.addEventListener('DOMContentLoaded', function () {
         // Color selection
         document.querySelectorAll('.card-item-colors--list .color').forEach(function (color) {
-            color.addEventListener('click', function (event) {
-                var list = this.parentElement.querySelectorAll('.color');
+            color.addEventListener('click', function () {
+                const list = this.parentElement.querySelectorAll('.color');
                 list.forEach(function (c) {
                     c.removeAttribute('id');
                 });
@@ -317,8 +316,8 @@
 
         // Size selection
         document.querySelectorAll('.card-item-sizes--list span').forEach(function (span) {
-            span.addEventListener('click', function (event) {
-                var list = this.parentElement.querySelectorAll('span');
+            span.addEventListener('click', function () {
+                const list = this.parentElement.querySelectorAll('span');
                 list.forEach(function (size) {
                     size.removeAttribute('id');
                 });
@@ -329,7 +328,7 @@
 
 
     function addToCart(element) {
-        var index = element.className.match(/addToCartButton(\d+)/)[1];
+        const index = element.className.match(/addToCartButton(\d+)/)[1];
         alert("Item " + index + " added to cart");
     }
 
@@ -352,19 +351,14 @@
     });
 
     function toggleCard(element) {
-        var parentDiv = element.closest('.flip-card-inner');
+        const parentDiv = element.closest('.flip-card-inner');
         parentDiv.classList.toggle('flip-card-active');
     }
 
     function goBack(element) {
-        var parentDiv = element.closest('.flip-card-active');
+        const parentDiv = element.closest('.flip-card-active');
         if (parentDiv) {
             parentDiv.classList.remove('flip-card-active');
         }
     }
 </script>
-
-
-{# {% block Root %} #}
-{# <div id="root"></div> #}
-{# {% endblock %} #}

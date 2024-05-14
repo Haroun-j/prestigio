@@ -17,7 +17,6 @@
     use Symfony\Component\Form\Extension\Core\Type\NumberType;
     use Symfony\Component\HttpFoundation\RedirectResponse;
     use Symfony\Component\Routing\Annotation\Route;
-    use Symfony\Component\Validator\Constraints as Assert;
     
     class ContactCrudController extends AbstractCrudController
     {
@@ -28,7 +27,7 @@
         
         public function configureFields (string $pageName): iterable
         {
-            $fields = [
+            return [
                 TextField::new('fullname', 'Nom Complet')
                     ->setDisabled(),
                 EmailField::new('email', 'Email'),
@@ -50,8 +49,6 @@
                 BooleanField::new('isClient', 'Est Client')
                     ->setDisabled(),
             ];
-            
-            return $fields;
         }
         
         public function configureActions (Actions $actions): Actions

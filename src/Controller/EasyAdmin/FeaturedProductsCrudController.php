@@ -20,7 +20,7 @@
         
         public function configureFields (string $pageName): iterable
         {
-            $fields = [
+            return [
                 IdField::new('id')->hideOnForm(),
                 AssociationField::new('product', 'Produit')
                     ->setFormTypeOptions([
@@ -30,8 +30,6 @@
                 NumberField::new('displayOrder', 'Ordre d\'affichage')
                 ->onlyOnIndex(),
             ];
-            
-            return $fields;
         }
         
         public function configureActions (Actions $actions): Actions

@@ -17,7 +17,7 @@ class TestController extends AbstractController
         $card = [
             'product_name' => 'Your Product',
             'product_card_colors' => ['#ff0000', '#00ff00'],
-            'thubnail' => '/path/to/thumbnail.jpg',
+            'thumbnail' => '/path/to/thumbnail.jpg',
             'stars' => 3,
             'sizes' => ['S', 'M', 'L'],
             'colors' => ['#ff0000', '#00ff00', '#0000ff'],

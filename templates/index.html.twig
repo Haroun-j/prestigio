@@ -67,55 +67,55 @@
         <!-- begin section -->
 
         <div class="section">
-            <footer>
-                <div  class="footer">
-                    <div class="container">
-                        <div class="row pdn-top-30">
-                            <div class="col-md-12 ">
-                                <div class="footer-box">
-                                    <div class="headinga">
-                                        <h3>Address</h3>
-                                        <span>Demo Store .New York  United States</span>
-                                        <p>(+71 98765348)</p>
-                                    </div>
-                                    <ul class="location_icon">
-                                        <li><a href="#"><img src="{{ asset('assets/icon/facebook.png') }}"></a></li>
-                                        <li><a href="#"><img src="{{ asset('assets/icon/Twitter.png') }}"></a></li>
-                                        <li><a href="#"><img src="{{ asset('assets/icon/linkedin.png') }}"></a></li>
-                                        <li><a href="#"><img src="{{ asset('assets/icon/instagram.png') }}"></a></li>
-                                    </ul>
-                                    <div class="menu-bottom">
-                                        <ul class="link">
-                                            <li><a href="#">Home</a></li>
-                                            <li><a href="#">About</a></li>
-                                            <li><a href="#"> Content</a></li>
-                                            <li><a href="#">Gallery</a></li>
-                                            <li><a href="#"> Contact us</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+            <footer class="footer-container">
+                <div class="footer">
+                    <div class="waves">
+                        <div class="wave" id="wave1"></div>
+                        <div class="wave" id="wave2"></div>
+                        <div class="wave" id="wave3"></div>
+                        <div class="wave" id="wave4"></div>
                     </div>
-                    <div class="copyright">
-                        <div class="container">
-                            <p>Copyright 2024 All Rights Reserved Design By <a href="#">Haroun Joudi</a></p>
-                        </div>
-                    </div>
+                    <ul class="social-icon">
+                        <li class="social-icon__item"><a class="social-icon__link" href="#">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a></li>
+                        <li class="social-icon__item"><a class="social-icon__link" href="#">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a></li>
+                        <li class="social-icon__item"><a class="social-icon__link" href="#">
+                                <ion-icon name="logo-linkedin"></ion-icon>
+                            </a></li>
+                        <li class="social-icon__item"><a class="social-icon__link" href="#">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a></li>
+                    </ul>
+                    <ul class="menu">
+                        <li class="menu__item"><a class="menu__link" href="#">Home</a></li>
+                        <li class="menu__item"><a class="menu__link" href="#">About</a></li>
+                        <li class="menu__item"><a class="menu__link" href="#">Services</a></li>
+                        <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
+                        <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
+
+                    </ul>
+                    <p>&copy;2024 Haroun Joudi | All Rights Reserved</p>
                 </div>
             </footer>
+
         </div>
         <!-- end section -->
     </div>
     <!-- end fullpage -->
     <!--------------------------------------- Javascript files --------------------------------------->
     {% include './Imports/all-javascript.html.twig' %}
-    <!-- Import JavaScript files -->
+
     <!-- Import JavaScript files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.extensions.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-
+    <!-- Footer-->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Check screen width
@@ -125,7 +125,9 @@
             if (screenWidth > 600) {
                 // initialize fullpage.js
                 new fullpage("#fullpage", {
+                    autoScrolling: true,
                     scrollBar: true,
+                    scrollOverflow: true,
                     responsiveWidth: 400,
                     navigation: true,
                     navigationTooltips: ["Accueil", "Gallerie", "Marques", "Partenaires", "Produits","En Promo","Contact"],
@@ -135,12 +137,12 @@
                     scrollingSpeed: 1000,
                     easingcss3: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
                     dragAndMove: true,
-                    afterLoad: function(origin, destination, direction) {
+                    afterLoad: function(origin, destination) {
                         var sectionAnchor = destination.anchor;
                         var navMenuLinks = document.querySelectorAll('.fp-tooltip');
                         if (sectionAnchor === 'brands' || sectionAnchor === 'partners' || sectionAnchor === 'products') {
                             navMenuLinks.forEach(function(link) {
-                                link.style.color = '#007bff';    /*--#007bff--*/
+                                link.style.color = '#007bff';
                             });
                         }else if(sectionAnchor === 'promo'){
                             navMenuLinks.forEach(function(link) {

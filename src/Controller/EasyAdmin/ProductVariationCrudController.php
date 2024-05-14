@@ -2,7 +2,6 @@
     
     namespace App\Controller\EasyAdmin;
     
-    use App\Entity\Product;
     use App\Entity\ProductVariation;
     use App\Form\ProductSizeType;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -10,7 +9,6 @@
     use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
     use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
     use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-    use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;

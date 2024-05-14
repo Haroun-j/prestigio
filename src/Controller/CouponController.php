@@ -3,6 +3,7 @@
     namespace App\Controller;
     
     use App\Repository\CouponsRepository;
+    use DateTime;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@
                 return $this->json(['message' => 'Coupon non valide']);
             }
             
-            if (new \DateTime() > $coupon->getValidity()) {
+            if (new DateTime() > $coupon->getValidity()) {
                 return $this->json(['message' => 'Ce Coupon est expiré.']);
             }
             

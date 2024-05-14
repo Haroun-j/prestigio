@@ -13,7 +13,6 @@
     use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-    use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -62,8 +61,8 @@
                 BooleanField::new('status','Status'),
                 CollectionField::new('productVariations', 'Variations')
                     ->useEntryCrudForm(ProductVariationCrudController::class)
-                    ->allowDelete(true)
-                    ->allowAdd(true),
+                    ->allowDelete()
+                    ->allowAdd(),
             ];
         }
         public function configureActions(Actions $actions): Actions

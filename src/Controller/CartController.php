@@ -6,6 +6,8 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProductRepository $productRepository)
+    public function index(SessionInterface $session, ProductRepository $productRepository): Response
     {
         $panier = $session->get('panier', []);
         // On initialise des variables
@@ -35,7 +37,7 @@ class CartController extends AbstractController
 
 
     #[Route('/add/{id}', name: 'add')]
-    public function add(Product $product, SessionInterface $session, FlashyNotifier $flashy)
+    public function add(Product $product, SessionInterface $session, FlashyNotifier $flashy): RedirectResponse
     {
         //On récupère l'id du produit
         $id = $product->getId();
@@ -60,7 +62,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/remove/{id}', name: 'remove')]
-    public function remove(Product $product, SessionInterface $session)
+    public function remove(Product $product, SessionInterface $session): RedirectResponse
     {
         //On récupère l'id du produit
         $id = $product->getId();
@@ -84,7 +86,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(Product $product, SessionInterface $session)
+    public function delete(Product $product, SessionInterface $session): RedirectResponse
     {
         //On récupère l'id du produit
         $id = $product->getId();
@@ -103,7 +105,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/empty', name: 'empty')]
-    public function empty(SessionInterface $session)
+    public function empty(SessionInterface $session): RedirectResponse
     {
         $session->remove('panier');
 

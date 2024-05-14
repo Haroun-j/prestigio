@@ -192,21 +192,22 @@
         $(document).ready(function () {
             $('#check-coupon-btn').click(function (e) {
                 e.preventDefault();
-                var couponCodeInput = $('input[name="promo"]');
+                const couponCodeInput = $('input[name="promo"]');
 
                 if (!couponCodeInput[0].checkValidity()) {
                     couponCodeInput[0].reportValidity();
                     return;
                 }
 
-                var couponCode = couponCodeInput.val();
+                const couponCode = couponCodeInput.val();
                 $.ajax({
                     url: '{{ path('check_coupon') }}',
                     type: 'POST',
                     data: {'couponCode': couponCode},
                     success: function (data) {
-                        var infoHtml = '';
-                        $('.coupon-infos').html('');
+                        const couponInfos = $('.coupon-infos');
+                        let infoHtml = '';
+                        couponInfos.html('');
                         if (data.message === 'Coupon valide') {
                             if (data.description) {
                                 infoHtml += `<p><strong>${data.description}</strong></p>`;
@@ -227,33 +228,33 @@
                         } else {
                             infoHtml += `<p class="error-msg">${data.message}</p>`;
                         }
-                        $('.coupon-infos').html(infoHtml).show();
+                        couponInfos.html(infoHtml).show();
 
-                        var subtotal = parseFloat('{{ total }}');
-                        var shippingDefault = 5; // Default shipping fee
-                        var taxRate = 0.20; // Default tax rate
-                        var tax = subtotal * taxRate; // Calculate original tax
-                        var promo = 0; // Initialize promo discount
+                        const subtotal = parseFloat('{{ total }}');
+                        let shippingDefault = 5; // Default shipping fee
+                        const taxRate = 0.20; // Default tax rate
+                        const tax = subtotal * taxRate; // Calculate original tax
+                        let promo = 0; // Initialize promo discount
 
                         if (data.type === 'onProduct' && data.onProduct) {
-                            var productFound = false;
+                            let productFound = false;
                             $('ul.cartWrap li.items').each(function () {
-                                var productName = $(this).find('h3').text();
+                                const productName = $(this).find('h3').text();
                                 if (productName === data.onProduct) {
                                     productFound = true;
-                                    var productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
-                                    var quantity = parseInt($(this).find('.quantityControls input.qty').val());
-                                    var totalProductPrice = productPrice * quantity; // Total price for this product
-                                    var discountAmount = totalProductPrice * (parseFloat(data.discount) / 100); // Discount based on the total price
+                                    const productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
+                                    const quantity = parseInt($(this).find('.quantityControls input.qty').val());
+                                    const totalProductPrice = productPrice * quantity; // Total price for this product
+                                    const discountAmount = totalProductPrice * (parseFloat(data.discount) / 100); // Discount based on the total price
                                     promo += discountAmount;
                                 }
                             });
                             if (!productFound) {
-                                $('.coupon-infos').html(`<p class="error-msg">Ce coupon ne peut pas être appliqué car le produit spécifié n'existe pas dans votre panier.</p>`).show();
+                                couponInfos.html(`<p class="error-msg">Ce coupon ne peut pas être appliqué car le produit spécifié n'existe pas dans votre panier.</p>`).show();
                                 return;
                             }
                         } else if (data.type === 'onTaxe') {
-                            var taxDiscountPercent = parseFloat(data.discount);
+                            const taxDiscountPercent = parseFloat(data.discount);
                             promo = tax * (taxDiscountPercent / 100); // Calculate promo from tax
                         } else if (data.type === 'onShipping') {
                             promo = parseFloat(data.discount);
@@ -264,13 +265,13 @@
                         } else if (data.type === 'onOrder') {
                             promo = parseFloat(data.discount); // Apply discount directly to the total
                         } else if (data.type === 'onCategory') {
-                            var categoryTotal = 0;
+                            let categoryTotal = 0;
 
                             $('ul.cartWrap li.items').each(function () {
-                                var categoryName = $(this).attr('data-category');
+                                const categoryName = $(this).attr('data-category');
                                 if (categoryName === data.onCategory) {
-                                    var productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
-                                    var quantity = parseInt($(this).find('.quantityControls input.qty').val());
+                                    const productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
+                                    const quantity = parseInt($(this).find('.quantityControls input.qty').val());
                                     categoryTotal += productPrice * quantity;
                                 }
                             });
@@ -278,7 +279,7 @@
                             promo = categoryTotal * (parseFloat(data.discount) / 100);
                         }
 
-                        var total = subtotal + shippingDefault + tax - promo;
+                        const total = subtotal + shippingDefault + tax - promo;
 
                         $('#subtotal').text(`${subtotal.toFixed(2)} € HT`);
                         $('#shipping').text(`${shippingDefault.toFixed(2)} €`);

@@ -35,11 +35,9 @@
 
 </head>
 <body>
-{#    {% if app.user and not app.user.isVerified %}#}
-{#        {% include './security/phone-verification.html.twig' %}#}
-{#    {% else %}#}
-{#        {% block home %}{% endblock %}#}
-{#    {% endif %}#}
+    {% if app.user and app.user.isVerified or not app.user %}
+        {% block home %}{% endblock %}
+    {% endif %}
 </body>
 </html>
 

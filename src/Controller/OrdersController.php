@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Coupons;
 use App\Entity\Orders;
 use App\Entity\OrdersDetails;
 use App\Repository\CouponsRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 #[Route('/commandes', name: 'app_orders_')]
 class OrdersController extends AbstractController
 {
-    private $em;
-    private $stripeClient;
+    private EntityManagerInterface $em;
+    private StripeClient $stripeClient;
     
     public function __construct(EntityManagerInterface $em)
     {
@@ -91,6 +91,9 @@ class OrdersController extends AbstractController
         return $this->redirectToRoute('app_orders_checkout');
     }
     
+    /**
+     * @throws ApiErrorException
+     */
     #[Route('/checkout', name: 'checkout')]
     public function checkout(SessionInterface $session, UrlGeneratorInterface $urlGenerator): Response
     {
@@ -99,7 +102,7 @@ class OrdersController extends AbstractController
             $this->addFlash('error', 'Votre panier est vide.');
             return $this->redirectToRoute('cart_index');
         }
-        $amount = 50; /*$this->calculateTotalAmount($panier);*/
+        $amount = 5; /*$this->calculateTotalAmount($panier);*/
         
         $checkoutSession = $this->stripeClient->checkout->sessions->create([
             'line_items' => [[
@@ -121,6 +124,9 @@ class OrdersController extends AbstractController
         return $this->redirect($checkoutSession->url);
     }
     
+    /**
+     * @throws ApiErrorException
+     */
     #[Route('/success', name: 'success')]
     public function success(Request $request): Response
     {

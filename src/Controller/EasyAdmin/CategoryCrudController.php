@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CategoryCrudController extends AbstractCrudController
@@ -28,8 +27,8 @@ class CategoryCrudController extends AbstractCrudController
             TextField::new('label','Label'),
             CollectionField::new('products', 'Produits associées')
                 ->useEntryCrudForm(FeaturedProductsCrudController::class)
-                ->allowDelete(true)
-                ->allowAdd(true),
+                ->allowDelete()
+                ->allowAdd(),
             DateField::new('createdAt','Date de Création')
                 ->setFormat('dd-MM-yyyy HH:mm')
                 ->onlyOnIndex(),

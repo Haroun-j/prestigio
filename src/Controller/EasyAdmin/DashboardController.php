@@ -2,7 +2,6 @@
 
 namespace App\Controller\EasyAdmin;
 
-use App\Entity\AvailableSize;
 use App\Entity\Category;
 use App\Entity\Contact;
 use App\Entity\Coupons;

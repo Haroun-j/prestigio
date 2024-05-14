@@ -16,35 +16,13 @@
                                result="goo"/>
             </filter>
         </defs>
-        <mask id="mask" x="0" y="0">
-            <g style="filter: url(#gooey)">
-                <circle class="blob" cx="10%" cy="10%" r="80" fill="white" stroke="white"/>
-                <circle class="blob" cx="50%" cy="10%" r="40" fill="white" stroke="white"/>
-                <circle class="blob" cx="17%" cy="15%" r="70" fill="white" stroke="white"/>
-                <circle class="blob" cx="90%" cy="20%" r="120" fill="white" stroke="white"/>
-                <circle class="blob" cx="30%" cy="25%" r="30" fill="white" stroke="white"/>
-                <circle class="blob" cx="50%" cy="60%" r="80" fill="white" stroke="white"/>
-                <circle class="blob" cx="70%" cy="90%" r="10" fill="white" stroke="white"/>
-                <circle class="blob" cx="90%" cy="60%" r="90" fill="white" stroke="white"/>
-                <circle class="blob" cx="30%" cy="90%" r="80" fill="white" stroke="white"/>
-                <circle class="blob" cx="10%" cy="10%" r="80" fill="white" stroke="white"/>
-                <circle class="blob" cx="50%" cy="10%" r="20" fill="white" stroke="white"/>
-                <circle class="blob" cx="17%" cy="15%" r="70" fill="white" stroke="white"/>
-                <circle class="blob" cx="40%" cy="20%" r="120" fill="white" stroke="white"/>
-                <circle class="blob" cx="30%" cy="25%" r="30" fill="white" stroke="white"/>
-                <circle class="blob" cx="80%" cy="60%" r="80" fill="white" stroke="white"/>
-                <circle class="blob" cx="17%" cy="10%" r="100" fill="white" stroke="white"/>
-                <circle class="blob" cx="40%" cy="60%" r="90" fill="white" stroke="white"/>
-                <circle class="blob" cx="10%" cy="50%" r="80" fill="white" stroke="white"/>
-            </g>
-        </mask>
+        {% include './security/phone_verification_bg_mask.html.twig' %}
     </svg>
 
     <form id="msform">
 
-
         <!-- step 1 -->
-        <fieldset>
+        <fieldset data-fieldset="step-1">
             <h2 class="h2">Validation par SMS</h2>
             <h3 class="h3">Merci de saisir votre numéro de téléphone </h3>
 
@@ -52,25 +30,25 @@
                    placeholder="06 12 13 14 15"/>
 
             <input type="button" name="next" class="next action-button" id="sendSmsAction" value="Send"
-                   data-url="{{ path('send_sms') }}" onclick="sendCode()"/>
+                   data-url="{{ path('send_sms') }}" />
 
         </fieldset>
 
         <!-- step 2 -->
-        <fieldset>
+        <fieldset data-fieldset="step-2">
             <h2 class="h2">We sent your code</h2>
             <h3 class="h3">Enter the confirmation code below</h3>
             <input type="text" id="code-input" name="twitter" placeholder="code de 6 chiffres"/>
-            <input type="button" name="resend-code" class="resend-code" onclick="sendCode()" value="Renvoyer le code"/>
+            <input type="button" name="resend-code" class="resend-code" id="resendSmsAction" value="Renvoyer le code"/>
             <input type="button" name="Submit" class="next action-button" id="validateCodeAction"
-                   data-url="{{ path('verify_code_and_set_status') }}" onclick="validateCode()" value="Valider"/>
+                   data-url="{{ path('verify_code_and_set_status') }}"  value="Valider"/>
         </fieldset>
 
         <!-- step 3 -->
-        <fieldset>
-            <h1 class="h1">Nice Job!</h1>
-            <h3 class="h3">Your finished</h3>
-            <input type="button" name="Continue" class="next action-button" value="Continuer"/>
+        <fieldset data-fieldset="step-3">
+            <h1 class="h1">Bravo !</h1>
+            <h3 class="h3">Votre numéro a été bien vérifié.</h3>
+            <input type="button" name="Continue" class="next action-button" id="continueButton" value="Continuer"/>
         </fieldset>
     </form>
     <script src="{{ asset('assets/js/verification-code/script.js') }}"></script>

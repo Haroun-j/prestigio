@@ -2,15 +2,12 @@
     
     namespace App\Controller\EasyAdmin;
     
-    use App\Entity\AvailableSize;
     use App\Entity\ProductSize;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
     use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
     use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-    use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-    use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
     use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
     class ProductSizesCrudController extends AbstractCrudController
     {

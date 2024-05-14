@@ -4,6 +4,7 @@
     
     use App\Service\SmsGenerator;
     use Doctrine\ORM\EntityManagerInterface;
+    use Exception;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,12 @@
         #[Route('/phone-verification', name: 'phone_verification')]
         public function renderTemplate (Request $request, SmsGenerator $smsGenerator, SessionInterface $session): Response
         {
-            return $this->render('./security/phone-verification.html.twig');
+            $user = $this->getUser();
+            if ($user && $user->isVerified()) {
+                return $this->redirectToRoute('home');
+            }
+            
+            return $this->render('./security/phone_verification.html.twig');
         }
         
         #[Route('/send-sms', name: 'send_sms', methods: ['POST'])]
@@ -37,7 +43,7 @@
                 
                 return $this->json(['code' => $code]);
                 
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 return $this->json(['message' => 'Failed to send SMS', 'error' => $e->getMessage()], 500);
             }
         }
@@ -45,30 +51,24 @@
         #[Route('/verify-code', name: 'verify_code_and_set_status', methods: ['POST'])]
         public function verifyCodeAndSetStatus (Request $request, EntityManagerInterface $entityManager): Response
         {
-            // Get the currently authenticated user
             $user = $this->getUser();
             
-            // Check if the user is authenticated and if their status is not already verified
             if ($user && !$user->isVerified()) {
-                // Assuming you have stored the verification code in the session
                 $enteredCode = $request->request->get('code');
                 $session = $request->getSession();
                 $sentCode = $session->get('verification_code');
                 
-                // Compare the entered code with the sent code
                 if ($enteredCode == $sentCode) {
-                    // Update user status to verified
                     $user->setIsVerified(true);
                     
-                    // Persist changes to the database
                     $entityManager->persist($user);
                     $entityManager->flush();
                     
-                    // Redirect the user to a specific route upon successful verification
-                    return $this->redirectToRoute('home');
+                    return $this->json(['message'=>'success']);
                 }
+                return $this->json(['message' => 'User already verified or not logged in'], 400);
             }
-            
             return $this->json(['message' => 'Code incorrect !']);
+           
         }
     }

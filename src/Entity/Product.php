@@ -81,7 +81,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductSize::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $productSizes;
 
-    #[ORM\OneToMany(mappedBy: 'relation', targetEntity: FeaturedProduct::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: FeaturedProduct::class)]
     private Collection $featuredProducts;
 
     public function __construct()
@@ -343,7 +343,7 @@ class Product
     {
         if (!$this->featuredProducts->contains($featuredProduct)) {
             $this->featuredProducts->add($featuredProduct);
-            $featuredProduct->setRelation($this);
+            $featuredProduct->setFeaturedProduct($this);
         }
 
         return $this;
