@@ -1,145 +1,99 @@
 {# {% extends 'base.html.twig' %} #}
 
 {% block body %}
-    <link rel = "stylesheet" href = "{{ asset('assets/css/cart/cart.css') }}">
-    {#    <main class="container"> #}
-    {#        <section class="row"> #}
-    {#            <div class="col-12"> #}
-    {#                <h1>Panier</h1> #}
-    {#                <table class="table"> #}
-    {#                    <thead> #}
-    {#                    <tr> #}
-    {#                        <th>Produit</th> #}
-    {#                        <th>Prix</th> #}
-    {#                        <th>Quantité</th> #}
-    {#                        <th>Total</th> #}
-    {#                        <th>Action</th> #}
-    {#                    </tr> #}
-    {#                    </thead> #}
-    {#                    <tbody> #}
-    {#                    {% for element in data %} #}
-    {#                        <tr> #}
-    {#                            <td>{{ element.product.name }}</td> #}
-    {#                            <td>{{ element.product.price }} €</td> #}
-    {#                            <td>{{ element.quantity }}</td> #}
-    {#                            <td>{{ element.quantity * element.product.price }} €</td> #}
-    {#                            <td> #}
-    {#                                <a href="{{ path('cart_add', {id: element.product.id}) }}" class="btn btn-success">+</a> #}
-    {#                                <a href="{{ path('cart_remove', {id: element.product.id}) }}" class="btn btn-warning">-</a> #}
-    {#                                <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="btn btn-danger">Supprimer</a> #}
-    {#                            </td> #}
-    {#                        </tr> #}
-    {#                    {% else %} #}
-    {#                        <tr> #}
-    {#                            <td colspan="5">Votre panier est vide</td> #}
-    {#                        </tr> #}
-    {#                    {% endfor %} #}
-    {#                    </tbody> #}
-    {#                    <tfoot> #}
-    {#                    <tr> #}
-    {#                        <td colspan="3">Total</td> #}
-    {#                        <td>{{ total }} €</td> #}
-    {#                        <td> #}
-    {#                            <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a> #}
-    {#                        </td> #}
-    {#                    </tr> #}
-    {#                    </tfoot> #}
-    {#                </table> #}
-    {#                <a href="{{ path('app_orders_add') }}" class="btn btn-primary">Valider le panier</a> #}
-    {#            </div> #}
-    {#        </section> #}
-    {#    </main> #}
-    {#    <style> #}
-    {#        .col-12{ #}
-    {#            display: flex; #}
-    {#            justify-content: center; #}
-    {#            flex-direction: column; #}
-    {#            padding: 5rem; #}
-    {#        } #}
-    {#    </style> #}
-    {#    ------------------------------------------------------------ -#}
+    <link rel="stylesheet" href="{{ asset('assets/css/cart/cart.css') }}">
     <body>
-    <div class = "wrap cf">
-        <h1 class = "projTitle">Payer en X2 ou 3X Fois Avec<span>-Prestigio Help Empty Wallet Poor People</span> Service
+    <div class="wrap cf">
+        <h1 class="projTitle">Payer en X2 ou 3X Fois Avec<span>-Prestigio Help Empty Wallet Poor People</span> Service
         </h1>
-        <div class = "heading cf">
+        <div class="heading cf">
             <h1>Mon Panier</h1>
-            <a href = "{{ path('store') }}" class = "continue">Ajouter des Produits</a>
+            <a href="{{ path('store') }}" class="continue">Ajouter des Produits</a>
         </div>
-        <div class = "cart">
-            <ul class = "tableHead">
-                <li class = "prodHeader">Produit</li>
+        <div class="cart">
+            <ul class="tableHead">
+                <li class="prodHeader">Produit</li>
+                <li>Taille</li>
                 <li>Quantité</li>
                 <li>Total</li>
                 <li>Supprimer</li>
             </ul>
-            <ul class = "cartWrap">
+            <ul class="cartWrap">
                 {% for element in data %}
-                    <li class = "items {% if loop.index is even %}even{% else %}odd{% endif %}"
-                        data-category = "{{ element.product.category }}">
-                        <div class = "infoWrap">
-                            <div class = "cartSection">
+                    <li class="items {% if loop.index is even %}even{% else %}odd{% endif %}"
+                        data-category="{{ element.product.category }}">
+                        <div class="infoWrap">
+                            <div class="cartSection">
                                 {#                            <img src="{{ element.product.image }}" alt="" class="itemImg" /> #}
                                 {#                            <p class="itemNumber">#{{ element.product.code }}</p> #}
-                                <h3>{{ element.product.name }}</h3>
-                                <p><input type = "text" class = "qty" placeholder = "{{ element.quantity }}"/> x
-                                                                                                               €{{ element.product.price }}
+                                <a href="{{ path('product_details', {id: element.product.id}) }}" style="text-decoration: none">
+                                    <h3>{{ element.product.name }}</h3>
+                                </a>
+                                <p>
+                                    <input type="text" class="qty" placeholder="{{ element.quantity }}"/>
+                                    x €{{ element.product.price }}
                                 </p>
                                 {#                            <p class="stockStatus">{% if element.product.stock > 0 %}In Stock{% else %}Out of Stock{% endif %}</p> #}
-                                <a href = "{{ path('cart_remove', {id: element.product.id}) }}" class = "qtyBtn">-</a>
-                                <a href = "{{ path('cart_add', {id: element.product.id}) }}" class = "qtyBtn">+</a>
+                                <a href="{{ path('cart_remove', {id: element.product.id, size: element.size}) }}" class="qtyBtn removeBtn">-</a>
+                                <a href="{{ path('cart_add', {id: element.product.id, size: element.size,quantity: 1, source: 'cart'}) }}"
+                                   class="qtyBtn addBtn" >+</a>
                             </div>
-                            <div class = "quantityControls cartSection">
-                                <input type = "text" class = "qty" value = "{{ element.quantity }}"/>
+                            <div class="sizeControls cartSection">
+                                <p>{{ element.size }}</p>
                             </div>
-                            <div class = "prodTotal cartSection">
+                            <div class="quantityControls cartSection">
+                                <input type="text" class="qty" value="{{ element.quantity }}"/>
+                            </div>
+                            <div class="prodTotal cartSection">
                                 <p>€{{ element.quantity * element.product.price }}</p>
                             </div>
-                            <div class = "cartSection removeWrap">
-                                <a href = "{{ path('cart_delete', {id: element.product.id}) }}" class = "remove">x</a>
+                            <div class="cartSection removeWrap">
+                                <a href="{{ path('cart_delete', {id: element.product.id, size: element.size}) }}" class="remove">x</a>
                             </div>
                         </div>
                     </li>
                 {% else %}
-                    <li class = "items">
-                        <div class = "infoWrap">
-                            <div class = "cartSection">
-                                <p colspan = "5">Votre panier est vide</p>
+                    <li class="items">
+                        <div class="infoWrap">
+                            <div class="cartSection">
+                                <p colspan="5">Votre panier est vide</p>
                             </div>
                         </div>
                     </li>
                 {% endfor %}
-
             </ul>
-        </div>
-
-        <div class = "promoCode">
-            <label for = "promo">Coupon ?</label>
-            <label>
-                <input type = "text" name = "promo" placeholder = "Entrer un Code de 10 Chiffres" pattern = "\d{10}"
-                       maxlength = "10" minlength = "10" required/>
-            </label>
-            <a href = "#" id = "check-coupon-btn" class = "btn"></a>
-            <div class = "coupon-infos" style = "display: none">
+            <div class="emptyCart">
+                <a href="{{ path('cart_empty') }}" >Vider le Panier</a>
             </div>
         </div>
-        <div class = "subtotal cf">
+
+        <div class="promoCode">
+            <label for="promo">Coupon ?</label>
+            <label>
+                <input type="text" name="promo" placeholder="Entrer un Code de 10 Chiffres" pattern="\d{10}"
+                       maxlength="10" minlength="10" required/>
+            </label>
+            <a href="#" id="check-coupon-btn" class="btn"></a>
+            <div class="coupon-infos" style="display: none">
+            </div>
+        </div>
+        <div class="subtotal cf">
             <ul>
-                <li class = "totalRow"><span class = "label">Sous-total</span><span class = "value"
-                                                                                    id = "subtotal">{{ total }} € HT</span>
+                <li class="totalRow"><span class="label">Sous-total</span><span class="value"
+                                                                                id="subtotal">{{ total }} € HT</span>
                 </li>
-                <li class = "totalRow"><span class = "label">Livraison</span><span class = "value" id = "shipping">5.00 €</span>
+                <li class="totalRow"><span class="label">Livraison</span><span class="value" id="shipping">5.00 €</span>
                 </li>
-                <li class = "totalRow"><span class = "label">Taxe (20%)</span><span class = "value"
-                                                                                    id = "tax">{{ (total * 0.20) | number_format(2, '.', '') }} €</span>
+                <li class="totalRow"><span class="label">Taxe (20%)</span><span class="value"
+                                                                                id="tax">{{ (total * 0.20) | number_format(2, '.', '') }} €</span>
                 </li>
-                <li class = "totalRow"><span class = "label">Promo</span><span class = "value"
-                                                                               id = "promo">0.00 €</span></li>
-                <li class = "totalRow final"><span class = "label">Total</span><span class = "value"
-                                                                                     id = "total">{{ total + 5 + (total * 0.20) | number_format(2, '.', '') }} €</span>
+                <li class="totalRow"><span class="label">Promo</span><span class="value"
+                                                                           id="promo">0.00 €</span></li>
+                <li class="totalRow final"><span class="label">Total</span><span class="value"
+                                                                                 id="total">{{ total + 5 + (total * 0.20) | number_format(2, '.', '') }} €</span>
                 </li>
-                <li class = "totalRow"><a href = "{{ path('app_orders_add') }}" class = "btn continue">Valider &
-                                                                                                       Payer</a></li>
+                <li class="totalRow"><a href="{{ path('app_orders_add') }}" class="btn continue">Valider &
+                                                                                                 Payer</a></li>
             </ul>
         </div>
 
@@ -155,16 +109,19 @@
         }
 
         .cartSection {
-            width: 35%;
+            width: 27%;
         }
 
         .quantityControls {
             text-align: center;
             width: 15%;
         }
-
+        .sizeControls {
+            text-align: left;
+            width: 12%;
+        }
         .prodTotal {
-            width: 32%;
+            width: 25%;
         }
 
         .removeWrap {
@@ -186,8 +143,34 @@
             background: #f1f102;
             text-align: center;
         }
+        .addBtn{
+            padding: 4px 12px;
+            text-decoration: none;
+            background: #87d992;
+            border-radius: 10px;
+        }
+        .removeBtn{
+            padding: 4px 13px;
+            text-decoration: none;
+            background: #ee9c9c;
+            border-radius: 10px;
+        }
+        .emptyCart{
+            display: flex;
+            justify-content: right;
+        }
+        .emptyCart a{
+            background-color: #ecc0c0;
+            color: white;
+            text-decoration: none;
+            padding: 6px;
+            border-radius: 12px;
+        }
+        .emptyCart a:hover {
+            background-color: #e98686;
+        }
     </style>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#check-coupon-btn').click(function (e) {
@@ -233,7 +216,7 @@
                         const subtotal = parseFloat('{{ total }}');
                         let shippingDefault = 5; // Default shipping fee
                         const taxRate = 0.20; // Default tax rate
-                        const tax = subtotal * taxRate; // Calculate original tax
+                        let tax = subtotal * taxRate; // Calculate original tax
                         let promo = 0; // Initialize promo discount
 
                         if (data.type === 'onProduct' && data.onProduct) {
@@ -255,10 +238,11 @@
                             }
                         } else if (data.type === 'onTaxe') {
                             const taxDiscountPercent = parseFloat(data.discount);
-                            promo = tax * (taxDiscountPercent / 100); // Calculate promo from tax
+                            promo = 0;
+                            tax = 0;
                         } else if (data.type === 'onShipping') {
                             promo = parseFloat(data.discount);
-                            shippingDefault = promo; // Apply discount to shipping
+                            shippingDefault = promo;
                             if (shippingDefault < 0) {
                                 shippingDefault = 0;
                             }

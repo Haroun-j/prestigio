@@ -18,13 +18,14 @@
 
         <div class="card__body">
 
-            <img src="{{ asset('assets/images/user_avatars/payment_success_avatar.jpg') }}" class="card__avatar" alt="Card Avatar">
+            <img src="{{ asset('assets/images/user_avatars/payment_success_avatar.jpg') }}" class="card__avatar"
+                 alt="Card Avatar">
             <div class="card__recipient-info">
                 <p class="card__recipient">{{ customerDetails.name }}</p>
                 <p class="card__email">{{ customerDetails.email }}</p>
             </div>
 
-            <h1 class="card__price"><span>€</span>{{ totalAmount }}<span>.00</span></h1>
+            <h1 class="card__price">{{ (totalAmount / 100) | number_format(2, '.', '') }}<span> €</span></h1>
 
             <p class="card__method"> Methode de Paiement</p>
             <div class="card__payment">

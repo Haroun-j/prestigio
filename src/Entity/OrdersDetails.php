@@ -3,6 +3,7 @@
     namespace App\Entity;
     
     use App\Repository\OrdersDetailsRepository;
+    use Doctrine\DBAL\Types\Types;
     use Doctrine\ORM\Mapping as ORM;
     
     #[ORM\Entity(repositoryClass: OrdersDetailsRepository::class)]
@@ -14,10 +15,13 @@
         private $id;
         
         #[ORM\Column(type: 'integer')]
-        private $quantity;
+        private $size;
         
         #[ORM\Column(type: 'integer')]
-        private $price;
+        private $quantity;
+        
+        #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
+        private ?string $price = null;
         
         #[ORM\ManyToOne(targetEntity: Orders::class, inversedBy: 'ordersDetails')]
         #[ORM\JoinColumn(nullable: false)]
@@ -30,8 +34,9 @@
         public function __toString (): string
         {
             // Example, customize it according to your needs
-            return sprintf('ID_%d....%d X %s   ,    %d € /UNIT ______',
+            return sprintf('ID_%d....%d X %d X %s   ,    %d € /UNIT ______',
                 $this->id,
+                $this->size,
                 $this->quantity,
                 $this->product->getName(),
                 $this->price
@@ -41,6 +46,18 @@
         public function getId (): ?int
         {
             return $this->id;
+        }
+        
+        public function getSize (): ?int
+        {
+            return $this->size;
+        }
+        
+        public function setSize (int $size): self
+        {
+            $this->size = $size;
+            
+            return $this;
         }
         
         public function getQuantity (): ?int
@@ -55,12 +72,12 @@
             return $this;
         }
         
-        public function getPrice (): ?int
+        public function getPrice(): ?string
         {
             return $this->price;
         }
         
-        public function setPrice (int $price): self
+        public function setPrice(string $price): static
         {
             $this->price = $price;
             

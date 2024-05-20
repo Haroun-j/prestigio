@@ -16,7 +16,7 @@ class AvailableSize
     private ?int $id = null;
 
     #[ORM\Column(type: 'string',length: 255)]
-    private ?string $size = null;
+    private ?string $availableSize = null;
 
     #[ORM\OneToMany(mappedBy: 'size', targetEntity: ProductSize::class)]
     private Collection $productSizes;
@@ -29,7 +29,7 @@ class AvailableSize
     }
     public function __toString(): string
     {
-        return $this->size;
+        return $this->availableSize;
     }
 
     public function getId(): ?int
@@ -37,14 +37,14 @@ class AvailableSize
         return $this->id;
     }
 
-    public function getSize(): ?string
+    public function getAvailableSize(): ?string
     {
-        return $this->size;
+        return $this->availableSize;
     }
 
-    public function setSize(string $size): static
+    public function setAvailableSize(string $availableSize): static
     {
-        $this->size = $size;
+        $this->availableSize = $availableSize;
 
         return $this;
     }

@@ -13,7 +13,7 @@
     
     class ContactController extends AbstractController
     {
-        #[Route('/contact', name: 'contact_us')]
+        #[Route('/contact', name: 'contact')]
         public function index(
             Request $request,
             EntityManagerInterface $manager,   /*MailService $mailService*/
@@ -60,7 +60,7 @@
                     'Votre demande a été envoyé avec succès !'
                 );
                
-                return $this->redirectToRoute('contact_us');
+                return $this->redirectToRoute('contact');
             } else {
                 $this->addFlash(
                     'danger',

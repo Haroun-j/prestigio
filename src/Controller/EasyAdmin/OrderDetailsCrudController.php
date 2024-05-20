@@ -21,6 +21,7 @@
                 IdField::new('id'),
                 TextField::new('product.name', 'Product'),
                 NumberField::new('quantity'),
+                NumberField::new('size'),
                 NumberField::new('price'),
             ];
         }
