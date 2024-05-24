@@ -15,9 +15,9 @@
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
             $builder
-                ->add('size', EntityType::class, [
+                ->add('availableSize', EntityType::class, [
                     'class' => AvailableSize::class,
-                    'choice_label' => 'size',
+                    'choice_label' => 'availableSize',
                 ])
                 ->add('quantity', NumberType::class);
         }

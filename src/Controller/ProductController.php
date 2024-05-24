@@ -26,14 +26,14 @@ class ProductController extends AbstractController
         
         $sizes = [];
         foreach ($productSizes as $productSize) {
-            $sizes[] = $productSize->getSize()->getAvailableSize();
+            $sizes[] = $productSize->getAvailableSize()->getAvailableSize();
         }
 
         // Accessing properties of the product entity
         $id = $product->getId();
         $productName = $product->getName();
         $productColor = $product->getColorCode();
-        $imagesDir = $this->getParameter('kernel.project_dir') . '/public/assets/images/products/more_images/racer_tr23_shoes_2d3149' ;
+        $imagesDir = $this->getParameter('kernel.project_dir') . '/public/assets/images/products/more_images/racer_tr23_2d3149' ;
         $images = [];
         
         if (is_dir($imagesDir)) {

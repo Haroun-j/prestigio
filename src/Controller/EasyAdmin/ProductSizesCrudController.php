@@ -27,7 +27,7 @@
                     ->setFormTypeOptions([
                         'by_reference' => true,
                     ]),
-                AssociationField::new('size', 'Taille')
+                AssociationField::new('availableSize', 'Taille')
                     ->setFormTypeOptions([
                         'by_reference' => true,
                     ]),

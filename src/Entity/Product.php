@@ -89,6 +89,7 @@ class Product
         $this->productVariations = new ArrayCollection();
         $this->productSizes = new ArrayCollection();
         $this->featuredProducts = new ArrayCollection();
+        $this->availableStock = 0;
     }
     public function __toString(): string
     {
@@ -257,7 +258,7 @@ class Product
         return $this->availableStock;
     }
 
-    public function setAvailableStock(int $availableStock): static
+    public function setAvailableStock(?int $availableStock): static
     {
         $this->availableStock = $availableStock;
 
@@ -307,6 +308,7 @@ class Product
         if (!$this->productSizes->contains($productSize)) {
             $this->productSizes->add($productSize);
             $productSize->setProduct($this);
+            $this->availableStock += $productSize->getQuantity();
         }
 
         return $this;
@@ -319,6 +321,7 @@ class Product
             if ($productSize->getProduct() === $this) {
                 $productSize->setProduct(null);
             }
+            $this->availableStock -= $productSize->getQuantity();
         }
 
         return $this;
@@ -343,7 +346,7 @@ class Product
     {
         if (!$this->featuredProducts->contains($featuredProduct)) {
             $this->featuredProducts->add($featuredProduct);
-            $featuredProduct->setFeaturedProduct($this);
+            $featuredProduct->setProduct($this);
         }
 
         return $this;
@@ -359,5 +362,13 @@ class Product
         }
 
         return $this;
+    }
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateAvailableStock()
+    {
+        $this->availableStock = $this->calculateAvailableStock();
     }
 }

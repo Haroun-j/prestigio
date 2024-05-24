@@ -30,7 +30,7 @@ class MainController extends AbstractController
             $ProductSizesData = [] ;
             foreach ($product->getProductSizes() as $ProductSize) {
                 $ProductSizesData[] = [
-                    'size' => $ProductSize->getSize()->getAvailableSize(),
+                    'size' => $ProductSize->getAvailableSize()->getAvailableSize(),
                     'quantity' => $ProductSize->getQuantity()
                 ];
             }
@@ -40,7 +40,7 @@ class MainController extends AbstractController
                 $pvSizesData = [];
                 foreach ($variation->getProductSizes() as $pvSize) {
                     $pvSizesData[] = [
-                        'size' => $pvSize->getSize()->getAvailableSize(),
+                        'size' => $pvSize->getAvailableSize()->getAvailableSize(),
                         'quantity' => $pvSize->getQuantity()
                     ];
                 }

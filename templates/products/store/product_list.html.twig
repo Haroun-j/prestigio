@@ -7,22 +7,22 @@
     <header class="filter-aside">
         <ul class="indicator">
             <li data-filter="all" class="active"><a href="#">All</a></li>
-            {% for category in categories %}
+            {% for category in storeData %}
                 <li data-filter="{{ category.label }}"><a href="#">{{ category.label }}</a></li>
             {% endfor %}
         </ul>
         {#         ---------------Get items Number From session------------------ #}
-{#        {% set panier = app.session.get('panier', {}) %}#}
-{#        {% set itemCount = 0 %}#}
-{#        {% for quantity in panier %}#}
-{#            {% set itemCount = itemCount + quantity %}#}
-{#        {% endfor %}#}
-{#        <a href="{{ path('cart_index') }}">#}
-{#            <i class="fa-solid fa-cart-shopping"></i>#}
-{#            {% if itemCount > 0 %}#}
-{#                <span class="cart-item-count">{{ itemCount }}</span>#}
-{#            {% endif %}#}
-{#        </a>#}
+        {#        {% set panier = app.session.get('panier', {}) %} #}
+        {#        {% set itemCount = 0 %} #}
+        {#        {% for quantity in panier %} #}
+        {#            {% set itemCount = itemCount + quantity %} #}
+        {#        {% endfor %} #}
+        {#        <a href="{{ path('cart_index') }}"> #}
+        {#            <i class="fa-solid fa-cart-shopping"></i> #}
+        {#            {% if itemCount > 0 %} #}
+        {#                <span class="cart-item-count">{{ itemCount }}</span> #}
+        {#            {% endif %} #}
+        {#        </a> #}
     </header>
     <main class="main-with-aside">
         {#        {% include './products/store/store_filter.html.twig' %} #}
@@ -35,114 +35,9 @@
                     <option value="HighToLow">de haut en bas</option>
                 </select>
             </div>
-
-            {#             <div id="app" class="filter-container"> #}
-            {#                 <div class="accordion"> #}
-            {#                     <div class="accordion__content"> #}
-            {#                         <div class="accordion__title"><h2>Size<!----></h2> <span class="material-icons rotate">keyboard_arrow_down</span> #}
-            {#                         </div> #}
-            {#                         <ul class="accordion__items"> #}
-            {#                             <li class="accordion__item"><input id="One-Size" type="checkbox" value="One-Size"> <label #}
-            {#                                         for="One-Size"><p class="check"><span class="material-icons">done</span></p> #}
-            {#                                     <!----> <p class="item-name">One-Size</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="XS" type="checkbox" value="XS"> <label for="XS"><p #}
-            {#                                             class="check"><span class="material-icons">done</span></p> <!----> <p #}
-            {#                                             class="item-name">XS</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="S" type="checkbox" value="S"> <label for="S"><p #}
-            {#                                             class="check"><span class="material-icons">done</span></p> <!----> <p #}
-            {#                                             class="item-name">S</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="M" type="checkbox" value="M"> <label for="M"><p #}
-            {#                                             class="check"><span class="material-icons">done</span></p> <!----> <p #}
-            {#                                             class="item-name">M</p></label></li><!----><!----><!----> #}
-            {#                             <button class="accordion__btn">+ Show more</button> <!----></ul> #}
-            {#                     </div> #}
-            {#                     <div class="accordion__content"> #}
-            {#                         <div class="accordion__title"><h2>Color<!----></h2> <span class="material-icons rotate">keyboard_arrow_down</span> #}
-            {#                         </div> #}
-            {#                         <ul class="accordion__items colours"> #}
-            {#                             <li class="accordion__item"><input id="White" type="checkbox" value="White"> <label #}
-            {#                                         for="White"><p class="check" #}
-            {#                                                        style="background: linear-gradient(45deg, rgb(247, 250, 255) 0%, rgb(255, 255, 255) 50%);"> #}
-            {#                                         <span class="material-icons colours">done</span></p> #}
-            {#                                     <p class="tooltip">White</p> <!----></label></li> #}
-            {#                             <li class="accordion__item"><input id="Black" type="checkbox" value="Black"> <label #}
-            {#                                         for="Black"><p class="check" #}
-            {#                                                        style="background: rgb(41, 44, 54); border-color: rgb(41, 44, 54);"> #}
-            {#                                         <span class="material-icons colours">done</span></p> #}
-            {#                                     <p class="tooltip">Black</p> <!----></label></li> #}
-            {#                             <li class="accordion__item"><input id="Grey" type="checkbox" value="Grey"> <label #}
-            {#                                         for="Grey"><p class="check" #}
-            {#                                                       style="background: rgb(146, 154, 190); border-color: rgb(146, 154, 190);"> #}
-            {#                                         <span class="material-icons colours">done</span></p> #}
-            {#                                     <p class="tooltip">Grey</p> <!----></label></li> #}
-            {#                             <li class="accordion__item"><input id="Purple" type="checkbox" value="Purple"> <label #}
-            {#                                         for="Purple"><p class="check" #}
-            {#                                                         style="background: rgb(134, 103, 247); border-color: rgb(134, 103, 247);"> #}
-            {#                                         <span class="material-icons colours">done</span></p> #}
-            {#                                     <p class="tooltip">Purple</p> <!----></label></li> #}
-            {#                             <li class="accordion__item"><input id="Blue" type="checkbox" value="Blue"> <label #}
-            {#                                         for="Blue"><p class="check" #}
-            {#                                                       style="background: rgb(92, 157, 255); border-color: rgb(92, 157, 255);"> #}
-            {#                                         <span class="material-icons colours">done</span></p> #}
-            {#                                     <p class="tooltip">Blue</p> <!----></label></li> #}
-            {#                             <li class="accordion__item"><input id="Green" type="checkbox" value="Green"> <label #}
-            {#                                         for="Green"><p class="check" #}
-            {#                                                        style="background: rgb(155, 236, 62); border-color: rgb(155, 236, 62);"> #}
-            {#                                         <span class="material-icons colours">done</span></p> #}
-            {#                                     <p class="tooltip">Green</p> <!----></label></li><!----><!----><!----><!----><!----> #}
-            {#                                                                                      <!----> #}
-            {#                             <button class="accordion__btn">+ Show more</button> <!----></ul> #}
-            {#                     </div> #}
-            {#                     <div class="accordion__content"> #}
-            {#                         <div class="accordion__title"><h2>Material<!----></h2> <span class="material-icons">keyboard_arrow_down</span> #}
-            {#                         </div> #}
-            {#                         <ul class="accordion__items" style="display: none;"> #}
-            {#                             <li class="accordion__item"><input id="Cotton" type="checkbox" value="Cotton"> <label #}
-            {#                                         for="Cotton"><p class="check"><span class="material-icons">done</span></p> #}
-            {#                                     <!----> <p class="item-name">Cotton</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="Polyester" type="checkbox" value="Polyester"> <label #}
-            {#                                         for="Polyester"><p class="check"><span class="material-icons">done</span></p> #}
-            {#                                     <!----> <p class="item-name">Polyester</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="Rayon" type="checkbox" value="Rayon"> <label #}
-            {#                                         for="Rayon"><p class="check"><span class="material-icons">done</span></p> #}
-            {#                                     <!----> <p class="item-name">Rayon</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="Satin" type="checkbox" value="Satin"> <label #}
-            {#                                         for="Satin"><p class="check"><span class="material-icons">done</span></p> #}
-            {#                                     <!----> <p class="item-name">Satin</p></label></li> #}
-            {#                             <li class="accordion__item"><input id="Acrylic" type="checkbox" value="Acrylic"> <label #}
-            {#                                         for="Acrylic"><p class="check"><span class="material-icons">done</span></p> #}
-            {#                                     <!----> <p class="item-name">Acrylic</p></label></li><!----><!----><!----><!----> #}
-            {#                                                                                          <!----><!----><!----><!----> #}
-            {#                                                                                          <!----> #}
-            {#                             <button class="accordion__btn">+ Show more</button> <!----></ul> #}
-            {#                     </div> #}
-            {#                     <div class="accordion__content"> #}
-            {#                         <div class="accordion__title"><h2>Price<span class="price-range">20 $ - 50 $</span></h2> <span #}
-            {#                                     class="material-icons">keyboard_arrow_down</span></div> #}
-            {#                         <ul class="accordion__items" style="display: none;"><!----> <!----> #}
-            {#                             <div class="accordion__slider"><input type="range" min="0" max="100" step="10" #}
-            {#                                                                   class="input-left"> <input type="range" min="0" #}
-            {#                                                                                              max="100" step="10" #}
-            {#                                                                                              class="input-right"> #}
-            {#                                 <div class="slider"> #}
-            {#                                     <div class="slider__btn slider__btn--left" style="left: 15%;"></div> #}
-            {#                                     <div class="slider__btn slider__btn--right" style="left: 45%;"></div> #}
-            {#                                     <div class="slider__fill" style="left: 20%; width: 30%;"></div> #}
-            {#                                 </div> #}
-            {#                             </div> #}
-            {#                         </ul> #}
-            {#                     </div> #}
-            {#                 </div> #}
-            {#                 <ul class="chip"> #}
-            {#                     <div class="chip__title"><h3>Your filters:</h3> #}
-            {#                         <button class="chip__btn">Clear All</button> #}
-            {#                     </div> #}
-            {#                 </ul> #}
-            {#             </div> #}
-            {#         </aside> #}
             <div class="product-field">
                 <ul class="items">
-                    {% for category in categories %}
+                    {% for category in storeData %}
                         {% for product in category.products %}
 
                             <li data-category="{{ category.label }}" data-price="{{ product.price }}">
@@ -162,7 +57,34 @@
                                     </p>
                                     <strong>{{ product.name | length > 20 ? product.name | slice(0, 18) ~ '...' : product.name }}</strong>
                                     <span>{{ product.description | length > 70 ? product.description | slice(0, 70) ~ '...' : product.description }}</span>
-                                    <div></div>
+
+
+                                    <div class="colors" style="margin-bottom: 8px;">
+                                        <!-- Active color -->
+                                        <button class="color-button active-color"
+                                                style="background: {{ product.colorCode }};"
+                                                data-color-code="{{ product.colorCode }}" data-variation-info='{{ {
+                                            name: product.name,
+                                            sizes: product.sizes,
+                                            image: asset('uploads/images/products/' ~ product.imageName)
+                                        }|json_encode }}'></button>
+                                        <!-- Other variations -->
+                                        {% for variation in product.variations %}
+                                            <button class="color-button" style="background: {{ variation.colorCode }};"
+                                                    data-color-code="{{ variation.colorCode }}"
+                                                    data-variation-info='{{ {
+                                                        sizes: variation.sizes,
+                                                        image: asset('assets/images/products/home/product_variations/' ~ product.name|replace({' ': '-'}) ~ '/' ~ variation.color|replace({' ': '-'}) ~ '-cropped.png')
+                                                    }|json_encode }}'></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="sizes">
+                                        {% for size in product.sizes %}
+                                            <button data-size="{{ size.size }}">{{ size.size }}</button>
+                                        {% endfor %}
+                                    </div>
+
+
                                     <small><a style="text-decoration: none"
                                               href="{{ path('cart_add', {id: product.id, size : 42, quantity: 1, source: 'store'}) }}"
                                               class="buy-btn"
@@ -177,316 +99,48 @@
             </div>
             {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
     </main>
-    {#     <style> #}
-    {#         :root { #}
-    {#             --primary: #6b5bfd; #}
-    {#             --greyLight: #e3ebf8; #}
-    {#             --greyLight-2: #d7e3f1; #}
-    {#             --greyLight-3: #b5c4da; #}
-    {#             --greyDark: #a1a9c7; #}
-    {#             --greyDark-2: #5a6181; #}
-    {#         } #}
+    <style>
+        .sizes, .colors {
+            display: flex;
+            justify-content: space-between;
+            transition: all 0.75s ease-out;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            padding: 0 12px;
+        }
 
-    {#         .filter-container { #}
-    {#             font-size: 62.5%; #}
-    {#             margin: 1rem; #}
-    {#             display: flex; #}
-    {#             color: var(--greyDark-2); #}
-    {#         } #}
+        .sizes button, .colors button {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #585858;
+        }
 
-    {#         .container li { #}
-    {#             list-style: none; #}
-    {#         } #}
+        button.active-color {
+            border: 2px solid black;
+            transform: scale(1.15);
+        }
 
-    {#         .container button { #}
-    {#             border: none; #}
-    {#             font-family: inherit; #}
-    {#             background: none; #}
-    {#             cursor: pointer; #}
-    {#             outline: none; #}
-    {#             padding: 1rem; #}
-    {#         } #}
+        button.active-size {
+            border: 2px solid black;
+            transform: scale(1.15);
+            background: #585858;
+            color: white;
+        }
 
-    {#         .accordion { #}
-    {#             height: 100%; #}
-    {#             display: flex; #}
-    {#             flex-direction: column; #}
-    {#             margin: 1rem; #}
-    {#             margin-right: 0; #}
-    {#             cursor: pointer; #}
-    {#             width: 90%; #}
-    {#         } #}
+        button.active {
+            background: #585858;
+            color: white;
+        }
 
-    {#         .accordion__content { #}
-    {#             border-bottom: 1px solid var(--greyLight); #}
-    {#         } #}
-
-    {#         .accordion__title { #}
-    {#             display: flex; #}
-    {#             justify-content: space-between; #}
-    {#             align-items: center; #}
-    {#             padding: 1rem; #}
-    {#             font-weight: 700; #}
-    {#             background: #ffffff; #}
-    {#             position: relative; #}
-    {#             z-index: 200; #}
-    {#         } #}
-
-    {#         .accordion__title h2 { #}
-    {#             font-size: 1.4rem; #}
-    {#         } #}
-
-    {#         .accordion__title span { #}
-    {#             transition: transform 0.5s ease; #}
-    {#         } #}
-
-    {#         .accordion__title span.rotate { #}
-    {#             transform: rotateZ(-180deg); #}
-    {#             transform-origin: 50% 50%; #}
-    {#         } #}
-
-    {#         .accordion__items { #}
-    {#             display: flex; #}
-    {#             flex-direction: column; #}
-    {#             width: 100%; #}
-    {#             font-size: 1.2rem; #}
-    {#             list-style: none; #}
-    {#             background: white; #}
-    {#             z-index: 100; #}
-    {#         } #}
-
-    {#         .accordion__items.colours { #}
-    {#             display: grid; #}
-    {#             grid-template-columns: repeat(6, 4rem); #}
-    {#         } #}
-
-    {#         .accordion__items.colours button { #}
-    {#             grid-column: 1/7; #}
-    {#         } #}
-
-    {#         .accordion__item { #}
-    {#             color: var(--greyDark-2); #}
-    {#             display: flex; #}
-    {#             transition: all 0.3s ease; #}
-    {#         } #}
-
-    {#         .accordion__item:hover label .tooltip { #}
-    {#             display: block; #}
-    {#         } #}
-
-    {#         .accordion__item input { #}
-    {#             display: none; #}
-    {#         } #}
-
-    {#         .accordion__item label { #}
-    {#             width: 100%; #}
-    {#             display: flex; #}
-    {#             align-items: center; #}
-    {#             /*padding: 0.4rem 1rem;*/ #}
-    {#             position: relative; #}
-    {#             cursor: pointer; #}
-    {#         } #}
-
-    {#         .accordion__item label .item-name { #}
-    {#             margin-left: 1rem; #}
-    {#         } #}
-
-    {#         .accordion__item label .check, #}
-    {#         .accordion__item label span { #}
-    {#             width: 2rem; #}
-    {#             height: 2rem; #}
-    {#             border-radius: 0.4rem; #}
-    {#         } #}
-
-    {#         .accordion__item label span { #}
-    {#             display: none; #}
-    {#             background: var(--greyDark-2); #}
-    {#             color: white; #}
-    {#             align-items: center; #}
-    {#             justify-content: center; #}
-    {#             font-size: 1.8rem; #}
-    {#         } #}
-
-    {#         .accordion__item label span.colours { #}
-    {#             background: rgba(90, 97, 129, 0.4); #}
-    {#             border: 1px solid transparent; #}
-    {#         } #}
-
-    {#         .accordion__item label .check { #}
-    {#             border: 1px solid var(--greyLight-3); #}
-    {#             display: flex; #}
-    {#             align-items: center; #}
-    {#             justify-content: center; #}
-    {#         } #}
-
-    {#         .accordion__item label .tooltip { #}
-    {#             position: absolute; #}
-    {#             bottom: -30%; #}
-    {#             left: -30%; #}
-    {#             font-size: 1rem; #}
-    {#             padding: 0.5rem; #}
-    {#             width: 6.6rem !important; #}
-    {#             text-align: center; #}
-    {#             background: #ffffff; #}
-    {#             box-shadow: 0px 2px 6px var(--greyLight-3); #}
-    {#             z-index: 4000; #}
-    {#             border-radius: 0.4rem; #}
-    {#             display: none; #}
-    {#             pointer-events: none; #}
-    {#         } #}
-
-    {#         .accordion__item input:checked ~ label span { #}
-    {#             display: flex; #}
-    {#         } #}
-
-    {#         .accordion__item input:checked ~ label p { #}
-    {#             border: none; #}
-    {#         } #}
-
-    {#         .accordion__btn { #}
-    {#             font-weight: 500; #}
-    {#             font-size: 1.2rem; #}
-    {#             color: var(--greyDark); #}
-    {#             transition: all 0.3s ease; #}
-    {#         } #}
-
-    {#         .accordion__btn:hover { #}
-    {#             color: var(--greyDark-2); #}
-    {#         } #}
-
-    {#         .accordion__slider { #}
-    {#             padding: 2rem 0; #}
-    {#             margin: 0 2rem; #}
-    {#             position: relative; #}
-    {#         } #}
-
-    {#         .accordion__slider input[type=range] { #}
-    {#             width: 100%; #}
-    {#             height: 0.4rem; #}
-    {#             position: absolute; #}
-    {#             appearance: none; #}
-    {#             pointer-events: none; #}
-    {#             -webkit-appearance: none; #}
-    {#             z-index: 400; #}
-    {#             opacity: 0; #}
-    {#         } #}
-
-    {#         .accordion__slider input[type=range]::-webkit-slider-thumb { #}
-    {#             pointer-events: all; #}
-    {#             -webkit-appearance: none; #}
-    {#             width: 3rem; #}
-    {#             height: 3rem; #}
-    {#             background: rgba(255, 0, 0, 0.384); #}
-    {#             cursor: pointer; #}
-    {#         } #}
-
-    {#         .accordion__slider .slider { #}
-    {#             width: 20rem; #}
-    {#             height: 0.4rem; #}
-    {#             background: var(--greyLight-2); #}
-    {#             border-radius: 1rem; #}
-    {#             display: flex; #}
-    {#             flex-direction: column; #}
-    {#             justify-content: center; #}
-    {#             align-items: center; #}
-    {#             position: relative; #}
-    {#             pointer-events: none; #}
-    {#         } #}
-
-    {#         .accordion__slider .slider__fill { #}
-    {#             height: 0.4rem; #}
-    {#             border-radius: 1rem; #}
-    {#             position: absolute; #}
-    {#             background: var(--greyDark-2); #}
-    {#         } #}
-
-    {#         .accordion__slider .slider__btn { #}
-    {#             width: 2rem; #}
-    {#             height: 2rem; #}
-    {#             border-radius: 50%; #}
-    {#             background: #ffffff; #}
-    {#             border: 2px solid var(--greyDark-2); #}
-    {#             position: absolute; #}
-    {#             z-index: 200; #}
-    {#         } #}
-
-    {#         .price-range { #}
-    {#             color: var(--greyLight-3); #}
-    {#             font-size: 1.2rem; #}
-    {#             font-weight: 500; #}
-    {#             margin-left: 0.6rem; #}
-    {#         } #}
-
-    {#         .chip { #}
-    {#             width: 24rem; #}
-    {#             height: 100%; #}
-    {#             margin-top: 6rem; #}
-    {#             display: flex; #}
-    {#             align-items: center; #}
-    {#             flex-wrap: wrap; #}
-    {#             background: var(--greyLight-2); #}
-    {#             padding: 0 1rem 1rem 1rem; #}
-    {#         } #}
-
-    {#         .chip__title { #}
-    {#             display: flex; #}
-    {#             width: 100%; #}
-    {#             justify-content: space-between; #}
-    {#             align-items: center; #}
-    {#         } #}
-
-    {#         .chip__title button, #}
-    {#         .chip__title h3 { #}
-    {#             padding-right: 0; #}
-    {#             font-size: 1.2rem; #}
-    {#         } #}
-
-    {#         .chip__title button { #}
-    {#             transition: all 0.3s ease; #}
-    {#             color: var(--greyDark); #}
-    {#         } #}
-
-    {#         .chip__title button:hover { #}
-    {#             color: var(--greyDark-2); #}
-    {#         } #}
-
-    {#         .chip__item { #}
-    {#             padding: 0.6rem 0.8rem; #}
-    {#             background: white; #}
-    {#             margin: 0.6rem 0.6rem 0.6rem 0; #}
-    {#             border-radius: 0.4rem; #}
-    {#             display: flex; #}
-    {#             align-items: center; #}
-    {#             justify-content: space-between; #}
-    {#             cursor: pointer; #}
-    {#         } #}
-
-    {#         .chip__item span { #}
-    {#             font-size: 1.4rem; #}
-    {#             color: var(--greyLight-3); #}
-    {#             margin-left: 1rem; #}
-    {#         } #}
-
-    {#         .slide-enter-to, #}
-    {#         .slide-leave { #}
-    {#             max-height: 50rem; #}
-    {#             overflow: hidden; #}
-    {#         } #}
-
-    {#         .slide-enter, #}
-    {#         .slide-leave-to { #}
-    {#             overflow: hidden; #}
-    {#             max-height: 0; #}
-    {#         } #}
-
-    {#         .slide-enter-active { #}
-    {#             transition: all 1s ease; #}
-    {#         } #}
-
-    {#         .slide-leave-active { #}
-    {#             transition: all 0.6s ease; #}
-    {#         } #}
-    {#     </style> #}
+        #RACER-TR23 {
+            margin-top: 86px;
+        }
+    </style>
     <script>
         new Vue({
             el: '#app',
@@ -568,31 +222,61 @@
         });
     </script>
     <script type="text/javascript" src="{{ asset('assets/js/products/product_list.js') }}"></script>
-    {#    <script> #}
-    {#        document.addEventListener('DOMContentLoaded', function() { #}
-    {#            var buyButtons = document.querySelectorAll('.buy-btn'); #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const colorButtons = document.querySelectorAll('.color-button');
+            colorButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    if (this.classList.contains('active-color')) {
+                        return;
+                    }
 
-    {#            buyButtons.forEach(function(button) { #}
-    {#                button.addEventListener('click', function(event) { #}
-    {#                    event.preventDefault(); #}
-    {#                    var route = button.getAttribute('data-route') #}
+                    const productBox = this.closest('li');
+                    const variationInfo = JSON.parse(this.dataset.variationInfo);
 
-    {#                    var xhr = new XMLHttpRequest(); #}
-    {#                    xhr.open('GET', route, true); #}
-    {#                    xhr.onreadystatechange = function() { #}
-    {#                        if (xhr.readyState === XMLHttpRequest.DONE) { #}
-    {#                            if (xhr.status === 200) { #}
-    {#                                alert('test'); #}
-    {#                                console.log('Product added to cart successfully'); #}
-    {#                                // You may update the UI here, such as updating the cart icon #}
-    {#                            } else { #}
-    {#                                console.error('Failed to add product to cart'); #}
-    {#                            } #}
-    {#                        } #}
-    {#                    }; #}
-    {#                    xhr.send(); #}
-    {#                }); #}
-    {#            }); #}
-    {#        }); #}
-    {#    </script> #}
+                    productBox.querySelector('img').src = variationInfo.image;
+                    productBox.querySelector('img').style.marginTop = "86px";
+
+                    const sizesContainer = productBox.querySelector('.sizes');
+                    sizesContainer.innerHTML = '';
+                    if (variationInfo.sizes && Array.isArray(variationInfo.sizes)) {
+                        variationInfo.sizes.forEach(size => {
+                            const sizeButton = document.createElement('button');
+                            sizeButton.textContent = size.size;
+                            sizeButton.dataset.size = size.size;
+                            sizeButton.addEventListener('click', function () {
+                                sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active-size'));
+                                this.classList.add('active-size');
+                                updateBuyLink(productBox);
+                            });
+                            sizesContainer.appendChild(sizeButton);
+                        });
+                    }
+
+                    productBox.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('active-color'));
+                    this.classList.add('active-color');
+                });
+            });
+            const initialSizeButtons = document.querySelectorAll('.sizes button');
+            initialSizeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const sizesContainer = this.closest('.sizes');
+                    sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active-size'));
+                    this.classList.add('active-size');
+                    const productBox = this.closest('li');
+                    updateBuyLink(productBox);
+                });
+            });
+
+            function updateBuyLink(productBox) {
+                const selectedSizeButton = productBox.querySelector('.sizes button.active-size');
+                if (selectedSizeButton) {
+                    const selectedSize = selectedSizeButton.dataset.size;
+                    const buyLink = productBox.querySelector('.buy-btn');
+                    const newHref = buyLink.dataset.route.replace(/size=\d+/, 'size=' + selectedSize); // Update size parameter
+                    buyLink.setAttribute('href', newHref);
+                }
+            }
+        });
+    </script>
 {% endblock %}

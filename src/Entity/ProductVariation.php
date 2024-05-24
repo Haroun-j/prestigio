@@ -66,6 +66,7 @@ class ProductVariation
     public function __construct()
     {
         $this->productSizes = new ArrayCollection();
+        $this->availableStock = 0;
     }
     public function __toString(): string
     {
@@ -214,6 +215,7 @@ class ProductVariation
         if (!$this->productSizes->contains($productSize)) {
             $this->productSizes->add($productSize);
             $productSize->setProductVariation($this);
+            $this->availableStock += $productSize->getQuantity();
         }
         
         return $this;
@@ -226,6 +228,7 @@ class ProductVariation
             if ($productSize->getProductVariation() === $this) {
                 $productSize->setProductVariation(null);
             }
+            $this->availableStock -= $productSize->getQuantity();
         }
         
         return $this;
@@ -237,5 +240,12 @@ class ProductVariation
         }
         return $totalStock;
     }
-    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateAvailableStock()
+    {
+        $this->availableStock = $this->calculateAvailableStock();
+    }
 }

@@ -14,21 +14,26 @@
                         <div class="card">
                             <div class="sneaker">
                                 <div class="circle"></div>
-                                <img src="{{ asset('assets/images/products/home/' ~ product.name|replace({' ': '-'}) ~ '-cropped.png') }}" alt="{{ product.name }}" class="product-image"/>
+                                <img src="{{ asset('assets/images/products/home/' ~ product.name|replace({' ': '-'}) ~ '-cropped.png') }}"
+                                     alt="{{ product.name }}" class="product-image"/>
                             </div>
                             <div class="info">
-                                <h1 class="title" id="{{ product.name|replace({' ': '-'}) }}-title">{{ product.name }}</h1>
+                                <h1 class="title"
+                                    id="{{ product.name|replace({' ': '-'}) }}-title">{{ product.name }}</h1>
                                 <h3 class="description">{{ product.description | slice(0,60) }}. . .</h3>
                                 <div class="colors" style="margin-bottom: 8px;">
                                     <!-- Active color -->
-                                    <button class="color-button active-color" style="background: {{ product.colorCode }};" data-color-code="{{ product.colorCode }}" data-variation-info='{{ {
+                                    <button class="color-button active-color"
+                                            style="background: {{ product.colorCode }};"
+                                            data-color-code="{{ product.colorCode }}" data-variation-info='{{ {
                                         name: product.name,
                                         description: product.description,
                                         sizes: product.sizes,
                                         image: asset('assets/images/products/home/' ~ product.name|replace({' ': '-'}) ~ '-cropped.png')
                                     }|json_encode }}'></button>                          <!-- Other variations -->
                                     {% for variation in product.variations %}
-                                        <button class="color-button" style="background: {{ variation.colorCode }};" data-color-code="{{ variation.colorCode }}" data-variation-info='{{ {
+                                        <button class="color-button" style="background: {{ variation.colorCode }};"
+                                                data-color-code="{{ variation.colorCode }}" data-variation-info='{{ {
                                             sizes: variation.sizes,
                                             image: asset('assets/images/products/home/product_variations/' ~ product.name|replace({' ': '-'}) ~ '/' ~ variation.color|replace({' ': '-'}) ~ '-cropped.png')
                                         }|json_encode }}'></button>
@@ -36,13 +41,15 @@
                                 </div>
                                 <div class="sizes">
                                     {% for size in product.sizes %}
-                                        <button >{{ size.size }}</button>
+                                        <button data-size="{{ size.size }}">{{ size.size }}</button>
                                     {% endfor %}
                                 </div>
                                 <div class="purchase">
-                                        <a href="{{ path('cart_add', {id: product.id, size : 40, quantity: 10, source: 'cart_index'}) }}">
-                                            <button>Acheter</button>
-                                        </a>
+                                    <a href="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'cart_index'}) }}"
+                                       class="buy-btn"
+                                       data-route="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'cart_index'}) }}">
+                                        <button>Acheter</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -56,15 +63,15 @@
 </div>
 <link rel="stylesheet" href="{{ asset('assets/css/products/home/products_style.css') }}">
 <style>
-    #Mercurial-Superfly-9-title{
+    #Mercurial-Superfly-9-title {
         font-size: 1.4rem;
     }
 </style>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const colorButtons = document.querySelectorAll('.color-button');
         colorButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 // Skip if the button is already active
                 if (this.classList.contains('active-color')) {
                     return;
@@ -77,17 +84,23 @@
                 productBox.querySelector('.product-image').src = variationInfo.image;
 
                 // Update the product description if present in variationInfo
-                if(variationInfo.description) {
+                if (variationInfo.description) {
                     productBox.querySelector('.description').textContent = variationInfo.description.slice(0, 60) + '...';
                 }
 
                 // Clear and update sizes
                 const sizesContainer = productBox.querySelector('.sizes');
                 sizesContainer.innerHTML = ''; // Clear existing buttons
-                if(variationInfo.sizes && Array.isArray(variationInfo.sizes)) {
+                if (variationInfo.sizes && Array.isArray(variationInfo.sizes)) {
                     variationInfo.sizes.forEach(size => {
                         const sizeButton = document.createElement('button');
                         sizeButton.textContent = size.size;
+                        sizeButton.dataset.size = size.size;
+                        sizeButton.addEventListener('click', function () {
+                            sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active-size'));
+                            this.classList.add('active-size');
+                            updateBuyLink(productBox);
+                        });
                         sizesContainer.appendChild(sizeButton);
                     });
                 }
@@ -97,6 +110,28 @@
                 this.classList.add('active-color');
             });
         });
+        const initialSizeButtons = document.querySelectorAll('.sizes button');
+        initialSizeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const sizesContainer = this.closest('.sizes');
+                sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active-size'));
+                this.classList.add('active-size');
+                const productBox = this.closest('.shoe-box');
+                updateBuyLink(productBox);
+            });
+        });
+
+        function updateBuyLink(productBox) {
+            const selectedSizeButton = productBox.querySelector('.sizes button.active-size');
+            if (selectedSizeButton) {
+                const selectedSize = selectedSizeButton.dataset.size;
+                const buyLink = productBox.querySelector('.buy-btn');
+                const newHref = buyLink.dataset.route.replace(/size=\d+/, 'size=' + selectedSize); // Update size parameter
+                buyLink.setAttribute('href', newHref);
+            }
+        }
+
+
     });
 
 </script>

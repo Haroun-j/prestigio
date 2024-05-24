@@ -22,7 +22,7 @@ class ProductSize
     private ?ProductVariation $productVariation = null;
 
     #[ORM\ManyToOne(inversedBy: 'productSizes')]
-    private ?AvailableSize $size = null;
+    private ?AvailableSize $availableSize = null;
 
     #[ORM\Column]
     private ?int $quantity = null;
@@ -54,14 +54,14 @@ class ProductSize
         
         return $this;
     }
-    public function getSize(): ?AvailableSize
+    public function getAvailableSize(): ?AvailableSize
     {
-        return $this->size;
+        return $this->availableSize;
     }
 
-    public function setSize(?AvailableSize $size): static
+    public function setAvailableSize(?AvailableSize $availableSize): static
     {
-        $this->size = $size;
+        $this->availableSize = $availableSize;
 
         return $this;
     }
