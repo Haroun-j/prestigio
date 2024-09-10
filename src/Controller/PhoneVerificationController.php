@@ -24,7 +24,7 @@
             return $this->render('./security/phone_verification.html.twig');
         }
         
-        #[Route('/send-sms', name: 'send_sms', methods: ['POST'])]
+        #[Route('/send-sms', name: 'send_sms')]
         public function sendSms (Request $request, SmsGenerator $smsGenerator, SessionInterface $session): Response
         {
             $phoneNumber = $request->request->get('phone');
@@ -39,7 +39,7 @@
             $session->set('verification_code', $code);
             
             try {
-                $smsGenerator->sendSms($phoneNumber, '', $text);
+                //$smsGenerator->sendSms($phoneNumber, '', $text);
                 
                 return $this->json(['code' => $code]);
                 

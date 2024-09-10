@@ -12,7 +12,7 @@
     <!-- end header -->
 
     <!-- head slider -->
-    {% include './Slider/head-slider.html.twig' %}
+    {% include './home_page/1_main_slider.html.twig' %}
     <!-- end slider -->
 
     <!---------------------------------------------Content--------------------------------------------->
@@ -21,30 +21,30 @@
     <!------------ section 1 ------------>
     <div id="section-1" class="body-section">
         <!-- our partners -->
-        {% include './Slider/our-partners.html.twig' %}
+        {% include './home_page/4_our_partners_slider.html.twig' %}
         <!-- end block -->
 
         <br>
         <!-- best sells -->
-        {% include './categories/categories.html.twig' %}
+        {% include './categories/3_categories_section.html.twig' %}
         <!-- end block -->
 
         <br>
         <!-- best sells -->
-        {% include './products/home/our_products_bloc.html.twig' %}
+        {% include './home_page/5_product_slider_section.html.twig' %}
         <!-- end block -->
 
         <br>
 
         <!-- products grid -->
-        {% include './products/home/best_sells_bloc.html.twig' %}
+        {% include './home_page/6_best_sells_section.html.twig' %}
         <!-- end block -->
 
         <!-- MODAL -->
-        {% include './modal/more-images-preview.html.twig' %}
-        <!-- end modal -->
+        {% include './home_page/modals/main_slider_more_imagesmain_slider_more_images.html.twig' %}
+        <!-- end modals -->
         <!-- Gallery -->
-        {#        {% include './Gallery/gallery.html.twig' %}#}
+        {#        {% include './Gallery/2_gallery.html.twig' %}#}
         <!-- end gallery -->
     </div>
     <!------------ end section 1 ------------>
@@ -89,6 +89,6 @@
     <!-- end footer -->
 
     <!--------------------------------------- Javascript files --------------------------------------->
-    {% include './Imports/all-javascript.html.twig' %}
+    {% include './Imports/all_javascripts.html.twig' %}
 
 {% endblock %}

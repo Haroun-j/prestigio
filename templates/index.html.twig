@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!---------------------- INTRO  ------------------------->
-    {% include 'intro.html.twig' %}
+    {% include 'home_intro.html.twig' %}
     <!-- end intro -->
 
     <div id="fullpage">
@@ -23,9 +23,9 @@
             <!-- end header -->
 
             <!-- head slider -->
-            {% include './Slider/head-slider.html.twig' %}
+            {% include './home_page/1_main_slider.html.twig' %}
             <!-- end slider -->
-            {% include './modal/more-images-preview.html.twig' %}
+            {% include './home_page/modals/main_slider_more_images.html.twig' %}
             <i id="moveDown" class="fa fa-chevron-down fa-3x bounce"></i>
 
         </div>
@@ -33,33 +33,33 @@
 
         <!-- begin section -->
         <div class="section" style="text-align: inherit">
-            {% include './Gallery/gallery.html.twig' %}
+            {% include './home_page/2_gallery.html.twig' %}
         </div>
         <!-- end section -->
 
         <!-- begin section -->
         <div class="section">
-            {% include './categories/categories.html.twig' %}
+            {% include './home_page/3_categories_section.html.twig' %}
         </div>
         <!-- end section -->
 
         <!-- begin section -->
 
         <div class="section body-section" >
-            {% include './Slider/our-partners.html.twig' %}
+            {% include './home_page/4_our_partners_slider.html.twig' %}
         </div>
         <!-- end section -->
 
         <!-- begin section -->
         <div class="section">
 
-            {% include './products/home/our_products_bloc.html.twig' %}
+            {% include './home_page/5_product_slider_section.html.twig' %}
 
         </div>
         <!-- end section -->
         <div class="section" style="background: #00a2ef29;">
 
-            {% include './products/home/best_sells_bloc.html.twig' %}
+            {% include './home_page/6_best_sells_section.html.twig' %}
 
         </div>
         <!-- end section -->
@@ -69,7 +69,7 @@
         <div class="section">
 
             <footer class="footer-container">
-                {% include './products/home/review_section.html.twig' %}
+                {% include './home_page/7_review_section.html.twig' %}
 
                 <div class="footer">
                     <div class="waves">
@@ -109,7 +109,7 @@
     </div>
     <!-- end fullpage -->
     <!--------------------------------------- Javascript files --------------------------------------->
-    {% include './Imports/all-javascript.html.twig' %}
+    {% include './Imports/all_javascripts.html.twig' %}
 
     <!-- Import JavaScript files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.js"></script>

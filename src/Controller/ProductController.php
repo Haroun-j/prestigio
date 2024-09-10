@@ -59,7 +59,7 @@ class ProductController extends AbstractController
             'sizes' => $sizes,
             'images' => $images,
         ];
-        return $this->render('products/store/product_template.html.twig', [
+        return $this->render('store/product_template.html.twig', [
             'data' => $data,
         ]);
     }

@@ -1,0 +1,64 @@
+<div class="container" id="app">
+    <div class="accordion" id="filters-container" data-filters="{{ filters|json_encode|e('html_attr') }}">
+        {% for filter in filters %}
+            <div class="accordion__content">
+                <div class="accordion__title" data-filter-id="{{ filter.id }}">
+                    <h2>{{ filter.title }}</h2>
+                    {% if filter.minPrice is defined %}
+                        <p class="price-range">{{ minPrice }} $ - {{ maxPrice - 9 }} $</p>
+                    {% endif %}
+                    <span class="material-icons {{ filter.show ? 'rotate' : '' }}">keyboard_arrow_down</span>
+                </div>
+
+                <ul class="accordion__items {{ filter.color is defined ? 'colours' : '' }}"
+                    style="display: {{ filter.show ? 'block' : 'none' }}">
+                    {% for item in filter.content %}
+                        <li class="accordion__item"
+                            {% if loop.index > filter.limitBy %}style="display:none;"{% endif %}>
+                            <input id="{{ item }}" type="checkbox" name="checkedItems[]" value="{{ item }}">
+
+                            <label for="{{ item }}">
+                                <p class="check"
+                                   style="background: {{ filter.color is defined ? filter.color[loop.index - 1] : '' }}; border-color: {{ filter.color is defined ? filter.color[loop.index - 1] : '' }};">
+                                    <span class="material-icons {{ filter.color is defined ? 'colours' : '' }}">done</span>
+                                </p>
+
+                                {% if filter.color is defined %}
+                                    <p class="tooltip">{{ item }}</p>
+                                {% else %}
+                                    <p class="item-name">{{ item }}</p>
+                                {% endif %}
+                            </label>
+                        </li>
+                    {% endfor %}
+                    {% if filter.content|length > (filter.defaultLimit is defined ? filter.defaultLimit : 0) %}
+                        <button class="accordion__btn" data-filter-index="{{ loop.index }}">+ Show more</button>
+                    {% endif %}
+
+                    {% if filter.minPrice is defined %}
+                        <!-- range slider -->
+                        <div class="accordion__slider">
+                            <input type="range" min="{{ minPrice }}" max="{{ maxPrice }}" step="10" name="valueLeft"
+                                   value="{{ minPrice }}"
+                                   class="input-left">
+                            <input type="range" min="{{ minPrice }}" max="{{ maxPrice }}" step="10" name="valueRight"
+                                   value="{{ maxPrice }}"
+                                   class="input-right">
+
+                            <div class="slider">
+                                <div class="slider__btn slider__btn--left" style="left: 0;"></div>
+                                <div class="slider__btn slider__btn--right" style="left: 90%;"></div>
+                                <div class="slider__fill"
+                                     style="left: 0; width: 100%;"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+<link rel="stylesheet" href="{{ asset('assets/css/products/store_filter.css') }}">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="{{ asset('assets/js/products/store_filter.js') }}"></script>

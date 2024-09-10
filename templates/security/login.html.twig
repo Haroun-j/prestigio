@@ -1,19 +1,42 @@
-
-    {% block body %}
-
-        <h2>Formulaire de Connection !</h2>
-        <div class="container{% if app.user %} logged-in{% endif %}" id="container">
-            {% if app.user %}
-                <div class="mb-3 info-logout" style="padding: 27% 20% 23% 20%;">
-                    You are logged in as {{ app.user.userIdentifier }},
-                    <a href="{{ path('app_logout') }}" style="padding: 0 45%;color: blue;text-decoration: underline;">Logout</a>
-                </div>
-            {% endif %}
-            {% for flash_error in app.flashes('verify_email_error') %}
-                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-            {% endfor %}
-            <div class="form-container sign-up-container">
-                {{ form_start(registrationForm, {'attr': {'action': path('app_register')}}) }}
+{% block body %}
+    <body>
+    <header class="login__header">
+        <div class="logo">
+            <a href="{{ path('home') }}">
+                <img src="{{ asset('assets/images/logo4.png') }}"
+                     alt="#">
+            </a>
+        </div>
+    </header>
+    {#         <h2>Formulaire de Connection !</h2> #}
+    <div class="container{% if app.user %} logged-in{% endif %}" id="container">
+        {% if app.user %}
+            <div class="mb-3 info-logout" style="padding: 27% 20% 23% 20%;">
+                You are logged in as {{ app.user.userIdentifier }},
+                <a href="{{ path('app_logout') }}"
+                   style="padding: 0 45%;color: blue;text-decoration: underline;">Logout</a>
+            </div>
+        {% endif %}
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <div class="form-container sign-up-container">
+            {{ form_start(registrationForm, {'attr': {'action': path('app_register')}}) }}
+            <h1>Inscription</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>Ou utilisez votre adresse e-mail pour l'inscription</span>
+            <div class="register-inputs" style="width: 255px;">
+                {{ form_row(registrationForm.email, {'attr': {'placeholder': '  Email'}}) }}
+                {{ form_row(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe'}}) }}
+                {{ form_row(registrationForm.agreeTerms, {'label': 'Accepter les conditions légales'}) }}
+            </div>
+            <button type="submit">S'INSCRIRE</button>
+            {{ form_end(registrationForm) }}
+            <form action="#">
                 <h1>Inscription</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -21,112 +44,97 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>Ou utilisez votre adresse e-mail pour l'inscription</span>
-                <div class="register-inputs" style="width: 255px;">
-                {{ form_row(registrationForm.email, {'attr': {'placeholder': '  Email'}}) }}
-                {{ form_row(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe'}}) }}
-                {{ form_row(registrationForm.agreeTerms, {'label': 'Accepter les conditions légales'}) }}
+                <input type="text" placeholder="Nom Complet"/>
+                <input type="email" placeholder="Email"/>
+                <input type="password" placeholder="Mot de passe"/>
+                <button>S'INSCRIRE</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post" action="#">
+                <h1>Connection </h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <button type="submit">S'INSCRIRE</button>
-                {{ form_end(registrationForm) }}
-                <form action="#">
-                    <h1>Inscription</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>Ou utilisez votre adresse e-mail pour l'inscription</span>
-                    <input type="text" placeholder="Nom Complet"/>
-                    <input type="email" placeholder="Email"/>
-                    <input type="password" placeholder="Mot de passe"/>
-                    <button>S'INSCRIRE</button>
-                </form>
-            </div>
-            <div class="form-container sign-in-container">
-                <form method="post" action="#">
-                    <h1>Connection </h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>Ou utilisez votre compte</span>
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                           class="form-control" autocomplete="email" placeholder="Email" required autofocus>
-                    <input type="password" name="password" id="inputPassword"
-                           class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
-                    <a href="#">Mot de passe oublié?</a>
+                <span>Ou utilisez votre compte</span>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                       class="form-control" autocomplete="email" placeholder="Email" required autofocus>
+                <input type="password" name="password" id="inputPassword"
+                       class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
+                <a href="#">Mot de passe oublié?</a>
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                    <button class="btn btn-lg btn-primary" type="submit">
-                        CONNEXION
-                    </button>
-                </form>
-            </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-left">
-                        <h1>Bienvenue de retour !</h1>
-                        <p>Pour rester en contact avec nous,
-                            veuillez vous connecter en utilisant vos informations personnelles.</p>
-                        <button class="ghost" id="signIn">CONNEXION</button>
-                    </div>
-                    <div class="overlay-panel overlay-right">
-                        <h1>Bonjour !</h1>
-                        <p>Entrez vos informations personnelles pour commencer votre parcours avec nous.</p>
-                        <button class="ghost" id="signUp">S'INSCRIRE</button>
-                    </div>
+                <button class="btn btn-lg btn-primary" type="submit">
+                    CONNEXION
+                </button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Bienvenue de retour !</h1>
+                    <p>Pour rester en contact avec nous,
+                       veuillez vous connecter en utilisant vos informations personnelles.</p>
+                    <button class="ghost" id="signIn">CONNEXION</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Bonjour !</h1>
+                    <p>Entrez vos informations personnelles pour commencer votre parcours avec nous.</p>
+                    <button class="ghost" id="signUp">S'INSCRIRE</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
+    {#         <footer> #}
+    {#             <p> #}
+    {#                 Call me a footer ! #}
+    {#             </p> #}
+    {#         </footer> #}
+    {#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> #}
+    {#    <label for="inputEmail">Email</label> #}
+    {#    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> #}
+    {#    <label for="inputPassword">Password</label> #}
+    {#    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
 
-{#         <footer> #}
-{#             <p> #}
-{#                 Call me a footer ! #}
-{#             </p> #}
-{#         </footer> #}
-        {#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> #}
-        {#    <label for="inputEmail">Email</label> #}
-        {#    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> #}
-        {#    <label for="inputPassword">Password</label> #}
-        {#    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
+    {#    <input type="hidden" name="_csrf_token" #}
+    {#           value="{{ csrf_token('authenticate') }}" #}
+    {#    > #}
 
-        {#    <input type="hidden" name="_csrf_token" #}
-        {#           value="{{ csrf_token('authenticate') }}" #}
-        {#    > #}
-
-        {#    <button class="btn btn-lg btn-primary" type="submit"> #}
-        {#        Sign in #}
-        {#    </button> #}
-        <link rel="stylesheet" href="{{ asset('assets/css/register_login/login.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-              integrity="your-integrity-check" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        {% if error %}
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Error',
-                        text: '{{ error.messageKey|trans(error.messageData, 'security') }}',
-                    });
-                });
-            </script>
-        {% endif %}
+    {#    <button class="btn btn-lg btn-primary" type="submit"> #}
+    {#        Sign in #}
+    {#    </button> #}
+    <link rel="stylesheet" href="{{ asset('assets/css/register_login/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="your-integrity-check" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if error %}
         <script>
-            const signUpButton = document.getElementById('signUp');
-            const signInButton = document.getElementById('signIn');
-            const container = document.getElementById('container');
-
-            signUpButton.addEventListener('click', () => {
-                container.classList.add("right-panel-active");
-            });
-
-            signInButton.addEventListener('click', () => {
-                container.classList.remove("right-panel-active");
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Error',
+                    text: '{{ error.messageKey|trans(error.messageData, 'security') }}',
+                });
             });
         </script>
-    {% endblock %}
+    {% endif %}
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+    </script>
+    </body>
+{% endblock %}
