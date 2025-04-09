@@ -1,0 +1,363 @@
+.main-with-aside {
+  display: flex;
+  flex-direction: row;
+  width: 98%;
+  background: white;
+  margin: 0 auto;
+  font-family: sans-serif;
+
+  header {
+    width: 100%;
+    /*border-bottom: 2px solid #e5e5e5;*/
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-bottom: 1.2rem;
+  }
+
+  .logo img {
+    width: 300px;
+    padding: 1rem;
+  }
+
+  header ul li {
+    list-style: none;
+    padding: 20px 18px;
+    margin: 10px;
+    float: left;
+    font-size: 20px;
+    border-radius: 35px;
+    /*background: red;*/
+
+  }
+
+  header ul li a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  header ul li.active {
+    background: var(--gra);
+  }
+
+  header ul li.active a {
+    color: white;
+    font-weight: bold;
+  }
+
+  aside {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*flex: 1;*/
+    /*background-color: #ffeac329;*/
+    border-right: 1px solid #00000030;
+    width: auto;
+  }
+
+  .filter-condition {
+    padding: 10px 33px;
+    height: 64px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 2rem;
+    border-bottom: 2px solid #e3ebf8c7;
+  }
+
+  .filter-condition span {
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: .6px;
+    line-height: 1.4;
+    color: var(--greyDark-2);
+    font-size: 1.4rem;
+  }
+
+  .filter-condition select {
+    width: 120px;
+    margin-top: 12px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    color: #645a64;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .product-field {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.3rem;
+    flex: 4;
+
+    .filter-chip {
+      width: 100%;
+      height: 100%;
+      max-height: 80px;
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      background: #d7e3f12e;
+      padding: 0 1rem 1rem 1rem;
+      border-bottom: 1px solid #64727c;
+
+      .chip-title {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      button,
+      h3 {
+        padding-right: 0;
+        font-size: 1.2rem;
+      }
+
+      button {
+        transition: all .3s ease;
+        color: var(--greyDark);
+        border: none;
+        font-family: inherit;
+        background: none;
+        cursor: pointer;
+        outline: none;
+        padding: 0.8rem;
+
+        &:hover {
+          color: var(--greyDark-2);
+        }
+      }
+
+      #chip-items-container {
+        width: 100%;
+        grid-template-columns: repeat(8, 13rem);
+        display: grid;
+
+        .chip-item {
+          padding: .6rem .8rem;
+          background: white;
+          margin: .6rem .6rem .6rem 0;
+          border-radius: 0.7rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+          border: 1px solid #99999947;
+
+          span {
+            font-size: 1.4rem;
+            color: var(--greyLight-3);
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      /*max-width: 1100px;*/
+      margin: 0 auto;
+
+      li {
+        list-style: none;
+        width: 28rem;
+        height: 51rem;
+        transition: 0.5s all;
+        background: whitesmoke;
+        /* overflow: hidden; */
+        border-radius: 20px;
+        margin: 8.6rem 2.8rem 1.9rem 0;
+        position: relative;
+        padding: 8px 8px 9.4rem;
+      }
+    }
+  }
+
+  picture {
+    background: #eee;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    bottom: 23rem;
+    width: 19rem;
+    height: 30rem;
+    border-radius: 40px 16px 0 16px;
+    transform: skewY(40deg);
+    overflow: hidden;
+    box-shadow: 0 1px 0 #00000020, -1px 0 0 #ccc;
+  }
+
+  picture img {
+    width: 95%;
+    z-index: 1;
+    transform: skewY(-40deg);
+    padding: 1.2rem 0 0 0.4rem;
+  }
+
+  .detail {
+    width: 100%;
+    height: 100%;
+  }
+
+  .detail .icon {
+    width: 30%;
+    height: 55%;
+    padding: 16px 4px;
+  }
+
+  .icon span {
+    background: #00000030;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+    margin: 0 5px 20px 5px;
+    font-size: 20px;
+    color: white;
+    justify-content: center;
+    padding-top: 15px;
+  }
+
+  .icon span:hover {
+    background: var(--gra);
+    cursor: pointer;
+  }
+
+  .detail > strong {
+    display: inherit;
+    margin: 1.3rem 11.5rem 1.3rem 1.5rem;
+    font-size: 24px;
+    letter-spacing: 1.6px;
+    color: #555;
+  }
+
+  .detail > span {
+    display: inherit;
+    padding: 0 16px;
+    width: 80%;
+  }
+
+  .detail small {
+    display: inline-block;
+    padding: 8px 20px;
+    margin: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #999;
+    cursor: pointer;
+  }
+
+  .detail small:hover {
+    background: var(--gra);
+    color: white;
+    border-color: cyan;
+  }
+
+  li h4 {
+    position: absolute;
+    right: 8px;
+    top: 47%;
+    font-size: 24px;
+    color: #555;
+    text-shadow: 1px 1px 2px black;
+  }
+
+  /*product-images*/
+  #Nike-Air-Jordan-1 {
+    padding-top: 3.5rem;
+  }
+
+  #AIR-MAX-90G {
+    padding-top: 3.4rem;
+  }
+
+  #AIR-FORCE-1-LOW {
+    padding-top: 2.6rem;
+  }
+
+  #Nike-Invincible3, #Mercurial-Superfly-9 {
+    padding-top: 4rem;
+  }
+
+  #RACER-TR23-SHOES {
+    padding-top: 8rem;
+  }
+
+  .sizes, .colors {
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.75s ease-out;
+  }
+
+  .sizes button, .colors button {
+    padding: 0.6rem 1.3rem !important;
+    background: none;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #585858;
+  }
+
+  button.active-color {
+    border: 1.6px solid black;
+    transform: scale(1.15);
+  }
+
+  .cart-item-count {
+    position: absolute;
+    top: 25px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 5px;
+    font-size: 9px;
+    font-weight: bold;
+  }
+
+  .sizes, .colors {
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.75s ease-out;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 0 12px;
+  }
+
+  .sizes button, .colors button {
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #585858;
+  }
+
+  button.active-color {
+    border: 2px solid black;
+    transform: scale(1.15);
+  }
+
+  button.active-size {
+    border: 2px solid black;
+    transform: scale(1.15);
+    background: #585858;
+    color: white;
+  }
+
+  button.active {
+    background: #585858;
+    color: white;
+  }
+
+  #racer-tr23 {
+    margin-top: 70px;
+  }
+}

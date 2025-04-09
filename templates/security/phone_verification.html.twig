@@ -24,12 +24,12 @@
         <!-- step 1 -->
         <fieldset data-fieldset="step-1">
             <h2 class="h2">Validation par SMS</h2>
-            <h3 class="h3">Merci de saisir votre numéro de téléphone </h3>
+            <h3 class="h3" style="line-height: 20px;">En cliquant sur « Envoyer », un SMS sera envoyé au numéro indiqué ci-dessous.</h3>
 
             <input type="text" name="cpass" id="phone-number" maxlength="14" oninput="addSpacing()"
-                   placeholder="06 12 13 14 15"/>
+                   placeholder="06 12 13 14 15" value="{{ app.user.phone }}" readonly/>
 
-            <input type="button" name="next" class="next action-button" id="sendSmsAction" value="Send"
+            <input type="button" name="next" class="next action-button" id="sendSmsAction" value="Envoyer"
                    data-url="{{ path('send_sms') }}" />
 
         </fieldset>

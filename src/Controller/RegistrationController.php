@@ -35,11 +35,14 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('success', 'connecté');
             
-            return $this->redirectToRoute('app_login_register');
+            return $this->redirectToRoute('app_login_register',[
+            'registrationSuccess' => 1,
+]);
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            '_route' => 'registrationPage',
         ]);
     }
 }

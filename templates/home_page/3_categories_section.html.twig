@@ -22,20 +22,20 @@
         <div class="category-container">
             <div class="box">
                 <h2 class="name">Nike</h2>
-                <a href="{{ path('store')}}" class="buy">Découvrir</a>
+                <a href="{{ path('store', {'category': 'Nike'}) }}" class="buy">Découvrir</a>
                 <div class="circle"></div> {# you can try this too #0b38259e #}
                 <img class="product" src="{{ asset('assets/images/products/nike_brand_showcase.png') }}"
                      alt="NIKE_Shoes"/>
             </div>
             <div class="box second_brand">
                 <h2 class="name">Adidas</h2>
-                <a href="{{ path('store')}}" class="buy">Découvrir</a>
+                <a href="{{ path('store', {'category': 'Adidas'}) }}" class="buy">Découvrir</a>
                 <div class="circle"></div>
                 <img class="product" src="{{ asset('assets/images/products/racer_tr23_.png') }}" alt="ADIDAS_Shoes"/>
             </div>
             <div class="box third_brand">
                 <h2 class="name">Louis Vuitton</h2>
-                <a href="{{ path('store')}}" class="buy">Découvrir</a>
+                <a href="{{ path('store', {'category': 'LV'}) }}" class="buy">Découvrir</a>
                 <div class="circle"></div>
                 <img class="product" src="{{ asset('assets/images/products/Louis_Vuitton_brand_showcase.png') }}"
                      alt="LV_Shoes"/>

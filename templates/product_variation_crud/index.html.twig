@@ -15,7 +15,7 @@
                 <th>CountryOfOrigin</th>
                 <th>DateOfManufacture</th>
                 <th>StockQuantity</th>
-                <th>AdditionalPrice</th>
+                <th>price</th>
                 <th>ImageName</th>
                 <th>actions</th>
             </tr>
@@ -30,7 +30,7 @@
                 <td>{{ product_variation.CountryOfOrigin }}</td>
                 <td>{{ product_variation.DateOfManufacture ? product_variation.DateOfManufacture|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product_variation.StockQuantity }}</td>
-                <td>{{ product_variation.AdditionalPrice }}</td>
+                <td>{{ product_variation.price }}</td>
                 <td>{{ product_variation.imageName }}</td>
                 <td>
                     <a href="{{ path('app_product_variation_crud_show', {'id': product_variation.id}) }}">show</a>

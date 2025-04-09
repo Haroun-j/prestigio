@@ -20,7 +20,7 @@ class ProductVariationType extends AbstractType
             ->add('CountryOfOrigin')
             ->add('DateOfManufacture')
             ->add('StockQuantity')
-            ->add('AdditionalPrice')
+            ->add('price')
             ->add('imageName')
             ->add('product', EntityType::class, [
                 'class' => Product::class,

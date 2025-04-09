@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block home %}
+{% block body %}
     <link href='https://fonts.googleapis.com/css?family=Raleway:100,200,400,600' rel='stylesheet' type='text/css'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!---------------------- INTRO  ------------------------->
     {% include 'home_intro.html.twig' %}
     <!-- end intro -->
@@ -113,13 +115,15 @@
 
     <!-- Import JavaScript files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.extensions.min.js"></script>
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.extensions.min.js"></script>#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <!-- Footer-->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="{{ asset('assets/js/ionicons.esm.js') }}"></script>
+    <script src="{{ asset('assets/js/ionicons.js') }}"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
             // Check screen width
             var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
@@ -127,6 +131,7 @@
             if (screenWidth > 600) {
                 // initialize fullpage.js
                 new fullpage("#fullpage", {
+                    licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
                     autoScrolling: true,
                     scrollBar: true,
                     scrollOverflow: true,

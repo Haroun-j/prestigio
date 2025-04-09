@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/cart/cart.css') }}">
     <body>
     <div class="wrap cf">
-        <h1 class="projTitle">Payer en X2 ou 3X Fois Avec<span>-Prestigio </span> Service
+{#        <h1 class="projTitle">Payer en X2 ou 3X Fois Avec<span>-Prestigio </span> Service#}
         </h1>
         <div class="heading cf">
             <h1>Mon Panier</h1>
@@ -21,22 +21,48 @@
             <ul class="cartWrap">
                 {% for element in data %}
                     <li class="items {% if loop.index is even %}even{% else %}odd{% endif %}"
-                        data-category="{{ element.product.category }}">
+                        data-category="{% if element.isVariation %}{{ element.product.product.category }}
+                                       {% else %}{{ element.product.category }}{% endif %}">
                         <div class="infoWrap">
                             <div class="cartSection">
-                                {#                            <img src="{{ element.product.image }}" alt="" class="itemImg" /> #}
-                                {#                            <p class="itemNumber">#{{ element.product.code }}</p> #}
-                                <a href="{{ path('product_details', {id: element.product.id}) }}" style="text-decoration: none">
-                                    <h3>{{ element.product.name }}</h3>
-                                </a>
-                                <p>
-                                    <input type="text" class="qty" placeholder="{{ element.quantity }}"/>
-                                    x €{{ element.product.price }}
-                                </p>
+                                {% if element.isVariation %}
+                                    <img src="{{ asset('uploads/images/product_variation_images/' ~ element.product.imageName) }}"
+                                         alt=""
+                                         class="itemImg"/>
+                                    
+                                    {#                            <p class="itemNumber">#{{ element.product.code }}</p> #}
+                                    <a href="{{ path('product_details', {reference: element.product.productReference.referenceCode}) }}"
+                                       style="text-decoration: none">
+                                        <h3>{{ element.product.product.name }}</h3>
+                                    </a>
+                                    <p>
+                                        <input type="text" class="qty" placeholder="{{ element.quantity }}"/>
+                                        x €{{ element.product.price }}
+                                    </p>
+                                    <a href="{{ path('cart_remove', {id: element.product.product.id, size: element.size}) }}"
+                                       class="qtyBtn removeBtn">-</a>
+                                    <a href="{{ path('cart_add', {id: element.product.product.id, size: element.size, quantity: 1, source: 'cart', productVariationId: element.product.id}) }}"
+                                       class="qtyBtn addBtn">+</a>
+                                {% else %}
+                                    <img src="{{ asset('uploads/images/products/' ~ element.product.imageName) }}"
+                                         alt=""
+                                         class="itemImg"/>
+                                    
+                                    {#                            <p class="itemNumber">#{{ element.product.code }}</p> #}
+                                    <a href="{{ path('product_details', {reference: element.product.productReference.referenceCode}) }}"
+                                       style="text-decoration: none">
+                                        <h3>{{ element.product.name }}</h3>
+                                    </a>
+                                    <p>
+                                        <input type="text" class="qty" placeholder="{{ element.quantity }}"/>
+                                        x €{{ element.product.price }}
+                                    </p>
+                                    <a href="{{ path('cart_remove', {id: element.product.id, size: element.size}) }}"
+                                       class="qtyBtn removeBtn">-</a>
+                                    <a href="{{ path('cart_add', {id: element.product.id, size: element.size,quantity: 1, source: 'cart', productVariationId: 0 }) }}"
+                                       class="qtyBtn addBtn">+</a>
+                                {% endif %}
                                 {#                            <p class="stockStatus">{% if element.product.stock > 0 %}In Stock{% else %}Out of Stock{% endif %}</p> #}
-                                <a href="{{ path('cart_remove', {id: element.product.id, size: element.size}) }}" class="qtyBtn removeBtn">-</a>
-                                <a href="{{ path('cart_add', {id: element.product.id, size: element.size,quantity: 1, source: 'cart'}) }}"
-                                   class="qtyBtn addBtn" >+</a>
                             </div>
                             <div class="sizeControls cartSection">
                                 <p>{{ element.size }}</p>
@@ -48,7 +74,8 @@
                                 <p>€{{ element.quantity * element.product.price }}</p>
                             </div>
                             <div class="cartSection removeWrap">
-                                <a href="{{ path('cart_delete', {id: element.product.id, size: element.size}) }}" class="remove">x</a>
+                                <a href="{{ path('cart_delete', {id: element.product.id, size: element.size}) }}"
+                                   class="remove">x</a>
                             </div>
                         </div>
                     </li>
@@ -63,14 +90,15 @@
                 {% endfor %}
             </ul>
             <div class="emptyCart">
-                <a href="{{ path('cart_empty') }}" >Vider le Panier</a>
+                <a href="{{ path('cart_empty') }}">Vider le Panier</a>
             </div>
         </div>
-
+        
         <div class="promoCode">
             <label for="promo">Coupon ?</label>
             <label>
-                <input type="text" name="promo" placeholder="Entrer un Code de 10 Chiffres" pattern="\d{10}"
+                <input type="text" name="promo" id="coupon-input" placeholder="Entrer un Code de 10 Chiffres"
+                       pattern="\d{10}"
                        maxlength="10" minlength="10" required/>
             </label>
             <a href="#" id="check-coupon-btn" class="btn"></a>
@@ -82,28 +110,37 @@
                 <li class="totalRow"><span class="label">Sous-total</span><span class="value"
                                                                                 id="subtotal">{{ total }} € HT</span>
                 </li>
-                <li class="totalRow"><span class="label">Livraison</span><span class="value" id="shipping">5.00 €</span>
+                <li class="totalRow"><span class="label">
+                        Livraison
+                    </span>
+                    <span class="value" id="shipping">
+                        5.00 €
+                    </span>
                 </li>
-                <li class="totalRow"><span class="label">Taxe (20%)</span><span class="value"
-                                                                                id="tax">{{ (total * 0.20) | number_format(2, '.', '') }} €</span>
+                <li class="totalRow"><span class="label">Taxe (20%)</span>
+                    <span class="value" id="tax">
+                        {{ (total * 0.20) | number_format(2, '.', '') }} €
+                    </span>
                 </li>
-                <li class="totalRow"><span class="label">Promo</span><span class="value"
-                                                                           id="promo">0.00 €</span></li>
-                <li class="totalRow final"><span class="label">Total</span><span class="value"
-                                                                                 id="total">{{ total + 5 + (total * 0.20) | number_format(2, '.', '') }} €</span>
+                <li class="totalRow">
+                    <span class="label">
+                        Promo
+                    </span>
+                    <span class="value" id="promo">0.00 €</span></li>
+                <li class="totalRow final"><span class="label">Total</span>
+                    <span class="value" id="total">
+                        {{ total + 5 + (total * 0.20) | number_format(2, '.', '') }} €
+                    </span>
                 </li>
-                <li class="totalRow"><a href="{{ path('app_orders_add') }}" class="btn continue">Valider &
-                                                                                                 Payer</a></li>
+                <li class="totalRow">
+                    <a href="{{ path('app_orders_add') }}" class="btn continue">
+                        Valider & Payer
+                    </a>
+                </li>
             </ul>
         </div>
-
     </div>
-    </body>
     <style>
-        .cartSection img {
-            display: none !important;
-        }
-
         .cartWrap {
             padding-left: 15px;
         }
@@ -116,10 +153,12 @@
             text-align: center;
             width: 15%;
         }
+
         .sizeControls {
             text-align: left;
             width: 12%;
         }
+
         .prodTotal {
             width: 25%;
         }
@@ -143,29 +182,34 @@
             background: #f1f102;
             text-align: center;
         }
-        .addBtn{
+
+        .addBtn {
             padding: 4px 12px;
             text-decoration: none;
             background: #87d992;
             border-radius: 10px;
         }
-        .removeBtn{
+
+        .removeBtn {
             padding: 4px 13px;
             text-decoration: none;
             background: #ee9c9c;
             border-radius: 10px;
         }
-        .emptyCart{
+
+        .emptyCart {
             display: flex;
             justify-content: right;
         }
-        .emptyCart a{
+
+        .emptyCart a {
             background-color: #ecc0c0;
             color: white;
             text-decoration: none;
             padding: 6px;
             border-radius: 12px;
         }
+
         .emptyCart a:hover {
             background-color: #e98686;
         }
@@ -175,14 +219,9 @@
         $(document).ready(function () {
             $('#check-coupon-btn').click(function (e) {
                 e.preventDefault();
-                const couponCodeInput = $('input[name="promo"]');
-
-                if (!couponCodeInput[0].checkValidity()) {
-                    couponCodeInput[0].reportValidity();
-                    return;
-                }
-
-                const couponCode = couponCodeInput.val();
+                const couponCodeInput = document.getElementById('coupon-input');
+                const couponCode = couponCodeInput.value;
+                // console.log(couponCodeInput, couponCode);
                 $.ajax({
                     url: '{{ path('check_coupon') }}',
                     type: 'POST',
@@ -207,18 +246,19 @@
                             if (data.validity) {
                                 infoHtml += `<p><strong>Valide Jusqu'à :</strong> ${data.validity}</p>`;
                             }
-                            infoHtml += `<p><strong>Promo :</strong> ${parseFloat(data.discount).toFixed(2)} ${data.currency}</p>`;
+                            infoHtml += `<p><strong>Promo :</strong> ${parseFloat(data.discount).toFixed(2)}
+                            ${data.currency}</p>`;
                         } else {
                             infoHtml += `<p class="error-msg">${data.message}</p>`;
                         }
                         couponInfos.html(infoHtml).show();
-
+                        
                         const subtotal = parseFloat('{{ total }}');
                         let shippingDefault = 5; // Default shipping fee
                         const taxRate = 0.20; // Default tax rate
                         let tax = subtotal * taxRate; // Calculate original tax
                         let promo = 0; // Initialize promo discount
-
+                        
                         if (data.type === 'onProduct' && data.onProduct) {
                             let productFound = false;
                             $('ul.cartWrap li.items').each(function () {
@@ -228,12 +268,17 @@
                                     const productPrice = parseFloat($(this).find('.cartSection p').text().split('€')[1]);
                                     const quantity = parseInt($(this).find('.quantityControls input.qty').val());
                                     const totalProductPrice = productPrice * quantity; // Total price for this product
-                                    const discountAmount = totalProductPrice * (parseFloat(data.discount) / 100); // Discount based on the total price
+                                    const discountAmount = totalProductPrice * (parseFloat(data.discount) / 100); // Discount based
+                                    on
+                                    the
+                                    total
+                                    price
                                     promo += discountAmount;
                                 }
                             });
                             if (!productFound) {
-                                couponInfos.html(`<p class="error-msg">Ce coupon ne peut pas être appliqué car le produit spécifié n'existe pas dans votre panier.</p>`).show();
+                                couponInfos.html(`<p class="error-msg">Ce coupon ne peut pas être appliqué car le produit
+                            spécifié n'existe pas dans votre panier.</p>`).show();
                                 return;
                             }
                         } else if (data.type === 'onTaxe') {
@@ -250,7 +295,7 @@
                             promo = parseFloat(data.discount); // Apply discount directly to the total
                         } else if (data.type === 'onCategory') {
                             let categoryTotal = 0;
-
+                            
                             $('ul.cartWrap li.items').each(function () {
                                 const categoryName = $(this).attr('data-category');
                                 if (categoryName === data.onCategory) {
@@ -259,12 +304,12 @@
                                     categoryTotal += productPrice * quantity;
                                 }
                             });
-
+                            
                             promo = categoryTotal * (parseFloat(data.discount) / 100);
                         }
-
+                        
                         const total = subtotal + shippingDefault + tax - promo;
-
+                        
                         $('#subtotal').text(`${subtotal.toFixed(2)} € HT`);
                         $('#shipping').text(`${shippingDefault.toFixed(2)} €`);
                         $('#tax').text(`${tax.toFixed(2)} €`);

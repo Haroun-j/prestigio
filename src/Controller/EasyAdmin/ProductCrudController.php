@@ -3,6 +3,7 @@
     namespace App\Controller\EasyAdmin;
     
     use App\Entity\Product;
+    use App\Form\AdditionalProductImageType;
     use App\Form\ProductSizeType;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -28,6 +29,8 @@
         public function configureFields (string $pageName): iterable
         {
             return [
+                TextField::new('productReference.referenceCode', 'Code de Référence')
+                    ->setFormTypeOption('attr.readonly', true),
                 TextField::new('name','Nom'),
                 ImageField::new('imageName', 'Image')
                     ->setBasePath($this->getParameter('app.path.product_images'))
@@ -59,6 +62,11 @@
                     ->setFormType(VichImageType::class)
                     ->setFormTypeOption('allow_delete', false),
                 BooleanField::new('status','Status'),
+                CollectionField::new('additionalProductImages', 'Images Supplémentaires')
+                    ->setEntryType(AdditionalProductImageType::class)
+                    ->allowAdd()
+                    ->allowDelete()
+                    ->hideOnIndex(),
                 CollectionField::new('productVariations', 'Variations')
                     ->useEntryCrudForm(ProductVariationCrudController::class)
                     ->allowDelete()

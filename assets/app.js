@@ -1,10 +1,37 @@
-import './bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
-import './styles/app.css';
+// -------- detect user disconnection --------
+// import './js/ajax/handleDeadSession.js'
+import 'bootstrap';
+import '@popperjs/core';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import '@mdi/font/css/materialdesignicons.min.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+//-------- SCSS --------
+import './styles/app.scss';
+import {loadCartIndexModules} from "./js/pages/cartIndex";
+
+const routeHandlers = {
+    'homePage': () => import('./js/pages/homePage').then(module => module.loadHomePageModules()),
+    'storePage': () => import('./js/pages/storePage').then(module => module.loadStorePageModules()),
+    'productTemplate': () => import('./js/pages/productTemplate').then(module => module.loadProductTemplateModules()),
+    'registrationPage': () => import('./js/pages/registrationPage').then(module => module.loadRegistrationPageModules()),
+    'loginPage': () => import('./js/pages/loginPage').then(module => module.loadLoginPageModules()),
+    'additionalRegistrationForm': () => import('./js/pages/additionalRegistrationForm').then(module => module.loadAdditionalRegistrationFormModules()),
+    'userDashboard': () => import('./js/pages/userDashboard').then(module => module.loadUserDashboardModules()),
+    // 'cartIndex': () => import('./js/pages/cartIndex').then(module => module.loadCartIndexModules()),
+};
+
+function initializePageScripts() {
+    const currentRoute = document.body.getAttribute('data-route');
+    console.log(currentRoute, 'modules loaded');
+    const routeHandler = routeHandlers[currentRoute];
+    
+    if (routeHandler) {
+        routeHandler().catch(error => {
+            console.error(`Failed to load modules for route ${currentRoute}:`, error);
+        });
+    } else {
+        console.warn('No specific scripts for this route.');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initializePageScripts);

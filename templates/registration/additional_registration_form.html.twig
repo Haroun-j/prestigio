@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container">
+        <header>Compléter vous informations</header>
+        
+        {{ form_start(form, {'attr': {'class': 'form'}}) }}
+        <div class="form first">
+            <div class="details personal">
+                <span class="title">Informations Personnelles</span>
+                
+                <div class="fields">
+                    <div class="input-field">
+                        {{ form_label(form.firstName, 'Prénom *') }}
+                        {{ form_widget(form.firstName, {'attr': {'placeholder': 'Entrez votre prénom'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.firstName, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.lastName, 'Nom *') }}
+                        {{ form_widget(form.lastName, {'attr': {'placeholder': 'Entrez votre nom'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.lastName, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.dateOfBirth, 'Date de Naissance *') }}
+                        {{ form_widget(form.dateOfBirth, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.dateOfBirth, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.phone, 'Téléphone *') }}
+                        {{ form_widget(form.phone, {'attr': {'placeholder': 'Ex: 06 12 34 56 78'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.phone, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.gender, 'Genre *') }}
+                        {{ form_widget(form.gender) }}
+                        <div class="form__error">
+                            {{ form_errors(form.gender, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.heroNickname, 'Surnom de Super-Héros (optionnel)') }}
+                        {{ form_widget(form.heroNickname, {'attr': {'placeholder': 'Laissez libre cours à votre imagination'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.heroNickname) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="nextBtn">
+                <span class="btnText">Next</span>
+                <i class="uil uil-navigator"></i>
+            </button>
+        </div>
+        
+        <div class="form second">
+            <div class="details address">
+                <span class="title">Détails d'Adresse</span>
+                
+                <div class="fields">
+                    <div class="input-field">
+                        {{ form_label(form.streetAddress) }}
+                        {{ form_widget(form.streetAddress, {'attr': {'placeholder': 'Ex: 12 Rue de la Paix'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.streetAddress, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.addressComplement) }}
+                        {{ form_widget(form.addressComplement, {'attr': {'placeholder': 'Appartement, étage, etc.'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.addressComplement, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.postalCode, 'Code Postal *') }}
+                        {{ form_widget(form.postalCode, {'attr': {'placeholder': 'Ex: 75001'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.postalCode, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.city, 'Ville *') }}
+                        {{ form_widget(form.city, {'attr': {'placeholder': 'Entrez votre ville'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.city, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.department, 'Département (optionnel)') }}
+                        {{ form_widget(form.department, {'attr': {'placeholder': 'Ex: Paris'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.department, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        {{ form_label(form.country, 'Pays *') }}
+                        {{ form_widget(form.country, {'attr': {'placeholder': 'France'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(form.country, {'attr': {'class': 'form__error'}}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="details newsletter">
+                <div class="input-field form__checkboxes">
+                    {{ form_label(form.confirmData, 'Je confirme avoir vérifié et lu attentivement mes informations *') }}
+                    {{ form_widget(form.confirmData, {'attr': {'style': 'margin-bottom: 15px;'}}) }}
+                    {{ form_errors(form.confirmData) }}
+                </div>
+                <div class="input-field form__checkboxes">
+                    {{ form_label(form.newsletter, 'S\'abonner à la newsletter') }}
+                    {{ form_widget(form.newsletter, {'attr': {'style': 'margin-bottom: 15px;'}}) }}
+                    {{ form_errors(form.newsletter) }}
+                </div>
+            </div>
+            <div class="details family">
+                
+                <div class="buttons">
+                    <div class="backBtn">
+                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Back</span>
+                    </div>
+                    
+                    <button type="submit" class="sumbit">
+                        <span class="btnText">Submit</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <script>
+        const form = document.querySelector("form"),
+            nextBtn = form.querySelector(".nextBtn"),
+            backBtn = form.querySelector(".backBtn"),
+            allInput = form.querySelectorAll(".first input");
+        
+        
+        nextBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            allInput.forEach(input => {
+                if (input.value !== "") {
+                    form.classList.add('secActive');
+                } else {
+                    form.classList.remove('secActive');
+                    input.reportValidity();
+                }
+            })
+        })
+        
+        backBtn.addEventListener("click", () => form.classList.remove('secActive'));
+    </script>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/register_login/additional_registration_form.css') }}">
+{% endblock %}

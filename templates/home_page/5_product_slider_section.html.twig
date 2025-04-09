@@ -26,6 +26,7 @@
                                     <button class="color-button active-color"
                                             style="background: {{ product.colorCode }};"
                                             data-color-code="{{ product.colorCode }}" data-variation-info='{{ {
+                                        id: product.id,
                                         name: product.name,
                                         description: product.description,
                                         sizes: product.sizes,
@@ -34,6 +35,7 @@
                                     {% for variation in product.variations %}
                                         <button class="color-button" style="background: {{ variation.colorCode }};"
                                                 data-color-code="{{ variation.colorCode }}" data-variation-info='{{ {
+                                            id: variation.id,
                                             sizes: variation.sizes,
                                             image: asset('assets/images/products/home/product_variations/' ~ product.name|replace({' ': '-'}) ~ '/' ~ variation.color|replace({' ': '-'}) ~ '-cropped.png')
                                         }|json_encode }}'></button>
@@ -45,9 +47,9 @@
                                     {% endfor %}
                                 </div>
                                 <div class="purchase">
-                                    <a href="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'cart_index'}) }}"
-                                       class="buy-btn"
-                                       data-route="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'cart_index'}) }}">
+                                    <a href="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'home'}) }}"
+                                       class="buy-link"
+                                       data-route="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'home'}) }}">
                                         <button>Acheter</button>
                                     </a>
                                 </div>
@@ -69,28 +71,46 @@
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const colorButtons = document.querySelectorAll('.color-button');
+        
+        // For each shoe-box, store the original product id and initialize selectedVariationId.
+        document.querySelectorAll('.shoe-box[data-product-id]').forEach(function (productBox) {
+            productBox.dataset.originalProductId = productBox.dataset.productId;
+            productBox.dataset.selectedVariationId = "";
+        });
+        
+        // Auto-select default size in each sizes container, if none is active.
+        document.querySelectorAll('.shoe-box .sizes').forEach(function (sizesContainer) {
+            if (!sizesContainer.querySelector('button.active-size')) {
+                const firstSizeButton = sizesContainer.querySelector('button');
+                if (firstSizeButton) {
+                    firstSizeButton.classList.add('active-size');
+                    const productBox = sizesContainer.closest('.shoe-box');
+                    updateBuyLink(productBox);
+                }
+            }
+        });
+        
+        // Color button behavior.
+        const colorButtons = document.querySelectorAll('.shoe-box .color-button');
         colorButtons.forEach(button => {
             button.addEventListener('click', function () {
-                // Skip if the button is already active
                 if (this.classList.contains('active-color')) {
                     return;
                 }
-
+                
                 const productBox = this.closest('.shoe-box');
                 const variationInfo = JSON.parse(this.dataset.variationInfo);
-
-                // Use the variation-specific image path
-                productBox.querySelector('.product-image').src = variationInfo.image;
-
-                // Update the product description if present in variationInfo
-                if (variationInfo.description) {
-                    productBox.querySelector('.description').textContent = variationInfo.description.slice(0, 60) + '...';
+                
+                // Update image.
+                const img = productBox.querySelector('.product-image');
+                if (img && variationInfo.image) {
+                    img.src = variationInfo.image;
+                    img.style.marginTop = "86px";
                 }
-
-                // Clear and update sizes
+                
+                // Update sizes.
                 const sizesContainer = productBox.querySelector('.sizes');
-                sizesContainer.innerHTML = ''; // Clear existing buttons
+                sizesContainer.innerHTML = '';
                 if (variationInfo.sizes && Array.isArray(variationInfo.sizes)) {
                     variationInfo.sizes.forEach(size => {
                         const sizeButton = document.createElement('button');
@@ -103,15 +123,30 @@
                         });
                         sizesContainer.appendChild(sizeButton);
                     });
+                    // Auto-select the first new size.
+                    const firstBtn = sizesContainer.querySelector('button');
+                    if (firstBtn) {
+                        firstBtn.classList.add('active-size');
+                    }
                 }
-
-                // Update active color
+                
+                // Set active state for color buttons.
                 productBox.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('active-color'));
                 this.classList.add('active-color');
+                
+                // Instead of altering product id, store the variation id separately.
+                if (variationInfo.id) {
+                    productBox.dataset.selectedVariationId = variationInfo.id;
+                } else {
+                    productBox.dataset.selectedVariationId = "";
+                }
+                
+                updateBuyLink(productBox);
             });
         });
-        const initialSizeButtons = document.querySelectorAll('.sizes button');
-        initialSizeButtons.forEach(button => {
+        
+        // Size button click behavior (for already-present sizes).
+        document.querySelectorAll('.shoe-box .sizes button').forEach(button => {
             button.addEventListener('click', function () {
                 const sizesContainer = this.closest('.sizes');
                 sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active-size'));
@@ -120,20 +155,61 @@
                 updateBuyLink(productBox);
             });
         });
-
+        
+        // Ensure the "Acheter" link requires a size.
+        document.querySelectorAll('.buy-link').forEach(buyLink => {
+            buyLink.addEventListener('click', function (e) {
+                const productBox = this.closest('.shoe-box');
+                const selectedSize = productBox.querySelector('.sizes button.active-size');
+                if (!selectedSize) {
+                    e.preventDefault();
+                    alert("Merci de sélectionner une taille");
+                }
+            });
+        });
+        
+        // Update the buy link URL.
         function updateBuyLink(productBox) {
+            const buyLinks = productBox.querySelectorAll('.buy-link');
+            if (!buyLinks.length) return;
+            
+            // Start with the original route.
+            let newHref = buyLinks[0].dataset.route;
+            
+            // Keep parent's id in the route.
+            const originalProductId = productBox.dataset.originalProductId;
+            if (originalProductId) {
+                newHref = newHref.replace(/(\d+)/, originalProductId);
+            }
+            
+            // Update the size parameter.
             const selectedSizeButton = productBox.querySelector('.sizes button.active-size');
             if (selectedSizeButton) {
                 const selectedSize = selectedSizeButton.dataset.size;
-                const buyLink = productBox.querySelector('.buy-btn');
-                const newHref = buyLink.dataset.route.replace(/size=\d+/, 'size=' + selectedSize); // Update size parameter
-                buyLink.setAttribute('href', newHref);
+                newHref = newHref.replace(/size=\d+/, 'size=' + selectedSize);
             }
+            
+            // Append or update the 'productVariationId' parameter.
+            // Use the stored selected variation id, or "0" if none.
+            const variationId = (productBox.dataset.selectedVariationId && productBox.dataset.selectedVariationId !== "")
+                ? productBox.dataset.selectedVariationId
+                : "0";
+            try {
+                let url = new URL(newHref, window.location.origin);
+                url.searchParams.set('productVariationId', variationId);
+                newHref = url.toString();
+            } catch (error) {
+                if (newHref.indexOf('?') === -1) {
+                    newHref += '?productVariationId=' + variationId;
+                } else {
+                    newHref += '&productVariationId=' + variationId;
+                }
+            }
+            
+            buyLinks.forEach(function (link) {
+                link.setAttribute('href', newHref);
+            });
         }
-
-
     });
-
 </script>
 <script src="{{ asset('assets/js/products/home/products_script.js') }}"></script>
-

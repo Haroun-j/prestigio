@@ -1,120 +1,102 @@
-{% block head %}
+{% extends 'base.html.twig' %}
+{% block main %}
+    <aside>
+        <div class="filter-condition">
+            <span>Classer Par :</span>
+            <select name="" id="select">
+                <option value="Default">Default</option>
+                <option value="LowToHigh">de bas en haut</option>
+                <option value="HighToLow">de haut en bas</option>
+            </select>
+        </div>
+        {% include './store/store_filter.html.twig' %}
+    </aside>
+    <div class="product-field">
+        <ul class="chip">
+            <div class="chip__title">
+                <h3>Filtres:</h3>
+                <button class="chip__btn" id="clearAll">Réinitialiser</button>
+            </div>
+            <div id="chip-container"></div>
+        </ul>
+        <ul class="items">
+            {% for category in storeData %}
+                {% for product in category.products %}
+                    <li data-category="{{ category.label }}" data-price="{{ product.price }}">
+                        <a href="{{ path('product_details', {reference: product.reference}) }}"
+                           style="text-decoration: none">
+                            <picture>
+                                <img id="{{ product.name|replace({' ': '-'}) }}"
+                                     src="{{ asset('uploads/images/products/' ~ product.imageName) }}" alt="">
+                            </picture>
+                        </a>
+                        <div class="detail">
+                            <p class="icon">
+                                <span class="heart-container"
+                                      {% if product.isLiked %}style="background: linear-gradient(45deg, cyan, royalblue)" {% endif %}
+                                data-product-id="{{ product.id }}">
+                                <i class="fas fa-heart"></i>
+                                </span>
+                                <span><i class="far fa-share-square"></i></span>
+                                <a class="buy-link"
+                                   href="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'store'}) }}"
+                                   data-route="{{ path('cart_add', {id: product.id, size: 42, quantity: 1, source: 'store'}) }}"
+                                   style="text-decoration: none">
+                                    <span>
+                                        <i class="fas fa-shopping-basket"></i>
+                                    </span>
+                                </a>
+                            </p>
+                            <strong>{{ product.name | length > 20 ? product.name | slice(0, 18) ~ '...' : product.name }}</strong>
+                            <span>{{ product.description | length > 70 ? product.description | slice(0, 70) ~ '...' : product.description }}</span>
+                            
+                            
+                            <div class="colors" style="margin-bottom: 6.4px;">
+                                <!-- Active color -->
+                                <button class="color-button active-color"
+                                        style="background: {{ product.colorCode }};"
+                                        data-color-code="{{ product.colorCode }}"
+                                        data-variation-info='{{ {
+                                            id: product.id,
+                                            name: product.name,
+                                            sizes: product.sizes,
+                                            image: asset('uploads/images/products/' ~ product.imageName)
+                                        }|json_encode }}'>
+                                </button>
+                                <!-- Other variations -->
+                                {% for variation in product.variations %}
+                                    <button class="color-button"
+                                            style="background: {{ variation.colorCode }};"
+                                            data-color-code="{{ variation.colorCode }}"
+                                            data-variation-info='{{ {
+                                                id: variation.id,
+                                                sizes: variation.sizes,
+                                                image: asset('assets/images/products/home/product_variations/' ~ product.name|replace({' ': '-'}) ~ '/' ~ variation.color|replace({' ': '-'}) ~ '-cropped.png')
+                                            }|json_encode }}'>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                            <div class="sizes">
+                                {% for size in product.sizes %}
+                                    <button data-size="{{ size.size }}">{{ size.size }}</button>
+                                {% endfor %}
+                            </div>
+                            
+                            <a class="buy-link" style="text-decoration: none"
+                               href="{{ path('cart_add', {id: product.id, size : 42, quantity: 1, source: 'store'}) }}"
+                               data-route="{{ path('cart_add', {id: product.id, size : 42,quantity: 1, source: 'store'}) }}">
+                                Acheter
+                            </a>
+                        </div>
+                        <h4>${{ product.price }}</h4>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/products/product_list.css') }}">
-{% endblock %}
-
-{% block body %}
-    <header class="header__">
-        <div class="logo">
-            <a href="{{ path('home') }}">
-                <img src="{{ asset('assets/images/logo4.png') }}"
-                     alt="#">
-            </a>
-        </div>
-        {#         <ul class="indicator"> #}
-        {#             <li data-filter="all" class="active"><a href="#">All</a></li> #}
-        {#             {% for category in storeData %} #}
-        {#                 <li data-filter="{{ category.label }}"><a href="#">{{ category.label }}</a></li> #}
-        {#             {% endfor %} #}
-        {#         </ul> #}
-        {#         ---------------Get items Number From session------------------ #}
-        {#        {% set panier = app.session.get('panier', {}) %} #}
-        {#        {% set itemCount = 0 %} #}
-        {#        {% for quantity in panier %} #}
-        {#            {% set itemCount = itemCount + quantity %} #}
-        {#        {% endfor %} #}
-        {#        <a href="{{ path('cart_index') }}"> #}
-        {#            <i class="fa-solid fa-cart-shopping"></i> #}
-        {#            {% if itemCount > 0 %} #}
-        {#                <span class="cart-item-count">{{ itemCount }}</span> #}
-        {#            {% endif %} #}
-        {#        </a> #}
-    </header>
-    <main class="main-with-aside">
-
-        <aside>
-            <div class="filter-condition">
-                <span>Sort By :</span>
-                <select name="" id="select">
-                    <option value="Default">Default</option>
-                    <option value="LowToHigh">de bas en haut</option>
-                    <option value="HighToLow">de haut en bas</option>
-                </select>
-            </div>
-            {% include './store/store_filter.html.twig' %}
-
-        </aside>
-        <div class="product-field">
-            <ul class="chip">
-                <div class="chip__title">
-                    <h3>Your filters:</h3>
-                    <button class="chip__btn" id="clearAll">Clear All</button>
-                </div>
-                <div id="chip-container"></div>
-            </ul>
-            <ul class="items">
-                {% for category in storeData %}
-                    {% for product in category.products %}
-
-                        <li data-category="{{ category.label }}" data-price="{{ product.price }}">
-                            <a href="{{ path('product_details', {id: product.id}) }}" style="text-decoration: none">
-                                <picture>
-                                    <img id="{{ product.name|replace({' ': '-'}) }}"
-                                         src="{{ asset('uploads/images/products/' ~ product.imageName) }}" alt="">
-                                </picture>
-                            </a>
-                            <div class="detail">
-                                <p class="icon">
-                                    <span><i class="far fa-heart"></i></span>
-                                    <span><i class="far fa-share-square"></i></span>
-                                    <a href="{{ path('cart_add', {id: product.id, size : 40, quantity: 1, source: 'store'}) }}"
-                                       style="text-decoration: none"><span><i
-                                                    class="fas fa-shopping-basket"></i></span></a>
-                                </p>
-                                <strong>{{ product.name | length > 20 ? product.name | slice(0, 18) ~ '...' : product.name }}</strong>
-                                <span>{{ product.description | length > 70 ? product.description | slice(0, 70) ~ '...' : product.description }}</span>
-
-
-                                <div class="colors" style="margin-bottom: 6.4px;">
-                                    <!-- Active color -->
-                                    <button class="color-button active-color"
-                                            style="background: {{ product.colorCode }};"
-                                            data-color-code="{{ product.colorCode }}" data-variation-info='{{ {
-                                        name: product.name,
-                                        sizes: product.sizes,
-                                        image: asset('uploads/images/products/' ~ product.imageName)
-                                    }|json_encode }}'></button>
-                                    <!-- Other variations -->
-                                    {% for variation in product.variations %}
-                                        <button class="color-button" style="background: {{ variation.colorCode }};"
-                                                data-color-code="{{ variation.colorCode }}"
-                                                data-variation-info='{{ {
-                                                    sizes: variation.sizes,
-                                                    image: asset('assets/images/products/home/product_variations/' ~ product.name|replace({' ': '-'}) ~ '/' ~ variation.color|replace({' ': '-'}) ~ '-cropped.png')
-                                                }|json_encode }}'></button>
-                                    {% endfor %}
-                                </div>
-                                <div class="sizes">
-                                    {% for size in product.sizes %}
-                                        <button data-size="{{ size.size }}">{{ size.size }}</button>
-                                    {% endfor %}
-                                </div>
-
-
-                                <small><a style="text-decoration: none"
-                                          href="{{ path('cart_add', {id: product.id, size : 42, quantity: 1, source: 'store'}) }}"
-                                          class="buy-btn"
-                                          data-route="{{ path('cart_add', {id: product.id, size : 42,quantity: 1, source: 'store'}) }}">Acheter</a></small>
-                            </div>
-                            <h4>${{ product.price }}</h4>
-                        </li>
-
-                    {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-        {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
-    </main>
     <style>
         .sizes, .colors {
             display: flex;
@@ -160,19 +142,39 @@
     <script type="text/javascript" src="{{ asset('assets/js/products/product_list.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            
+            document.querySelectorAll('li[data-product-id]').forEach(function (productBox) {
+                productBox.dataset.originalProductId = productBox.dataset.productId;
+                productBox.dataset.selectedVariationId = "";
+            });
+            
+            document.querySelectorAll('.sizes').forEach(function (sizesContainer) {
+                if (!sizesContainer.querySelector('button.active-size')) {
+                    const firstSizeButton = sizesContainer.querySelector('button');
+                    if (firstSizeButton) {
+                        firstSizeButton.classList.add('active-size');
+                        const productBox = sizesContainer.closest('li');
+                        updateBuyLink(productBox);
+                    }
+                }
+            });
+            
             const colorButtons = document.querySelectorAll('.color-button');
             colorButtons.forEach(button => {
                 button.addEventListener('click', function () {
                     if (this.classList.contains('active-color')) {
                         return;
                     }
-
+                    
                     const productBox = this.closest('li');
                     const variationInfo = JSON.parse(this.dataset.variationInfo);
-
-                    productBox.querySelector('img').src = variationInfo.image;
-                    productBox.querySelector('img').style.marginTop = "86px";
-
+                    
+                    const img = productBox.querySelector('img');
+                    if (img && variationInfo.image) {
+                        img.src = variationInfo.image;
+                        img.style.marginTop = "86px";
+                    }
+                    
                     const sizesContainer = productBox.querySelector('.sizes');
                     sizesContainer.innerHTML = '';
                     if (variationInfo.sizes && Array.isArray(variationInfo.sizes)) {
@@ -187,14 +189,26 @@
                             });
                             sizesContainer.appendChild(sizeButton);
                         });
+                        const firstBtn = sizesContainer.querySelector('button');
+                        if (firstBtn) {
+                            firstBtn.classList.add('active-size');
+                        }
                     }
-
+                    
                     productBox.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('active-color'));
                     this.classList.add('active-color');
+                    
+                    if (variationInfo.id) {
+                        productBox.dataset.selectedVariationId = variationInfo.id;
+                    } else {
+                        productBox.dataset.selectedVariationId = "";
+                    }
+                    
+                    updateBuyLink(productBox);
                 });
             });
-            const initialSizeButtons = document.querySelectorAll('.sizes button');
-            initialSizeButtons.forEach(button => {
+            
+            document.querySelectorAll('.sizes button').forEach(button => {
                 button.addEventListener('click', function () {
                     const sizesContainer = this.closest('.sizes');
                     sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active-size'));
@@ -203,15 +217,53 @@
                     updateBuyLink(productBox);
                 });
             });
-
+            
+            document.querySelectorAll('.buy-link').forEach(buyLink => {
+                buyLink.addEventListener('click', function (e) {
+                    const productBox = this.closest('li');
+                    const selectedSize = productBox.querySelector('.sizes button.active-size');
+                    if (!selectedSize) {
+                        e.preventDefault();
+                        alert("Merci de sélectionner une taille");
+                    }
+                });
+            });
+            
             function updateBuyLink(productBox) {
+                const buyLinks = productBox.querySelectorAll('.buy-link');
+                if (!buyLinks.length) return;
+                
+                let newHref = buyLinks[0].dataset.route;
+                
+                const originalProductId = productBox.dataset.originalProductId;
+                if (originalProductId) {
+                    newHref = newHref.replace(/(\d+)/, originalProductId);
+                }
+                
                 const selectedSizeButton = productBox.querySelector('.sizes button.active-size');
                 if (selectedSizeButton) {
                     const selectedSize = selectedSizeButton.dataset.size;
-                    const buyLink = productBox.querySelector('.buy-btn');
-                    const newHref = buyLink.dataset.route.replace(/size=\d+/, 'size=' + selectedSize); // Update size parameter
-                    buyLink.setAttribute('href', newHref);
+                    newHref = newHref.replace(/size=\d+/, 'size=' + selectedSize);
                 }
+                
+                const variationId = (productBox.dataset.selectedVariationId && productBox.dataset.selectedVariationId !== "")
+                    ? productBox.dataset.selectedVariationId
+                    : "0";
+                try {
+                    let url = new URL(newHref, window.location.origin);
+                    url.searchParams.set('productVariationId', variationId);
+                    newHref = url.toString();
+                } catch (error) {
+                    if (newHref.indexOf('?') === -1) {
+                        newHref += '?productVariationId=' + variationId;
+                    } else {
+                        newHref += '&productVariationId=' + variationId;
+                    }
+                }
+                
+                buyLinks.forEach(function (link) {
+                    link.setAttribute('href', newHref);
+                });
             }
         });
     </script>

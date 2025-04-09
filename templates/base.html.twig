@@ -7,43 +7,59 @@
     <!--------------------------------------- mobile metas --------------------------------------->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!--------------------------------------- title --------------------------------------->
+    <title>{% block title %}Prestigio{% endblock %}</title>
     <!--------------------------------------- site metas --------------------------------------->
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
     <!--------------------------------------- fevicon --------------------------------------->
     <link rel="icon" href="{{ asset('assets/icon/fevicon.png') }}" type="image/png"/>
-
+    
     <!--------------------------------------- flashy --------------------------------------->
-{#    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">#}
-{#    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">#}
-{#    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>#}
-{#    <script src="//code.jquery.com/jquery.js"></script>#}
-{#    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>#}
-
+    {#    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}"> #}
+    {#    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> #}
+    {#    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'> #}
+    {#    <script src="//code.jquery.com/jquery.js"></script> #}
+    {#    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script> #}
+    
     <!--------------------------------------- verification code --------------------------------------->
-
-{#    {% if app.user and not app.user.isVerified %}#}
-{#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">#}
-{#        <link rel="stylesheet" href="{{ asset('assets/css/verification-code/style.css') }}">#}
-{#        <!-- jQuery -->#}
-{#        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>#}
-{#        <!-- jQuery easing plugin -->#}
-{#        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" type="text/javascript"></script>#}
-{#    {% endif %}#}
+    
+    {#    {% if app.user and not app.user.isVerified %} #}
+    {#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"> #}
+    {#        <link rel="stylesheet" href="{{ asset('assets/css/verification-code/style.css') }}"> #}
+    {#        <!-- jQuery --> #}
+    {#        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script> #}
+    {#        <!-- jQuery easing plugin --> #}
+    {#        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" type="text/javascript"></script> #}
+    {#    {% endif %} #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
-    {% include './Imports/all_stylesheets.html.twig' %}
-
-</head>
-<body>
-    {% if app.user and app.user.isVerified or not app.user %}
-        {% block home %}{% endblock %}
-    {% endif %}
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
+    {% include './Imports/all_stylesheets.html.twig' %}
+</head>
+
+<body data-route="{{ _route is defined ? _route : null }}">
+
+{# ----------------------body---------------------- #}
+
+{% if _route is not same as("homePage") %}
+    {% include './second_header.html.twig' %}
+    <main class="main-container">
+        {% block main %}{% endblock %}
+    </main>
+{% else %}
+    {% block body %}{% endblock %}
+{% endif %}
+<div class="loader_bg" style="display: none">
+    <div class="loader"><img src="{{ asset('assets/images/loading.gif') }}" alt="#"/></div>
+</div>
+{# ----------------------notifications---------------------- #}
+<div class="notice-box">
+    <ul class="toast-list"></ul>
+</div>
 </body>
 </html>
-

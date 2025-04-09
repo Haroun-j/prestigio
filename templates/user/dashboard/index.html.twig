@@ -1,0 +1,422 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    
+    <div class="profile-page pt-5">
+        <div class="main main-raised pt-5 mt-5">
+            <div class="profile-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <div class="profile">
+                                <div class="avatar">
+                                    <img src="{{ asset('uploads/images/avatars/' ~ userAvatar) }}"
+                                         alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <div class="name">
+                                    <h3 class="title">{{ userFullName }}</h3>
+                                    <h6 class="d-none">Designer</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description text-center d-none">
+                        <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised,
+                            Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a
+                            warm, intimate feel with a solid groove structure. </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <div class="profile-tabs">
+                                <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#profil" role="tab" data-toggle="tab">
+                                            <i class="material-icons">camera</i>
+                                            Général
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#works" role="tab" data-toggle="tab">
+                                            <i class="material-icons">palette</i>
+                                            Commandes
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
+                                            <i class="material-icons">favorite</i>
+                                            Favoris
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content tab-space" id="outerTabsContent">
+                        <div class="tab-pane fade show active" id="profil" role="tabpanel" aria-labelledby="profil-tab">
+                            <ul class="nav nav-tabs mt-3" id="innerTabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="general-tab" data-toggle="tab" href="#generalInfo"
+                                       role="tab" aria-controls="generalInfo" aria-selected="true">Informations
+                                        Générales</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="password-tab" data-toggle="tab" href="#passwordInfo"
+                                       role="tab" aria-controls="passwordInfo" aria-selected="false">Changer le mot de
+                                        passe</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#addressInfo"
+                                       role="tab" aria-controls="addressInfo" aria-selected="false">Adresse</a>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content mt-3" id="innerTabsContent">
+                                <div class="tab-pane fade show active" id="generalInfo" role="tabpanel"
+                                     aria-labelledby="general-tab">
+                                    {{ form_start(generalForm) }}
+                                    {{ form_row(generalForm.firstName) }}
+                                    {{ form_row(generalForm.lastName) }}
+                                    {{ form_row(generalForm.dateOfBirth) }}
+                                    {{ form_row(generalForm.gender) }}
+                                    {{ form_row(generalForm.heroNickname) }}
+                                    <button type="submit" class="btn btn-primary mt-2">Mettre à jour</button>
+                                    {{ form_end(generalForm) }}
+                                </div>
+                                <div class="tab-pane fade" id="passwordInfo" role="tabpanel"
+                                     aria-labelledby="password-tab">
+                                    {{ form_start(passwordForm) }}
+                                    {{ form_row(passwordForm.plainPassword.first) }}
+                                    {{ form_row(passwordForm.plainPassword.second) }}
+                                    <button type="submit" class="btn btn-primary mt-2">Changer le mot de passe</button>
+                                    {{ form_end(passwordForm) }}
+                                </div>
+                                <div class="tab-pane fade" id="addressInfo" role="tabpanel"
+                                     aria-labelledby="address-tab">
+                                    {{ form_start(addressForm) }}
+                                    {{ form_row(addressForm.streetAddress) }}
+                                    {{ form_row(addressForm.addressComplement) }}
+                                    {{ form_row(addressForm.postalCode) }}
+                                    {{ form_row(addressForm.city) }}
+                                    {{ form_row(addressForm.department) }}
+                                    {{ form_row(addressForm.country) }}
+                                    {{ form_row(addressForm.newsletter) }}
+                                    <button type="submit" class="btn btn-primary mt-2">Mettre à jour l'adresse</button>
+                                    {{ form_end(addressForm) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane text-center gallery" id="works">
+                            <div class="row">
+                                <div class="col-md-3 ml-auto">
+                                    <img src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80"
+                                         class="rounded">
+                                    <img src="https://images.unsplash.com/photo-1506667527953-22eca67dd919?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6326214b7ce18d74dde5e88db4a12dd5&auto=format&fit=crop&w=750&q=80"
+                                         class="rounded">
+                                    <img src="https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ec2bdc92a9687b6af5089b335691830e&auto=format&fit=crop&w=750&q=80"
+                                         class="rounded"></div>
+                                <div class="col-md-3 mr-auto">
+                                    <img src="https://images.unsplash.com/photo-1504346466600-714572c4b726?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6754ded479383b7e3144de310fa88277&auto=format&fit=crop&w=750&q=80"
+                                         class="rounded">
+                                    <img src="https://images.unsplash.com/photo-1494028698538-2cd52a400b17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83bf0e71786922a80c420c17b664a1f5&auto=format&fit=crop&w=334&q=80"
+                                         class="rounded">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane text-center gallery" id="favorite">
+                            <div class="container">
+                                <div class="row">
+                                    {% for favorite in favorites %}
+                                        {% if favorite.isStillLiked %}
+                                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                                                <div class="favorite-item position-relative">
+                                                    <img id="{{ favorite.name|replace({' ': '-'}) }}"
+                                                         src="{{ asset('uploads/images/products/' ~ favorite.imageName) }}"
+                                                         alt="{{ favorite.name }}" class="img-fluid favorite-image">
+                                                    <a href="{{ path('product_details', {reference: favorite.referenceCode}) }}"
+                                                       style="text-decoration: none">
+                                                        <div class="favorite-overlay d-flex flex-column justify-content-center align-items-center">
+                                                            <h4 class="mb-2">{{ favorite.name }}</h4>
+                                                            <p class="mb-0">${{ favorite.price }}</p>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="col-12 text-center">
+                                            <p>No favorite products found.</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer text-center ">
+            <p>Made with <a href="https://demos.creative-tim.com/material-kit/index.html" target="_blank">Material
+                    Kit</a> by Creative Tim</p>
+        </footer>
+        
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+                integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+                crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+                integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+                crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet"
+              href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+              integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
+              crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
+              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+        <link rel="stylesgeet"
+              href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+        <script>
+            var big_image;
+            
+            $(document).ready(function () {
+                BrowserDetect.init();
+                
+                // Init Material scripts for buttons ripples, inputs animations etc, more info on the next link https://github.com/FezVrasta/bootstrap-material-design#materialjs
+                $('body').bootstrapMaterialDesign();
+                
+                window_width = $(window).width();
+                
+                $navbar = $('.navbar[color-on-scroll]');
+                scroll_distance = $navbar.attr('color-on-scroll') || 500;
+                
+                $navbar_collapse = $('.navbar').find('.navbar-collapse');
+                
+                //  Activate the Tooltips
+                $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip();
+                
+                // Activate Popovers
+                $('[data-toggle="popover"]').popover();
+                
+                if ($('.navbar-color-on-scroll').length != 0) {
+                    $(window).on('scroll', materialKit.checkScrollForTransparentNavbar);
+                }
+                
+                materialKit.checkScrollForTransparentNavbar();
+                
+                if (window_width >= 768) {
+                    big_image = $('.page-header[data-parallax="true"]');
+                    if (big_image.length != 0) {
+                        $(window).on('scroll', materialKit.checkScrollForParallax);
+                    }
+                    
+                }
+                
+                
+            });
+            
+            $(document).on('click', '.navbar-toggler', function () {
+                $toggle = $(this);
+                
+                if (materialKit.misc.navbar_menu_visible == 1) {
+                    $('html').removeClass('nav-open');
+                    materialKit.misc.navbar_menu_visible = 0;
+                    $('#bodyClick').remove();
+                    setTimeout(function () {
+                        $toggle.removeClass('toggled');
+                    }, 550);
+                    
+                    $('html').removeClass('nav-open-absolute');
+                } else {
+                    setTimeout(function () {
+                        $toggle.addClass('toggled');
+                    }, 580);
+                    
+                    
+                    div = '<div id="bodyClick"></div>';
+                    $(div).appendTo("body").click(function () {
+                        $('html').removeClass('nav-open');
+                        
+                        if ($('nav').hasClass('navbar-absolute')) {
+                            $('html').removeClass('nav-open-absolute');
+                        }
+                        materialKit.misc.navbar_menu_visible = 0;
+                        $('#bodyClick').remove();
+                        setTimeout(function () {
+                            $toggle.removeClass('toggled');
+                        }, 550);
+                    });
+                    
+                    if ($('nav').hasClass('navbar-absolute')) {
+                        $('html').addClass('nav-open-absolute');
+                    }
+                    
+                    $('html').addClass('nav-open');
+                    materialKit.misc.navbar_menu_visible = 1;
+                }
+            });
+            
+            materialKit = {
+                misc: {
+                    navbar_menu_visible: 0,
+                    window_width: 0,
+                    transparent: true,
+                    fixedTop: false,
+                    navbar_initialized: false,
+                    isWindow: document.documentMode || /Edge/.test(navigator.userAgent)
+                },
+                
+                initFormExtendedDatetimepickers: function () {
+                    $('.datetimepicker').datetimepicker({
+                        icons: {
+                            time: "fa fa-clock-o",
+                            date: "fa fa-calendar",
+                            up: "fa fa-chevron-up",
+                            down: "fa fa-chevron-down",
+                            previous: 'fa fa-chevron-left',
+                            next: 'fa fa-chevron-right',
+                            today: 'fa fa-screenshot',
+                            clear: 'fa fa-trash',
+                            close: 'fa fa-remove'
+                        }
+                    });
+                },
+                
+                initSliders: function () {
+                    // Sliders for demo purpose
+                    var slider = document.getElementById('sliderRegular');
+                    
+                    noUiSlider.create(slider, {
+                        start: 40,
+                        connect: [true, false],
+                        range: {
+                            min: 0,
+                            max: 100
+                        }
+                    });
+                    
+                    var slider2 = document.getElementById('sliderDouble');
+                    
+                    noUiSlider.create(slider2, {
+                        start: [20, 60],
+                        connect: true,
+                        range: {
+                            min: 0,
+                            max: 100
+                        }
+                    });
+                },
+                
+                checkScrollForParallax: function () {
+                    oVal = ($(window).scrollTop() / 3);
+                    big_image.css({
+                        'transform': 'translate3d(0,' + oVal + 'px,0)',
+                        '-webkit-transform': 'translate3d(0,' + oVal + 'px,0)',
+                        '-ms-transform': 'translate3d(0,' + oVal + 'px,0)',
+                        '-o-transform': 'translate3d(0,' + oVal + 'px,0)'
+                    });
+                },
+                
+                checkScrollForTransparentNavbar: debounce(function () {
+                    if ($(document).scrollTop() > scroll_distance) {
+                        if (materialKit.misc.transparent) {
+                            materialKit.misc.transparent = false;
+                            $('.navbar-color-on-scroll').removeClass('navbar-transparent');
+                        }
+                    } else {
+                        if (!materialKit.misc.transparent) {
+                            materialKit.misc.transparent = true;
+                            $('.navbar-color-on-scroll').addClass('navbar-transparent');
+                        }
+                    }
+                }, 17)
+            };
+            
+            // Returns a function, that, as long as it continues to be invoked, will not
+            // be triggered. The function will be called after it stops being called for
+            // N milliseconds. If `immediate` is passed, trigger the function on the
+            // leading edge, instead of the trailing.
+            
+            function debounce(func, wait, immediate) {
+                var timeout;
+                return function () {
+                    var context = this,
+                        args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                        if (!immediate) func.apply(context, args);
+                    }, wait);
+                    if (immediate && !timeout) func.apply(context, args);
+                };
+            };
+            
+            var BrowserDetect = {
+                init: function () {
+                    this.browser = this.searchString(this.dataBrowser) || "Other";
+                    this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown";
+                },
+                searchString: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var dataString = data[i].string;
+                        this.versionSearchString = data[i].subString;
+                        
+                        if (dataString.indexOf(data[i].subString) !== -1) {
+                            return data[i].identity;
+                        }
+                    }
+                },
+                searchVersion: function (dataString) {
+                    var index = dataString.indexOf(this.versionSearchString);
+                    if (index === -1) {
+                        return;
+                    }
+                    
+                    var rv = dataString.indexOf("rv:");
+                    if (this.versionSearchString === "Trident" && rv !== -1) {
+                        return parseFloat(dataString.substring(rv + 3));
+                    } else {
+                        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+                    }
+                },
+                
+                dataBrowser: [{
+                    string: navigator.userAgent,
+                    subString: "Chrome",
+                    identity: "Chrome"
+                },
+                    {
+                        string: navigator.userAgent,
+                        subString: "MSIE",
+                        identity: "Explorer"
+                    },
+                    {
+                        string: navigator.userAgent,
+                        subString: "Trident",
+                        identity: "Explorer"
+                    },
+                    {
+                        string: navigator.userAgent,
+                        subString: "Firefox",
+                        identity: "Firefox"
+                    },
+                    {
+                        string: navigator.userAgent,
+                        subString: "Safari",
+                        identity: "Safari"
+                    },
+                    {
+                        string: navigator.userAgent,
+                        subString: "Opera",
+                        identity: "Opera"
+                    }
+                ]
+                
+            };
+        </script>
+    </div>
+{% endblock %}

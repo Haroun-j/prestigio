@@ -1,15 +1,7 @@
-{% block body %}
-    <body>
-    <header class="login__header">
-        <div class="logo">
-            <a href="{{ path('home') }}">
-                <img src="{{ asset('assets/images/logo4.png') }}"
-                     alt="#">
-            </a>
-        </div>
-    </header>
+{% extends 'base.html.twig' %}
+{% block main %}
     {#         <h2>Formulaire de Connection !</h2> #}
-    <div class="container{% if app.user %} logged-in{% endif %}" id="container">
+    <div class="container{% if app.user %} logged-in{% endif %}" id="container" data-registration-success="{{ registrationSuccess }}">
         {% if app.user %}
             <div class="mb-3 info-logout" style="padding: 27% 20% 23% 20%;">
                 You are logged in as {{ app.user.userIdentifier }},
@@ -52,7 +44,7 @@
         </div>
         <div class="form-container sign-in-container">
             <form method="post" action="#">
-                <h1>Connection </h1>
+                <h1>Connexion </h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -60,14 +52,14 @@
                 </div>
                 <span>Ou utilisez votre compte</span>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                       class="form-control" autocomplete="email" placeholder="Email" required autofocus>
+                        autocomplete="email" placeholder="Email" required autofocus>
                 <input type="password" name="password" id="inputPassword"
-                       class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
+                       autocomplete="current-password" placeholder="Mot de passe" required>
                 <a href="#">Mot de passe oublié?</a>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <button class="btn btn-lg btn-primary" type="submit">
+                <button type="submit">
                     CONNEXION
                 </button>
             </form>
@@ -75,7 +67,7 @@
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <h1>Bienvenue de retour !</h1>
+                    <h1>Bienvenue !</h1>
                     <p>Pour rester en contact avec nous,
                        veuillez vous connecter en utilisant vos informations personnelles.</p>
                     <button class="ghost" id="signIn">CONNEXION</button>
@@ -89,25 +81,6 @@
         </div>
     </div>
 
-
-    {#         <footer> #}
-    {#             <p> #}
-    {#                 Call me a footer ! #}
-    {#             </p> #}
-    {#         </footer> #}
-    {#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> #}
-    {#    <label for="inputEmail">Email</label> #}
-    {#    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> #}
-    {#    <label for="inputPassword">Password</label> #}
-    {#    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
-
-    {#    <input type="hidden" name="_csrf_token" #}
-    {#           value="{{ csrf_token('authenticate') }}" #}
-    {#    > #}
-
-    {#    <button class="btn btn-lg btn-primary" type="submit"> #}
-    {#        Sign in #}
-    {#    </button> #}
     <link rel="stylesheet" href="{{ asset('assets/css/register_login/login.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           integrity="your-integrity-check" crossorigin="anonymous">
@@ -136,5 +109,4 @@
             container.classList.remove("right-panel-active");
         });
     </script>
-    </body>
 {% endblock %}

@@ -18,6 +18,8 @@ class SecurityController extends AbstractController
     #[Route('/login-register', name: 'app_login_register')]
     public function loginOrRegister(Request $request, AuthenticationUtils $authenticationUtils, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        $registrationSuccess = $request->query->get('registrationSuccess');
+
         // Handle login logic
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -45,6 +47,8 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
             'registrationForm' => $registrationForm->createView(),
+            'registrationSuccess' => $registrationSuccess,
+            '_route' => 'loginPage',
         ]);
     }
 

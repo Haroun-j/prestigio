@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ApiResource(formats: ['jsonld'])]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiFilter(SearchFilter::class, properties: ['name' => 'ipartial', 'id' => 'exact' ])]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'ipartial', 'id' => 'exact'])]
 #[Vich\Uploadable]
 class Product
 {
@@ -55,28 +55,30 @@ class Product
     #[ORM\Column]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
-    
+
     #[ORM\Column(length: 255)]
     private ?string $color = null;
-    
+
     #[ORM\Column(length: 255)]
     private ?string $colorCode = null;
-    
+
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
     private ?string $Weight = null;
-    
+
     #[ORM\Column(length: 255)]
     private ?string $CountryOfOrigin = null;
-    
-    #[ORM\Column]
+
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $DateOfManufacture = null;
-    
+
     #[ORM\Column]
     private ?int $availableStock = null;
-    
+
+    #[ORM\OneToOne(mappedBy: 'product', targetEntity: ProductReference::class, cascade: ['persist', 'remove'])]
+    private ?ProductReference $productReference = null;
+
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductVariation::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $productVariations;
-    
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductSize::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $productSizes;
@@ -84,13 +86,19 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: FeaturedProduct::class)]
     private Collection $featuredProducts;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: AdditionalProductImage::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $additionalProductImages;
+
     public function __construct()
     {
         $this->productVariations = new ArrayCollection();
         $this->productSizes = new ArrayCollection();
         $this->featuredProducts = new ArrayCollection();
+        $this->additionalProductImages = new ArrayCollection();
         $this->availableStock = 0;
+
     }
+
     public function __toString(): string
     {
         return $this->name;
@@ -99,6 +107,17 @@ class Product
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getProductReference(): ?ProductReference
+    {
+        return $this->productReference;
+    }
+
+    public function setProductReference(?ProductReference $ref): static
+    {
+        $this->productReference = $ref;
+        return $this;
     }
 
     public function getName(): ?string
@@ -124,6 +143,7 @@ class Product
 
         return $this;
     }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -167,7 +187,7 @@ class Product
     {
         $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) {
+        if(null !== $imageFile) {
             $this->updatedAt = new \DateTimeImmutable();
         }
     }
@@ -196,63 +216,67 @@ class Product
     {
         return $this->updatedAt;
     }
-    
+
     public function getColor(): ?string
     {
         return $this->color;
     }
+
     public function setColor(string $color): static
     {
         $this->color = $color;
-        
+
         return $this;
     }
+
     public function setColorCode(string $colorCode): static
     {
         $this->colorCode = $colorCode;
-        
+
         return $this;
     }
+
     public function getColorCode(): ?string
     {
         return $this->colorCode;
     }
-    
+
     public function getWeight(): ?string
     {
         return $this->Weight;
     }
-    
+
     public function setWeight(string $Weight): static
     {
         $this->Weight = $Weight;
-        
+
         return $this;
     }
-    
+
     public function getCountryOfOrigin(): ?string
     {
         return $this->CountryOfOrigin;
     }
-    
+
     public function setCountryOfOrigin(string $CountryOfOrigin): static
     {
         $this->CountryOfOrigin = $CountryOfOrigin;
-        
+
         return $this;
     }
-    
+
     public function getDateOfManufacture(): ?\DateTimeImmutable
     {
         return $this->DateOfManufacture;
     }
-    
+
     public function setDateOfManufacture(\DateTimeImmutable $DateOfManufacture): static
     {
         $this->DateOfManufacture = $DateOfManufacture;
-        
+
         return $this;
     }
+
     public function getAvailableStock(): ?int
     {
         return $this->availableStock;
@@ -275,7 +299,7 @@ class Product
 
     public function addProductVariation(ProductVariation $productVariation): static
     {
-        if (!$this->productVariations->contains($productVariation)) {
+        if(!$this->productVariations->contains($productVariation)) {
             $this->productVariations->add($productVariation);
             $productVariation->setProduct($this);
         }
@@ -285,9 +309,9 @@ class Product
 
     public function removeProductVariation(ProductVariation $productVariation): static
     {
-        if ($this->productVariations->removeElement($productVariation)) {
+        if($this->productVariations->removeElement($productVariation)) {
             // set the owning side to null (unless already changed)
-            if ($productVariation->getProduct() === $this) {
+            if($productVariation->getProduct() === $this) {
                 $productVariation->setProduct(null);
             }
         }
@@ -305,7 +329,7 @@ class Product
 
     public function addProductSize(ProductSize $productSize): static
     {
-        if (!$this->productSizes->contains($productSize)) {
+        if(!$this->productSizes->contains($productSize)) {
             $this->productSizes->add($productSize);
             $productSize->setProduct($this);
             $this->availableStock += $productSize->getQuantity();
@@ -316,9 +340,9 @@ class Product
 
     public function removeProductSize(ProductSize $productSize): static
     {
-        if ($this->productSizes->removeElement($productSize)) {
+        if($this->productSizes->removeElement($productSize)) {
             // set the owning side to null (unless already changed)
-            if ($productSize->getProduct() === $this) {
+            if($productSize->getProduct() === $this) {
                 $productSize->setProduct(null);
             }
             $this->availableStock -= $productSize->getQuantity();
@@ -326,9 +350,11 @@ class Product
 
         return $this;
     }
-    public function calculateAvailableStock(): int {
+
+    public function calculateAvailableStock(): int
+    {
         $totalStock = 0;
-        foreach ($this->productSizes as $productSize) {
+        foreach($this->productSizes as $productSize) {
             $totalStock += $productSize->getQuantity();
         }
         return $totalStock;
@@ -344,7 +370,7 @@ class Product
 
     public function addFeaturedProduct(FeaturedProduct $featuredProduct): static
     {
-        if (!$this->featuredProducts->contains($featuredProduct)) {
+        if(!$this->featuredProducts->contains($featuredProduct)) {
             $this->featuredProducts->add($featuredProduct);
             $featuredProduct->setProduct($this);
         }
@@ -354,15 +380,16 @@ class Product
 
     public function removeFeaturedProduct(FeaturedProduct $featuredProduct): static
     {
-        if ($this->featuredProducts->removeElement($featuredProduct)) {
+        if($this->featuredProducts->removeElement($featuredProduct)) {
             // set the owning side to null (unless already changed)
-            if ($featuredProduct->getProduct() === $this) {
+            if($featuredProduct->getProduct() === $this) {
                 $featuredProduct->setProduct(null);
             }
         }
 
         return $this;
     }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -371,4 +398,34 @@ class Product
     {
         $this->availableStock = $this->calculateAvailableStock();
     }
+
+    /**
+     * @return Collection<int, AdditionalProductImage>
+     */
+    public function getAdditionalProductImages(): Collection
+    {
+        return $this->additionalProductImages;
+    }
+
+    public function addAdditionalProductImage(AdditionalProductImage $image): static
+    {
+        if(!$this->additionalProductImages->contains($image)) {
+            $this->additionalProductImages[] = $image;
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdditionalProductImage(AdditionalProductImage $image): static
+    {
+        if($this->additionalProductImages->removeElement($image)) {
+            if($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

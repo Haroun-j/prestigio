@@ -1,0 +1,66 @@
+@mixin button-style($width, $height,$padding, $font-size, $line-height, $border-radius) {
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  text-align: center;
+  width: $width;
+  height: $height;
+  padding: $padding;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 4px 0 $box-shadow-color;
+  color: #FFF;
+  background: $primary-green;
+  border: none;
+}
+
+@mixin _form-title($position, $color) {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  text-align: $position;
+  color: $color;
+}
+
+@mixin fancy-custom-btn($display, $justifyContent, $alignItems, $bgColor, $textColor, $iconPosition, $padding, $borderRadius, $boxShadow, $hoverColor) {
+  display: $display;
+  position: relative;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  background-color: $bgColor;
+  color: $textColor;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  line-height: 22.5px;
+  border-style: none;
+  padding: $padding;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: $boxShadow;
+  transition: all 250ms;
+
+  > svg, img {
+    @if $iconPosition == right {
+      margin-left: 1em;
+    } @else if $iconPosition == left {
+      margin-right: 1em;
+      margin-left: 0;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0;
+    border-radius: 0.5em;
+    background-color: $hoverColor;
+    z-index: -1;
+    transition: all 350ms;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}

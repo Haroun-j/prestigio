@@ -1,0 +1,39 @@
+
+
+@import "~bootstrap/scss/bootstrap";
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+@import '~gijgo/css/gijgo.min.css';
+@import '~sweetalert2/src/sweetalert2.scss';
+@import "~@mdi/font/css/materialdesignicons.min.css";
+
+// Import SCSS partials
+@import 'variables';
+@import 'mixins';
+@import 'components/main/_partials/_profile_dropdown';
+@import 'components/main/user_dashboard';
+//@import 'base';
+//@import 'components/main/store';
+//@import "components/main/_partials/store_filter";
+
+//@import 'variables';
+//@import 'mixins';
+//@import 'base';
+//@import 'header';
+//@import 'footer';
+//@import 'responsive';
+//@import 'steps/login';
+//@import '_partials/support_popup';
+//@import '_partials/navbar_menu';
+//@import 'components/notifications/notice_box';
+//@import 'steps/generic';
+//@import 'components/special_checkbox';
+//@import 'steps/deliveryPoint';
+//@import 'steps/volumes';
+//@import 'steps/pricing';
+//@import 'components/special_buttons';
+//@import 'components/special_switch';
+//@import 'steps/recapitulation';
+//@import 'steps/finalization';
+//@import 'components/modals/_load_pdl_in_mass_modal';
+//@import 'components/modals/bank_credentials_modal';
+//@import 'components/modals/contact_support_modal';
