@@ -7,7 +7,6 @@ import '@mdi/font/css/materialdesignicons.min.css';
 
 //-------- SCSS --------
 import './styles/app.scss';
-import {loadCartIndexModules} from "./js/pages/cartIndex";
 
 const routeHandlers = {
     'homePage': () => import('./js/pages/homePage').then(module => module.loadHomePageModules()),
