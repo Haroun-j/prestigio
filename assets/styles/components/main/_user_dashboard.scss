@@ -454,6 +454,65 @@ img.rounded {
   }
 }
 
+.orders-tab {
+  .no-orders-box {
+    padding: 50px;
+    background-color: #f9f9f9;
+    border: 1px dashed #bbb;
+    border-radius: 8px;
+    margin-top: 30px;
+
+    .no-orders-icon {
+      font-size: 50px;
+      color: #ccc;
+    }
+
+    p {
+      font-size: 18px;
+      color: #777;
+    }
+  }
+
+  .order-section-title {
+    font-weight: 700;
+    color: #9c27b0;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .order-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    border-left: 6px solid transparent;
+
+    h5 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    p {
+      margin-bottom: 5px;
+      color: #666;
+    }
+
+    &.pending {
+      border-left-color: #ffc107;
+    }
+
+    &.paid {
+      border-left-color: #4caf50;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+}
+
 
 #Nike-Air-Jordan-1 {
   padding-top: 20px;

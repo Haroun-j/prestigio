@@ -1,43 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<div class="bg-blue">
-    <div class="card">
-        <span class="card__success"><i class="fa-solid fa-check"></i></span>
-        
-        <h1 class="card__msg">PAIEMENT COMPLÉTÉ</h1>
-        <h2 class="card__submsg">Merci pour votre transfert</h2>
-        
-        <div class="card__body">
+    <div class="bg-blue">
+        <div class="card">
+            <span class="card__success"><i class="fa-solid fa-check"></i></span>
             
-            <img src="{{ asset('assets/images/user_avatars/payment_success_avatar.jpg') }}" class="card__avatar"
-                 alt="Card Avatar">
-            <div class="card__recipient-info">
-                <p class="card__recipient">{{ customerDetails.name }}</p>
-                <p class="card__email">{{ customerDetails.email }}</p>
-            </div>
+            <h1 class="card__msg">PAIEMENT COMPLÉTÉ</h1>
+            <h2 class="card__submsg">Merci pour votre transfert</h2>
             
-            <h1 class="card__price">{{ (totalAmount / 100) | number_format(2, '.', '') }}<span> €</span></h1>
-            
-            <p class="card__method"> Methode de Paiement</p>
-            <div class="card__payment">
-                <img src="{{ asset('assets/images/visa.png') }}"
-                     class="card__credit-card" alt="VISA">
-                <div class="card__card-details">
-                    <p class="card__card-type">Credit / debit card</p>
-                    <p class="card__card-number">Visa ending in **{{ creditCardLast4 | slice(-2) }}</p>
+            <div class="card__body">
+                {% if userAvatar is defined %}
+                    <img src="{{ asset('uploads/images/avatars/' ~ userAvatar) }}" class="card__avatar"
+                         alt="Card Avatar">
+                {% else %}
+                    <img src="{{ asset('assets/images/user_avatars/payment_success_avatar.jpg') }}" class="card__avatar"
+                         alt="Card Avatar">
+                {% endif %}
+                <div class="card__recipient-info">
+                    <p class="card__recipient">{{ customerDetails.name }}</p>
+                    <p class="card__email">{{ customerDetails.email }}</p>
                 </div>
+                
+                <h1 class="card__price">{{ (totalAmount / 100) | number_format(2, '.', '') }}<span> €</span></h1>
+                
+                <p class="card__method"> Methode de Paiement</p>
+                <div class="card__payment">
+                    <img src="{{ asset('assets/images/visa.png') }}"
+                         class="card__credit-card" alt="VISA">
+                    <div class="card__card-details">
+                        <p class="card__card-type">Credit / debit card</p>
+                        <p class="card__card-number">Visa ending in **{{ creditCardLast4 | slice(-2) }}</p>
+                    </div>
+                </div>
+            
+            </div>
+            
+            <div class="card__tags">
+                <span class="card__tag">complété</span>
+                <span class="card__tag">#123456789</span>
             </div>
         
         </div>
-        
-        <div class="card__tags">
-            <span class="card__tag">complété</span>
-            <span class="card__tag">#123456789</span>
-        </div>
-    
     </div>
-</div>
-<link rel="stylesheet" href="{{ asset('assets/css/order/success.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/order/success.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock %}

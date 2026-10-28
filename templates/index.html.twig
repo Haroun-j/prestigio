@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <link href='https://fonts.googleapis.com/css?family=Raleway:100,200,400,600' rel='stylesheet' type='text/css'>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.css" rel="stylesheet"
+          type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
@@ -10,69 +11,69 @@
     <!---------------------- INTRO  ------------------------->
     {% include 'home_intro.html.twig' %}
     <!-- end intro -->
-
+    
     <div id="fullpage">
-
+        
         <!-- begin section -->
-
+        
         <div class="section">
             <!-- loader  -->
             {% include './loader.html.twig' %}
             <!-- end loader -->
-
+            
             <!-- header -->
             {% include './header.html.twig' %}
             <!-- end header -->
-
+            
             <!-- head slider -->
             {% include './home_page/1_main_slider.html.twig' %}
             <!-- end slider -->
-            {% include './home_page/modals/main_slider_more_images.html.twig' %}
+            {% include './modal/more-images-preview.html.twig' %}
             <i id="moveDown" class="fa fa-chevron-down fa-3x bounce"></i>
-
+        
         </div>
         <!-- end section -->
-
+        
         <!-- begin section -->
         <div class="section" style="text-align: inherit">
             {% include './home_page/2_gallery.html.twig' %}
         </div>
         <!-- end section -->
-
+        
         <!-- begin section -->
         <div class="section">
             {% include './home_page/3_categories_section.html.twig' %}
         </div>
         <!-- end section -->
-
+        
         <!-- begin section -->
-
-        <div class="section body-section" >
+        
+        <div class="section body-section">
             {% include './home_page/4_our_partners_slider.html.twig' %}
         </div>
         <!-- end section -->
-
+        
         <!-- begin section -->
         <div class="section">
-
+            
             {% include './home_page/5_product_slider_section.html.twig' %}
-
+        
         </div>
         <!-- end section -->
         <div class="section" style="background: #00a2ef29;">
-
+            
             {% include './home_page/6_best_sells_section.html.twig' %}
-
+        
         </div>
         <!-- end section -->
-
+        
         <!-- begin section -->
-
+        
         <div class="section">
-
+            
             <footer class="footer-container">
                 {% include './home_page/7_review_section.html.twig' %}
-
+                
                 <div class="footer">
                     <div class="waves">
                         <div class="wave" id="wave1"></div>
@@ -100,33 +101,33 @@
                         <li class="menu__item"><a class="menu__link" href="#">Boutique</a></li>
                         <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
                         <li class="menu__item"><a class="menu__link" href="#">Login</a></li>
-
+                    
                     </ul>
                     <p>&copy;2024 Haroun Joudi | All Rights Reserved</p>
                 </div>
             </footer>
-
+        
         </div>
         <!-- end section -->
     </div>
     <!-- end fullpage -->
     <!--------------------------------------- Javascript files --------------------------------------->
     {% include './Imports/all_javascripts.html.twig' %}
-
+    
     <!-- Import JavaScript files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.min.js"></script>
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.extensions.min.js"></script>#}
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.22/fullpage.extensions.min.js"></script> #}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <!-- Footer-->
     <script src="{{ asset('assets/js/ionicons.esm.js') }}"></script>
     <script src="{{ asset('assets/js/ionicons.js') }}"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-
+        document.addEventListener('DOMContentLoaded', function () {
+            
             // Check screen width
             var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
+            
             // Initialize fullpage.js only if screen width is greater than 600px
             if (screenWidth > 600) {
                 // initialize fullpage.js
@@ -137,50 +138,50 @@
                     scrollOverflow: true,
                     responsiveWidth: 400,
                     navigation: true,
-                    navigationTooltips: ["Accueil", "Gallerie", "Marques", "Partenaires", "Produits","En Promo","Contact"],
-                    anchors: ["home", "gallery", "brands", "partners", "products","promo","contact"],
+                    navigationTooltips: ["Accueil", "Gallerie", "Marques", "Partenaires", "Produits", "En Promo", "Contact"],
+                    anchors: ["home", "gallery", "brands", "partners", "products", "promo", "contact"],
                     menu: "#myMenu",
                     fitToSection: false,
                     scrollingSpeed: 1000,
                     easingcss3: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
                     dragAndMove: true,
-                    afterLoad: function(origin, destination) {
+                    afterLoad: function (origin, destination) {
                         var sectionAnchor = destination.anchor;
                         var navMenuLinks = document.querySelectorAll('.fp-tooltip');
                         if (sectionAnchor === 'brands' || sectionAnchor === 'partners' || sectionAnchor === 'products') {
-                            navMenuLinks.forEach(function(link) {
+                            navMenuLinks.forEach(function (link) {
                                 link.style.color = '#007bff';
                             });
-                        }else if(sectionAnchor === 'promo'){
-                            navMenuLinks.forEach(function(link) {
+                        } else if (sectionAnchor === 'promo') {
+                            navMenuLinks.forEach(function (link) {
                                 link.style.color = '#FF0000';
                             });
                         } else {
-                            navMenuLinks.forEach(function(link) {
+                            navMenuLinks.forEach(function (link) {
                                 link.style.color = '';
                             });
                         }
                     },
                 });
             }
-
+            
             // move section down one
             var moveDownButton = document.querySelector("#moveDown");
             if (moveDownButton) {
-                moveDownButton.addEventListener("click", function() {
+                moveDownButton.addEventListener("click", function () {
                     fullpage_api.moveSectionDown();
                 });
             }
-
+            
             // smooth scrolling
             var links = document.querySelectorAll('a[href*="#"]:not([href="#"])');
-            links.forEach(function(link) {
-                link.addEventListener("click", function(event) {
+            links.forEach(function (link) {
+                link.addEventListener("click", function (event) {
                     event.preventDefault();
-
+                    
                     var target = document.querySelector(this.hash);
                     target = target ? target : document.querySelector("[name=" + this.hash.slice(1) + "]");
-
+                    
                     if (target) {
                         var targetOffset = target.getBoundingClientRect().top + window.pageYOffset;
                         window.scrollTo({
@@ -191,14 +192,15 @@
                 });
             });
         });
-
+    
     </script>
-
-
+    
+    
     <style>
         .section {
             text-align: center;
         }
+
         .fa-chevron-down {
             color: #ff6363 !important;
             bottom: 10px;
@@ -209,6 +211,7 @@
             z-index: 999;
             -webkit-transition: 1.2s ease;
         }
+
         * {
             scrollbar-color: #e3aadf #f4eafe !important;
             scrollbar-width: thin;

@@ -16,7 +16,6 @@ const routeHandlers = {
     'loginPage': () => import('./js/pages/loginPage').then(module => module.loadLoginPageModules()),
     'additionalRegistrationForm': () => import('./js/pages/additionalRegistrationForm').then(module => module.loadAdditionalRegistrationFormModules()),
     'userDashboard': () => import('./js/pages/userDashboard').then(module => module.loadUserDashboardModules()),
-    // 'cartIndex': () => import('./js/pages/cartIndex').then(module => module.loadCartIndexModules()),
 };
 
 function initializePageScripts() {

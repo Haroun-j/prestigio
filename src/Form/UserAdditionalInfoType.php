@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\DTO\UserAdditionalInfoData;
+use App\Form\Type\CivilityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,13 +36,8 @@ class UserAdditionalInfoType extends AbstractType
                 'label' => 'Numéro de Téléphone *',
                 'required' => true,
             ])
-            ->add('gender', ChoiceType::class, [
+            ->add('gender', CivilityType::class, [
                 'label' => 'Genre *',
-                'choices' => [
-                    'Masculin' => 'Masculin',
-                    'Féminin'  => 'Féminin',
-                    'Autre'    => 'Autre',
-                ],
                 'placeholder' => 'Sélectionnez un genre',
                 'required' => true,
             ])

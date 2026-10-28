@@ -17,7 +17,7 @@ class UserProfileUpdateData
     public ?\DateTimeInterface $dateOfBirth = null;
 
     #[Assert\NotBlank(message: "Le genre est obligatoire.")]
-    #[Assert\Choice(choices: ["Masculin", "Féminin", "Autre"], message: "Veuillez sélectionner un genre valide.")]
+    #[Assert\Choice(choices: ["monsieur", "madame", "autre"], message: "Veuillez sélectionner un genre valide.")]
     public ?string $gender = null;
 
     // Optional superhero nickname

@@ -2,25 +2,39 @@
 
 namespace App\Controller;
 
-use App\Form\UserAddressType;
-use App\Form\UserGeneralInfoType;
+use App\Entity\Orders;
+use App\Form\UserPasswordChangeType;
+use App\Form\UserProfileAddressType;
+use App\Form\UserProfileGeneralType;
 use App\Manager\DashboardManager;
 use App\Manager\UserProfileUpdateManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_user_dashboard')]
-    public function index(Request $request, DashboardManager $dashboardManager, UserProfileUpdateManager $profileManager, EntityManagerInterface $entityManager): Response
+    public function index(
+        Request $request,
+        DashboardManager $dashboardManager,
+        UserProfileUpdateManager $profileManager,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response
     {
         $user = $this->getUser();
         if(!$user) {
             throw $this->createAccessDeniedException();
         }
+
+        $orders = $entityManager->getRepository(Orders::class)->findBy(
+            ['user' => $user],
+            ['created_at' => 'DESC']
+        );
 
         $favoriteProducts = $dashboardManager->getFavoriteProductsData($user);
 
@@ -31,9 +45,9 @@ class DashboardController extends AbstractController
         $generalDto = clone $baseDto;
         $addressDto = clone $baseDto;
 
-        $generalForm = $this->createForm(\App\Form\UserProfileGeneralType::class, $generalDto);
-        $addressForm = $this->createForm(\App\Form\UserProfileAddressType::class, $addressDto);
-        $passwordForm = $this->createForm(\App\Form\UserPasswordChangeType::class);
+        $generalForm = $this->createForm(UserProfileGeneralType::class, $generalDto);
+        $addressForm = $this->createForm(UserProfileAddressType::class, $addressDto);
+        $passwordForm = $this->createForm(UserPasswordChangeType::class);
 
         $generalForm->handleRequest($request);
         $addressForm->handleRequest($request);
@@ -55,9 +69,7 @@ class DashboardController extends AbstractController
 
         if($passwordForm->isSubmitted() && $passwordForm->isValid()) {
             $plainPassword = $passwordForm->get('plainPassword')->getData();
-            $encoder = $this->get('security.password_encoder'); // adjust for your Symfony version
-            $encodedPassword = $encoder->encodePassword($user, $plainPassword);
-            $user->setPassword($encodedPassword);
+            $user->setPassword($passwordHasher->hashPassword($user, $plainPassword));
             $entityManager->flush();
             $this->addFlash('success', 'Votre mot de passe a été changé.');
             return $this->redirectToRoute('app_user_dashboard');
@@ -65,6 +77,7 @@ class DashboardController extends AbstractController
 
         return $this->render('user/dashboard/index.html.twig', [
             '_route' => 'userDashboard',
+            'orders' => $orders,
             'userFullName' => $user->getFullName(),
             'userAvatar' => $user->getAvatar() ? $user->getAvatar()->getAvatarName() : null,
             'favorites' => $favoriteProducts,

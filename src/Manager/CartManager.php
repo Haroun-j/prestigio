@@ -85,7 +85,7 @@ class CartManager extends AbstractManager
             $total += $entity->getPrice() * $quantity;
         }
 
-        return ['data' => $data, 'total' => $total, '_route' =>'cartIndex'];
+        return ['data' => $data, 'total' => $total];
     }
 
     public function remove(SessionInterface $session, Product $product, string $size): void

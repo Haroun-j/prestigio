@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\DTO\UserProfileUpdateData;
+use App\Form\Type\CivilityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,13 +26,9 @@ class UserProfileGeneralType extends AbstractType
                 'label' => 'Date de naissance *',
                 'widget' => 'single_text',
             ])
-            ->add('gender', ChoiceType::class, [
+            ->add('gender', CivilityType::class, [
                 'label' => 'Genre *',
-                'choices' => [
-                    'Masculin' => 'Masculin',
-                    'Féminin'  => 'Féminin',
-                    'Autre'    => 'Autre',
-                ],
+                'required' => false,
                 'placeholder' => 'Sélectionnez un genre',
             ])
             ->add('heroNickname', TextType::class, [

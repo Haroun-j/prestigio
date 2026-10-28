@@ -213,8 +213,8 @@ class OrdersController extends AbstractController
         $creditCardLast4 = $paymentMethod->card->last4;
         $totalAmount = $session->amount_total;
 
-
         return $this->render('orders/success.html.twig', [
+            'userAvatar' => $this->getUser()->getAvatar()->getAvatarName(),
             'customerDetails' => $customerDetails,
             'creditCardLast4' => $creditCardLast4,
             'totalAmount' => $totalAmount,

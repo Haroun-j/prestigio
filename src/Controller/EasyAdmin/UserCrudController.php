@@ -68,9 +68,9 @@ class UserCrudController extends AbstractCrudController
         $phone = TextField::new('phone', 'Phone');
         $gender = ChoiceField::new('gender', 'Gender')
             ->setChoices([
-                'Male' => 'male',
-                'Female' => 'female',
-                'Other' => 'other',
+                'Monsieur' => 'monsieur',
+                'Madame' => 'madame',
+                'Autre' => 'autre',
             ]);
         $heroNickname = TextField::new('heroNickname', 'Nickname');
 
