@@ -27,7 +27,7 @@
         #[ORM\JoinColumn(nullable: false)]
         private $orders;
         
-        #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'ordersDetails')]
+        #[ORM\ManyToOne(targetEntity: Product::class)]
         #[ORM\JoinColumn(nullable: false)]
         private $product;
         

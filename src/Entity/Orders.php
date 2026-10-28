@@ -38,7 +38,7 @@
         #[ORM\ManyToOne(targetEntity: Coupons::class, inversedBy: 'orders')]
         private $coupons;
         
-        #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
+        #[ORM\ManyToOne(targetEntity: User::class)]
         #[ORM\JoinColumn(nullable: false)]
         private $user;
         
