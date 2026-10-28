@@ -1,0 +1,162 @@
+
+.slider-container {
+    overflow: hidden;
+    width: 100%;
+    margin: auto;
+}
+
+.slider-wrapper {
+    display: flex;
+}
+
+.shoe-box {
+    flex: 0 0 auto;
+    width: 33.333%;
+    margin: 45px 0;
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
+}
+
+.shoe-box.active {
+    opacity: 1;
+}
+
+.content {
+    margin: auto 20px;
+    background: #339946e3;
+    color: wheat;
+    border-radius: 18px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0 2px 1px,
+    rgba(0, 0, 0, 0.09) 0 4px 2px,
+    rgba(0, 0, 0, 0.09) 0 8px 4px,
+    rgba(0, 0, 0, 0.09) 0 16px 8px,
+    rgba(0, 0, 0, 0.09) 0 32px 16px;
+}
+
+.content p {
+    font-size: 23px;
+    padding: 21px 67px;
+    letter-spacing: 7px;
+    line-height: 1.8;
+}
+
+.content:hover {
+    background: red;
+}
+
+.see-more-card {
+    /* Style your "See More" card appropriately */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container_ {
+    /*width: 50%;*/
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    transform-style: preserve-3d;
+    min-height: 30.4rem;
+    width: 18rem;
+    border-radius: 30px;
+    padding: 1rem 1.3rem;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0 0 50px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.sneaker {
+    min-height: 9.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sneaker img {
+    width: 13rem;
+    z-index: 2;
+    transition: all 0.75s ease-out;
+}
+
+.circle {
+    width: 9rem;
+    height: 9rem;
+    background: linear-gradient(to right, rgba(245, 70, 66, 0.75), rgba(8, 83, 156, 0.75));
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.info {
+    padding: 0.5rem;
+}
+
+.info h1 {
+    font-size: 1.5rem;
+    transition: all 0.75s ease-out;
+}
+
+.info h3 {
+    font-size: 1.2rem;
+    padding: 2rem 0;
+    color: #585858;
+    font-weight: lighter;
+    transition: all 0.75s ease-out;
+}
+
+.sizes, .colors {
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.75s ease-out;
+}
+
+.sizes button, .colors button {
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #585858;
+}
+button.active-color{
+    border: 2px solid black;
+    transform: scale(1.15);
+}
+button.active-size {
+    border: 2px solid black;
+    transform: scale(1.15);
+    background: #585858;
+    color: white;
+}
+
+button.active {
+    background: #585858;
+    color: white;
+}
+
+.purchase {
+    margin-top: 2rem;
+    transition: all 0.75s ease-out;
+}
+
+.purchase button {
+    width: 100%;
+    padding: 1rem 0;
+    background: #f54642;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    font-weight: bolder;
+}
+
+#productContainer {
+    padding: 0 4rem;
+}

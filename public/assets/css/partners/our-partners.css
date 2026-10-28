@@ -1,0 +1,69 @@
+.partners_section {
+    padding: 64px 0;
+}
+
+.logos_slider {
+    overflow-x: hidden;
+}
+
+.overflow {
+    display: flex;
+    padding: 1.5rem 1rem;
+}
+
+.logo_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    animation: loop 20s linear infinite;
+}
+
+.reverse .logo_wrapper {
+    animation-direction: reverse;
+}
+
+.logo_item {
+    margin-left: 1rem;
+    padding: 1rem;
+    aspect-ratio: 30/9;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+}
+
+.logo_item img {
+    height: 3.5rem;
+    width: 8rem;
+    margin-inline: 2rem;
+}
+
+.our-partners-title {
+    margin-bottom: 10px !important;
+    font-size: 40px !important;
+}
+.no-padding{
+    padding: 0;
+}
+.our-partners-title::after {
+    top: 60% !important;
+    width: 35% !important;
+    height: 5px !important;
+}
+
+    @keyframes loop {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+    @keyframes reverse-loop {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }

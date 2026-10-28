@@ -1,0 +1,332 @@
+:root {
+    --primary: #6b5bfd;
+    --greyLight: #e3ebf8;
+    --greyLight-2: #d7e3f1;
+    --greyLight-3: #b5c4da;
+    --greyDark: #a1a9c7;
+    --greyDark-2: #5a6181;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; /* 1rem = 10px    100% = 16px */
+    overflow-y: scroll;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: .6px;
+    line-height: 1.4;
+    background: var(--greyLight);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: auto;
+    margin: auto;
+    padding: 0 3rem;
+    color: var(--greyDark-2);
+    /*transform: scale(0.9);*/
+}
+
+.container li {
+    list-style: none;
+}
+
+.container button {
+    border: none;
+    font-family: inherit;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 1rem;
+}
+
+.accordion {
+    width: 24rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 3rem 0;
+    cursor: pointer;
+}
+
+.accordion__content {
+    border-bottom: 1px solid var(--greyLight);
+}
+
+.accordion__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    font-weight: 700;
+    background: #ffffff;
+    position: relative;
+    z-index: 200;
+}
+
+.accordion__title h2 {
+    font-size: 1.4rem;
+}
+
+.accordion__title span {
+    transition: transform .5s ease;
+}
+
+.accordion__title span.rotate {
+    transform: rotateZ(-180deg);
+    transform-origin: 50% 50%;
+}
+
+.accordion__items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 1.2rem;
+    list-style: none;
+    background: white;
+    z-index: 100;
+}
+
+.accordion__items.colours {
+    display: grid !important;
+    grid-template-columns: repeat(6, 4rem);
+}
+
+.accordion__items.colours button {
+    grid-column: 1 / 7;
+}
+
+.accordion__item {
+    color: var(--greyDark-2);
+    display: flex;
+    transition: all .3s ease;
+}
+
+.accordion__item:hover label .tooltip {
+    display: block;
+}
+
+.accordion__item input {
+    display: none;
+}
+
+.accordion__item label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: .4rem 1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.accordion__item .item-name {
+    margin-left: 1rem;
+}
+
+.accordion__item .check,
+.accordion__item span {
+    width: 2rem;
+    height: 2rem;
+    border-radius: .4rem;
+}
+
+.accordion__item span {
+    display: none;
+    background: var(--greyDark-2);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.accordion__item span.colours {
+    background: rgba(90, 97, 129, .4);
+    border: 1px solid transparent;
+}
+
+.accordion__item .check {
+    border: 1px solid var(--greyLight-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accordion__item .tooltip {
+    position: absolute;
+    bottom: -30%;
+    left: -30%;
+    font-size: 1rem;
+    padding: .5rem;
+    width: 6.6rem !important;
+    text-align: center;
+    background: #ffffff;
+    box-shadow: 0px 2px 6px var(--greyLight-3);
+    z-index: 4000;
+    border-radius: .4rem;
+    display: none;
+    pointer-events: none;
+}
+
+.accordion__item input:checked ~ label span {
+    display: flex;
+}
+
+.accordion__btn {
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--greyDark);
+    transition: all .3s ease;
+}
+
+.accordion__btn:hover {
+    color: var(--greyDark-2);
+}
+
+.accordion__slider {
+    padding: 2rem 0;
+    margin: 0 2rem;
+    position: relative;
+}
+
+.accordion__slider input[type=range] {
+    width: 100%;
+    height: .4rem;
+    position: absolute;
+    appearance: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    z-index: 400;
+    opacity: 0;
+}
+
+.accordion__slider input[type=range]::-webkit-slider-thumb {
+    pointer-events: all;
+    -webkit-appearance: none;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(255, 0, 0, 0.384);
+    cursor: pointer;
+}
+
+.accordion__slider .slider {
+    width: 20rem;
+    height: .4rem;
+    background: var(--greyLight-2);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    pointer-events: none;
+}
+
+.accordion__slider .slider__fill {
+    height: .4rem;
+    border-radius: 1rem;
+    position: absolute;
+    background: var(--greyDark-2);
+}
+
+.accordion__slider .slider__btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--greyDark-2);
+    position: absolute;
+    z-index: 200;
+}
+
+.price-range {
+    color: var(--greyLight-3);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-left: .6rem;
+}
+
+.chip {
+    width: 100%;
+    height: 100%;
+    max-height: 80px;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #d7e3f12e;
+    padding: 0 1rem 1rem 1rem;
+    border-bottom: 1px solid #64727c;
+}
+
+.chip__title {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chip__title button,
+.chip__title h3 {
+    padding-right: 0;
+    font-size: 1.2rem;
+}
+
+.chip__title button {
+    transition: all .3s ease;
+    color: var(--greyDark);
+    border: none;
+    font-family: inherit;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0.8rem;
+}
+
+.chip__title button:hover {
+    color: var(--greyDark-2);
+}
+
+#chip-container {
+    width: 100%;
+    grid-template-columns: repeat(8, 13rem);
+    display: grid;
+}
+
+.chip__item {
+    padding: .6rem .8rem;
+    background: white;
+    margin: .6rem .6rem .6rem 0;
+    border-radius: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border: 1px solid #99999947;
+}
+
+.chip__item span {
+    font-size: 1.4rem;
+    color: var(--greyLight-3);
+    margin-left: 1rem;
+}
+
+.slide-enter-to,
+.slide-leave {
+    max-height: 50rem;
+    overflow: hidden;
+}
+
+.slide-enter,
+.slide-leave-to {
+    overflow: hidden;
+    max-height: 0;
+}
+
+.slide-enter-active {
+    transition: all 1s ease;
+}
+
+.slide-leave-active {
+    transition: all .6s ease;
+}

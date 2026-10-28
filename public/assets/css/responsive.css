@@ -1,0 +1,517 @@
+/*-------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
+
+
+/*-------------------------------------------------------------------  768px x 991px ---------------------------------------------------------------------*/
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    .header-search {
+        padding: 15px 0;
+    }
+}
+
+
+/*------------------------------------------------------------------- 767px x 599px ---------------------------------------------------------------------*/
+
+@media only screen and (min-width: 599px) and (max-width: 767px) {
+    .logo {
+        text-align: center;
+    }
+
+    .cart-content-right {
+        padding-bottom: 5px;
+    }
+
+    .mg {
+        margin: 0;
+    }
+
+    .menu-area-main {
+        height: 256px;
+        overflow-y: auto;
+    }
+
+    .megamenu > .row [class*="col-"] {
+        padding: 0;
+    }
+
+    .menu-area-main .megamenu .men-cat {
+        padding: 0 15px;
+    }
+
+    .menu-area-main .megamenu .women-cat {
+        padding: 0 15px;
+    }
+
+    .menu-area-main .megamenu .el-cat {
+        padding: 0 15px;
+    }
+
+    .mean-container .mean-nav ul li a.mean-expand {
+        height: 19px;
+    }
+
+    .category-box.women-box {
+        display: none;
+    }
+
+    .cart-box {
+        display: inline-block;
+        margin: 0 30px;
+    }
+
+    .wish-box {
+        float: none;
+        margin: 0 30px;
+        display: inline-block;
+    }
+
+    .menu-add {
+        display: none;
+    }
+
+    .category-box {
+        display: none;
+    }
+
+    .mean-container .mean-nav ul li ol {
+        padding: 0;
+    }
+
+    .mean-container .mean-nav ul li a {
+        padding: 10px 20px;
+        width: 94.8%;
+    }
+
+    .mean-container .mean-nav ul li li a {
+        width: 92%;
+        padding: 1em 4%;
+    }
+
+    .mean-container .mean-nav ul li li li a {
+        width: 100%;
+    }
+
+    .header-search {
+        padding: 15px 0;
+    }
+
+    #collapseFilter.d-md-block {
+        padding: 30px 0;
+    }
+
+}
+
+
+/*------------------------------------------------------------------- 280px x 599px  ---------------------------------------------------------------------*/
+
+@media only screen and (min-width: 280px) and (max-width: 599px) {
+    .cart-content-right {
+        padding-bottom: 5px;
+    }
+
+    .megamenu > .row [class*="col-"] {
+        padding: 0;
+    }
+
+    .menu-area-main .megamenu .men-cat {
+        padding: 0 15px;
+    }
+
+    .menu-area-main .megamenu .women-cat {
+        padding: 0 15px;
+    }
+
+    .menu-area-main .megamenu .el-cat {
+        padding: 0 15px;
+    }
+
+    .mean-container .mean-nav ul li a {
+        padding: 1em 4%;
+        width: 92%;
+    }
+
+    .mean-container .mean-nav ul li li a {
+        width: 90%;
+        padding: 1em 5%;
+    }
+
+    .mean-container .sub-full.megamenu-categories ol li a {
+        padding: 5px 0;
+        text-transform: capitalize;
+        width: 100%;
+    }
+
+    .megamenu .sub-full.megamenu-categories .women-box .banner-up-text a {
+        width: auto;
+        border: none;
+        float: none;
+    }
+
+    .menu-area-main {
+        height: 220px;
+        overflow-y: auto;
+    }
+
+    .mean-container .mean-nav ul li a.mean-expand {
+        top: 0;
+    }
+
+    .banner-main .carousel-caption {
+        top: 16%;
+    }
+
+    .footer-container {
+        min-height: 20vh;
+    }
+
+    .cards {
+        transform: scale(0.8) !important;
+        margin-top: -130px;
+    }
+
+    .app {
+        padding: 0;
+    }
+
+    .titlepage h2::after {
+        top: 85% !important;
+        width: 83% !important;
+    }
+
+    #moveDown {
+        display: none;
+    }
+
+    .promo-badge {
+        position: relative !important;
+        top: -21px !important;
+        width: 120px;
+        right: -197px !important;
+        padding: 10px 15px !important;
+        font-size: 35px !important;
+    }
+
+    .shoe-box {
+        min-width: 100%;
+    }
+
+    .slider-wrapper {
+        display: flex;
+    }
+
+    #slidePrev, #slideNext {
+        font-size: 54px;
+        background: transparent;
+        color: #8080804a;
+    }
+
+    .slider-controls {
+        position: absolute;
+        margin-top: -360px;
+        width: 93%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /*.categories-wrapper {*/
+    /*    align-items: flex-start !important;*/
+    /*    height: 460px;*/
+    /*    overflow-y: auto;*/
+    /*    scrollbar-width: auto;*/
+    /*}*/
+    .categories-wrapper{
+        height: 1172px;
+    }
+    .category-container{
+        flex-direction: column;
+        flex-wrap: wrap;
+        transform: scale(0.8);
+    }
+    .cd-words-wrapper {
+        height: 50px;
+    }
+
+    .ag-toggle_title {
+        font-size: 40px;
+        margin: 10px 0 50px;
+    }
+
+    .banner-main .carousel-caption h1 {
+        font-size: 40px;
+        line-height: 45px;
+    }
+
+    .banner-main .carousel-caption p {
+        color: #0c0404;
+        padding: 13px 0;
+        margin-bottom: 50px;
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+    #intro-video{
+        width: 89vw !important;
+    }
+    #video-popup{
+        top: 33% !important;
+    }
+    .demo-cont{
+        margin-bottom: 50px;
+    }
+    .reviews{
+        transform: scaleX(0.9) scaleY(0.9) !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .titlepage h2::after {
+        width: 58%;
+    }
+
+    .about-box .titlepage h2::after {
+        width: 52%;
+        right: -221px;
+    }
+
+    .Nursery-img .text-box h3 {
+        padding: 111px 50px;
+    }
+
+    .contact .titlepage h2::after {
+        left: -650px;
+        width: 30%;
+    }
+    .ag-toggle_title {
+        font-size: 50px;
+    }
+    .banner-main .carousel-caption h1{
+        font-size: 45px;
+    }
+    .category-container{
+        flex-wrap: nowrap !important;
+        transform: scale(0.8);
+    }
+    .cards{
+        column-gap: 0 !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+    }
+    .flip-card{
+        transform: scale(0.8);
+    }
+    .app{
+        padding: 0 !important;
+    }
+    .reviews{
+        flex-wrap: nowrap !important;
+        transform: scaleX(0.8) scaleY(0.7) !important;
+        top: -45px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .main-menu ul > li a {
+        padding: 8px 12px;
+    }
+
+    .banner-main .carousel-caption h1 {
+
+        font-size: 36px;
+
+        padding-top: 30px;
+    }
+
+    .banner-main .carousel-caption p {
+
+        margin-bottom: 7px;
+    }
+
+    .btn-primary {
+        max-width: 144px;
+    }
+
+    .titlepage h2::after {
+        width: 79%;
+    }
+
+    .about-box .titlepage h2::after {
+        width: 73%;
+        right: -88px;
+    }
+
+    .contact .titlepage h2::after {
+        left: -403px;
+        width: 41%;
+    }
+
+    .paddimg-right {
+        padding-right: 15px;
+    }
+
+    .paddimg-left {
+        padding-left: 15px;
+    }
+    .ag-toggle_title{
+        font-size: 45px;
+        height: 100px;
+    }
+    .more-images{
+        position: absolute !important;
+        top: 75% !important;
+        right: -10px;
+        margin-left: 48px;
+    }
+    .category-container{
+        flex-wrap: nowrap !important;
+        transform: scale(0.7);
+    }
+    .shoe-box{
+        width: 46.333% !important;
+        margin: 22px 0 !important;
+        transform: scale(0.9) !important;
+    }
+    .cards{
+        column-gap: 0 !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+    }
+    .flip-card{
+        transform: scale(0.78);
+    }
+    .app{
+        padding: 0 !important;
+    }
+    .rev-section{
+        width: 100%;
+    }
+    .reviews{
+        flex-wrap: nowrap !important;
+        transform: scaleX(0.7) scaleY(0.6) !important;
+        top: -45px !important;
+        justify-content: center;
+    }
+    .promo-badge{
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .last {
+        display: none;
+    }
+
+    .banner-main .carousel-caption {
+        top: 0;
+    }
+
+    .titlepage h2 {
+        font-size: 42px;
+    }
+
+    .titlepage h2::after {
+        width: 88%;
+    }
+
+    .about-box .titlepage h2::after {
+        width: 45%;
+        right: -281px;
+    }
+
+    .Nursery-img .text-box h3 {
+        font-size: 36px;
+        padding: 126px 40px;
+    }
+
+
+    .contact .titlepage h2::after {
+        left: -234px;
+        width: 55%;
+    }
+
+    .img-box {
+        display: none;
+    }
+}
+
+
+@media (max-width: 575px) {
+    .last {
+        display: none;
+    }
+
+    .img-box {
+        display: none;
+    }
+
+    .header {
+        padding-top: 30px;
+    }
+
+    .logo {
+        float: inherit;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        max-width: 126px;
+        margin-bottom: 25px;
+        margin-right: 2px;
+        font-size: 14px;
+    }
+
+    .banner-main .carousel-caption h1 {
+        font-size: 30px;
+        line-height: 38px;
+    }
+
+    .titlepage h2 {
+        font-size: 37px;
+    }
+
+    .titlepage h2::after {
+        width: 93%;
+    }
+
+    .about-box .titlepage h2::after {
+        width: 238px;
+        right: -50px;
+    }
+
+    .Gallery .titlepage h2 {
+        font-size: 47px;
+    }
+
+    .Gallery .titlepage h2::after {
+        width: 89%;
+    }
+
+    .paddimg-right {
+        padding-right: 15px;
+    }
+
+    .paddimg-left {
+        padding-left: 15px;
+    }
+
+    .Nursery-img .text-box h3 {
+        font-size: 23px;
+        padding: 30px 14px;
+
+    }
+
+    .contact .titlepage h2::after {
+
+        left: -8px;
+        width: 281px;
+    }
+
+
+    ul.link li {
+
+        padding: 8px 12px 0;
+    }
+
+
+}
