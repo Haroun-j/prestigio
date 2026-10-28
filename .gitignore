@@ -20,7 +20,6 @@
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/asset-mapper ###
-/public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
 
@@ -30,3 +29,22 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+# Large media kept out of the repository (home intro video)
+/public/assets/videos/
+
+# User uploads done at runtime (avatars); product images are versioned as sample data
+/public/uploads/images/avatars/*
+!/public/uploads/images/avatars/.gitkeep
+
+# Database dumps
+*.sql
+
+# IDE / OS / tooling
+/.idea/
+/.vscode/
+/qodana.yaml
+.DS_Store
+Thumbs.db
+*.log
+hs_err_*
