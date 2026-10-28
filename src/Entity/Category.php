@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
-#[ApiResource(formats: ['jsonld'])]
+#[ApiResource(formats: ['jsonld'], operations: [new Get(), new GetCollection()])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiFilter(SearchFilter::class, properties: ['label' => 'ipartial', 'id' => 'exact'])]
 

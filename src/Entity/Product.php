@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
-#[ApiResource(formats: ['jsonld'])]
+#[ApiResource(formats: ['jsonld'], operations: [new Get(), new GetCollection()])]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiFilter(SearchFilter::class, properties: ['name' => 'ipartial', 'id' => 'exact'])]
 #[Vich\Uploadable]
